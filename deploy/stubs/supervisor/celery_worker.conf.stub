@@ -1,0 +1,12 @@
+# target=/etc/supervisor/conf.d/celery_worker.conf
+# owner=root
+# mode=644
+
+[program:celery_worker]
+directory={{app_dir}}
+command={{app_dir}}/deploy/prod/celery_worker.sh
+user={{user}}
+autostart=true
+autorestart=true
+stdout_logfile={{log_dir}}/celery_worker.log
+stderr_logfile={{log_dir}}/celery_worker.err.log

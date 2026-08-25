@@ -1,0 +1,95 @@
+{% extends "account/base_entrance.html" %}
+
+{% load i18n %}
+{% load allauth account accounts %}
+
+{% block head_title %}
+	{% trans "Sign Up" %}
+{% endblock %}
+
+{% block content %}
+    {% element h1 %}
+    {% trans "Sign Up" %}
+    {% endelement %}
+    {% setvar link %}
+        <a href="{{ login_url }}">
+    {% endsetvar %}
+    {% setvar end_link %}
+        </a>
+    {% endsetvar %}
+    {% element p %}
+        {% blocktranslate %}Already have an account? {{ link }}Sign In{{ end_link }}{% endblocktranslate %}
+    {% endelement %}
+    {% if not SOCIALACCOUNT_ONLY %}
+    <form method="post" action="{{ signup_url }}"  class="mt-8 space-y-6">
+        {% csrf_token %}
+        {{ redirect_field }}
+
+        <!-- Non-field errors -->
+        {% if form.non_field_errors %}
+            <div class="mt-4">
+                <p class="text-sm text-red-600">{{ form.non_field_errors.0 }}</p>
+            </div>
+        {% endif %}
+
+        <!-- Login Field -->
+        <div>
+            <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                <strong>
+                {{ form.email.label|default:_("Email") }}
+                {% if form.email.field.required %}
+                    <span class="text-red-600">*</span>
+                {% endif %}
+                </strong>
+            </label>
+            {{ form.email|add_class:"block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500" }}
+            {% if form.email.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ form.email.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Password Field -->
+        <div>
+            <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                <strong>
+                {{ form.password1.label|default:_("Password") }}
+                {% if form.password1.field.required %}
+                    <span class="text-red-600">*</span>
+                {% endif %}
+                </strong>
+            </label>
+            {{ form.password1|add_class:"block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500" }}
+            {% if form.password1.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ form.password1.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                <strong>
+                {{ form.password2.label|default:_("Password") }}
+                {% if form.password2.field.required %}
+                    <span class="text-red-600">*</span>
+                {% endif %}
+                </strong>
+            </label>
+            {{ form.password2|add_class:"block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500" }}
+            {% if form.password2.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ form.password2.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Submit Button -->
+        <div>
+            <button type="submit" class="w-full btn btn-primary block">
+                {% trans "Sign Up" %}
+            </button>
+        </div>
+
+    </form>
+    {% endif %}
+    {% if SOCIALACCOUNT_ENABLED %}
+        {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+    {% endif %}
+
+{% endblock %}

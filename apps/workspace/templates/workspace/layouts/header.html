@@ -1,0 +1,63 @@
+{% load workspace %}
+{% load notify %}
+
+<header class="fixed top-0 z-50 w-full bg-white border-b border-slate-200">
+    <div class="px-4 lg:px-6 flex items-center justify-between h-16 lg:h-20">
+        <div class="flex items-center gap-3">
+            <button @click="sidebarOpen = !sidebarOpen"  class="p-2 text-slate-600 lg:hidden hover:bg-slate-100 rounded-md">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            <a href="{{ app_home }}" class="flex items-center gap-2">
+                {% if org.logo %}
+                    <img src="{{ org.logo_url }}" alt="Logo" class="h-10 lg:h-12 w-auto object-contain">
+                {% else %}
+                    <img class="w-8 h-8 rounded-lg" src="https://ui-avatars.com/api/?name={{ app_name|capfirst }}&background=6366f1&color=fff" alt="Logo">
+                {% endif %}
+                <h1 class="text-lg lg:text-xl font-semibold ">{{ app_name|capfirst }}</h1>
+            </a>
+        </div>
+
+        <div class="hidden lg:flex items-center gap-4">
+            {% block extra_nav %}
+                {% if user.is_staff %}
+                    <div id="org-unit-select">{% org_unit_switcher %}</div>
+                    <div id="calendar_period-select">{% calendar_switcher %}</div>
+                {% endif %}
+            {% endblock %}
+        </div>
+
+        <div class="flex items-center gap-2">
+            {% htmx_notify %}
+            
+            <div class="h-6 w-[1px] bg-slate-200 mx-1 hidden sm:block"></div>
+
+            <div class="relative" x-data="{ profileOpen: false }">
+                <button @click="profileOpen = !profileOpen" @click.outside="profileOpen = false" class="flex items-center gap-2 p-1 hover:bg-slate-100 rounded-lg transition">
+                    <img class="w-8 h-8 rounded-lg border border-slate-200" src="https://ui-avatars.com/api/?name={{user.full_name}}&background=6366f1&color=fff" alt="Profile">
+                    <svg class="w-4 h-4 text-slate-400 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="profileOpen" x-cloak class="absolute right-0 mt-2 w-60 bg-white border border-slate-200 rounded-xl shadow-xl py-1 z-50">
+                    <div class="px-4 py-2 border-b border-slate-50">
+                        <p class="font-bold">{{user.full_name}}</p>
+                        {% if user.is_superuser %}<p class="text-xs text-slate-500">Super Admin</p>{% endif %}
+                    </div>
+                    {% if user.is_superuser %}
+                        <a href="{% url 'admin:index' %}" target="_blank" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50">Admin Panel</a>
+                    {% endif %}
+                    <a href="{% url 'account_logout' %}" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50">Sign Out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if user.is_staff %}
+    <div class="lg:hidden px-2 pb-2 flex justify-between gap-2 overflow-x-auto border-t border-slate-100 pt-2 bg-slate-50/50">
+        <div class="flex items-center">
+            {% org_unit_switcher %}
+        </div>
+        <div class="flex items-center">
+            {% calendar_switcher %}
+        </div>
+    </div>
+    {% endif %}
+</header>

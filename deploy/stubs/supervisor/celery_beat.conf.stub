@@ -1,0 +1,12 @@
+# target=/etc/supervisor/conf.d/celery_beat.conf
+# owner=root
+# mode=644
+
+[program:celery_beat]
+directory={{app_dir}}
+command={{app_dir}}/deploy/prod/celery_beat.sh
+user={{user}}
+autostart=true
+autorestart=true
+stdout_logfile={{log_dir}}/celery_beat.log
+stderr_logfile={{log_dir}}/celery_beat.err.log

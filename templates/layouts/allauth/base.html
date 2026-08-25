@@ -1,0 +1,24 @@
+{% extends "layouts/base.html" %}
+
+{% load static %}
+
+{% block body_attrs %}
+	class="font-sans text-gray-700 bg-gray-100 antialiased selection:bg-blue-100 selection:text-blue-900"
+{% endblock %}
+
+{% block body %}
+<div  class="mx-auto flex w-full flex-col">
+
+	{% block header %}
+		{% include "school/layouts/header.html" %}
+	{% endblock header %}
+
+	{% block content %}	
+	{% endblock content %}
+
+	{% block footer %}
+		{% include "school/layouts/footer.html" %}
+	{% endblock footer %}
+	
+</div>
+{% endblock %}

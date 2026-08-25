@@ -1,0 +1,37 @@
+{% load django_forms %}
+
+<div class="flex flex-wrap gap-4">
+    {% for group, options, index in widget.optgroups %}
+        {% for option in options %}
+            <label
+                for="{{ option.attrs.id }}"
+                class="inline-flex items-center gap-2 cursor-pointer text-sm text-gray-700"
+            >
+                <input
+                    type="checkbox"
+                    name="{{ option.name }}"
+                    value="{{ option.value }}"
+                    id="{{ option.attrs.id }}"
+                    {% if option.selected %}checked{% endif %}
+                    class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                >
+                <span>{{ option.label }}</span>
+            </label>
+
+			<div>
+				{{ form.status }}
+			
+				{% if form.status.errors %}
+					<p class="mt-1 text-sm text-red-600 flex items-center gap-1">
+						<svg class="h-4 w-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+								  d="M12 9v2m0 4h.01M12 5a7 7 0 100 14 7 7 0 000-14z" />
+						</svg>
+						{{ form.status.errors.0 }}
+					</p>
+				{% endif %}
+			</div>
+			
+        {% endfor %}
+    {% endfor %}
+</div>

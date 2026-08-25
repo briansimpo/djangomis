@@ -1,0 +1,191 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+	themes: light --default;
+}
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+@layer custom {
+	
+	:root {
+		color-scheme: light;
+		--animation-btn: 0s;
+		--animation-input: 0s;
+		--btn-focus-scale: 1;
+	}
+	
+	*, ::after, ::before {
+		@apply border-slate-200; 
+	}
+	
+	*, ::before, ::after {
+		transition-property: none !important;
+		transition-duration: 0s !important;
+		transition-delay: 0s !important;
+	}
+
+	input[type="text"],
+	input[type="email"],
+	input[type="number"],
+	input[type="password"],
+	input[type="url"],
+	input[type="tel"],
+	input[type="search"],
+	input[type="date"],
+	input[type="datetime-local"],
+	input[type="month"],
+	input[type="week"],
+	input[type="time"],
+	select,
+	textarea {
+		@apply w-full px-3 py-2 border rounded-lg shadow-xs;
+		@apply hover:border-gray-400;
+		@apply focus:ring-1 focus:ring-blue-500 focus:border-blue-500 focus:outline-none;
+		@apply disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:cursor-not-allowed disabled:shadow-none;
+	}
+  
+	textarea {
+		@apply resize-y min-h-[100px];
+	}
+  
+	input[type="checkbox"],
+	input[type="radio"] {
+		@apply w-4 h-4 text-blue-600 border shadow-sm ;
+		@apply focus:ring-1 focus:ring-blue-500 focus:ring-offset-0;
+		@apply hover:border-gray-400;
+		@apply disabled:opacity-50 disabled:cursor-not-allowed disabled:border-slate-300;
+	}
+  
+	input[type="checkbox"] { @apply rounded; }
+	input[type="radio"] { @apply rounded-full; }
+  
+	input[type="file"] {
+		@apply w-full text-sm text-gray-600;
+		@apply file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border file:border-gray-300 file:shadow-sm file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700;
+		@apply hover:file:bg-blue-100 hover:file:border-blue-300;
+		@apply disabled:opacity-60 disabled:cursor-not-allowed;
+		@apply file:disabled:bg-gray-100 file:disabled:text-gray-400;
+	}
+
+	input[type="range"] {
+		@apply w-full h-2 bg-gray-200 rounded-lg shadow-sm appearance-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-blue-500;
+		@apply [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 
+				[&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full 
+				[&::-webkit-slider-thumb]:bg-blue-600 [&::-webkit-slider-thumb]:shadow;
+		@apply disabled:opacity-50 disabled:cursor-not-allowed;
+	}
+  
+	input[type="color"] {
+		@apply w-full px-1 py-1 border rounded-lg shadow-sm h-10;
+		@apply hover:border-gray-400 focus:ring-1 focus:ring-blue-500;
+		@apply disabled:opacity-50 disabled:cursor-not-allowed;
+	}
+
+
+	/* BASE BUTTON */
+	.btn {
+	  @apply inline-flex items-center justify-center gap-2 font-semibold rounded-lg transition-all shadow-sm border-0;
+	}
+  
+	/* =========================
+	   PRIMARY
+	========================= */
+	.btn-primary {
+	  @apply bg-blue-600 text-white;
+	}
+	.btn-primary:hover {
+	  @apply bg-blue-700;
+	}
+  
+	/* =========================
+	   SECONDARY
+	========================= */
+	.btn-secondary {
+	  @apply bg-gray-600 text-white;
+	}
+	.btn-secondary:hover {
+	  @apply bg-gray-700;
+	}
+  
+	/* =========================
+	   SUCCESS
+	========================= */
+	.btn-success {
+	  @apply bg-green-600 text-white;
+	}
+	.btn-success:hover {
+	  @apply bg-green-700;
+	}
+  
+	/* =========================
+	   DANGER
+	========================= */
+	.btn-danger {
+	  @apply bg-red-600 text-white;
+	}
+	.btn-danger:hover {
+	  @apply bg-red-700;
+	}
+  
+	/* =========================
+	   WARNING
+	========================= */
+	.btn-warning {
+	  @apply bg-yellow-500 text-black;
+	}
+	.btn-warning:hover {
+	  @apply bg-yellow-600;
+	}
+  
+	/* =========================
+	   INFO
+	========================= */
+	.btn-info {
+	  @apply bg-cyan-600 text-white;
+	}
+	.btn-info:hover {
+	  @apply bg-cyan-700;
+	}
+  
+	/* =========================
+	   SIZES
+	========================= */
+	.btn-xs {
+	  @apply px-2 py-1 text-xs;
+	}
+  
+	.btn-sm {
+	  @apply px-3 py-1.5 text-sm;
+	}
+  
+	.btn-md {
+	  @apply px-4 py-2 text-sm;
+	}
+  
+	.btn-lg {
+	  @apply px-6 py-3 text-base;
+	}
+  
+	/* Default size fallback */
+	.btn:not(.btn-xs):not(.btn-sm):not(.btn-lg) {
+	  @apply px-4 py-2 text-sm;
+	}
+  
+	/* Optional: icon sizing */
+	.btn svg {
+	  @apply w-4 h-4;
+	}
+
+	.btn:disabled,
+	.btn.disabled {
+		@apply opacity-50 cursor-not-allowed;
+	}
+
+	.btn:focus-visible {
+		@apply outline-none ring-2 ring-offset-2 ring-blue-500;
+	}
+
+	.btn-loading {
+		@apply opacity-70 pointer-events-none;
+	}
+}

@@ -1,0 +1,14 @@
+{% extends "email/base.html" %}
+
+
+{% block body %}
+
+    <h3>Hello from djangomis!</h3>
+
+    {% block content %}{% endblock content %}
+
+    <br/>
+
+    <p>{{ tenant }}</p>
+
+{% endblock %}

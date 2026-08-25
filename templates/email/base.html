@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <title>djangomis</title>
+    <style>
+        /* Body */
+        body {
+          background-color: #ffffff;
+          margin: 0;
+          padding: 0;
+          font-family: Arial, sans-serif;
+        }
+      
+        /* Container */
+        .container {
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 15px;
+          background-color: #ffffff;
+          border: 1px solid #ddd;
+        }
+      
+        /* Headings */
+        h1, h2, h3 {
+          color: #343a40;
+          margin-top: 0;
+        }
+        h1 {
+          font-size: 24px;
+          font-weight: bold;
+        }
+        h2 {
+          font-size: 22px;
+          font-weight: bold;
+        }
+        h3 {
+          font-size: 20px;
+          font-weight: bold;
+        }
+      
+        /* Paragraphs and text */
+        p {
+          color: #6c757d;
+          line-height: 1.5;
+          font-size:16px;
+          margin: 0 0 15px;
+        }
+      
+        a {
+          color: #0d6efd;
+          text-decoration: none;
+        }
+      
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Primary button */
+        .btn-primary {
+            background-color: #0d6efd;
+        }
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+        }
+
+        /* Success button */
+        .btn-success {
+            background-color: #198754;
+        }
+        .btn-success:hover {
+            background-color: #157347;
+        }
+
+        /* Danger button */
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #bb2d3b;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 0 0 15px;
+            padding: 0 0 0 20px; /* Indentation for list items */
+            color: #212529;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* List items */
+        li {
+            margin-bottom: 5px; /* Spacing between items */
+        }
+
+        /* Unordered list */
+        .list-unstyled {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        /* Inline list */
+        .list-inline {
+            padding-left: 0;
+            list-style: none;
+            margin: 0;
+        }
+        .list-inline > li {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        /* List groups */
+        .list-group {
+            padding-left: 0;
+            margin-bottom: 15px;
+            list-style: none;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .list-group-item {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-top: none;
+            background-color: #ffffff;
+            color: #212529;
+        }
+        .list-group-item:first-child {
+            border-top: 1px solid #ddd;
+            border-radius: 5px 5px 0 0;
+        }
+        .list-group-item:last-child {
+            border-radius: 0 0 5px 5px;
+        }
+        .list-group-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Active and disabled list group items */
+        .list-group-item.active {
+            background-color: #0d6efd;
+            color: #ffffff;
+            font-weight: bold;
+            border-color: #0b5ed7;
+        }
+        .list-group-item.disabled {
+            background-color: #e9ecef;
+            color: #6c757d;
+            pointer-events: none;
+        }
+      
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14px;
+            background-color: #ffffff;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #dee2e6;
+        }
+        th {
+            background-color: #f8f9fa;
+            color: #212529;
+            font-weight: bold;
+        }
+
+        /* Table striped rows */
+        .table-striped tr:nth-child(odd) {
+            background-color: #f8f9fa;
+        }
+
+        /* Table hover rows */
+        .table-hover tbody tr:hover {
+            background-color: #e9ecef;
+        }
+
+        /* Table borders */
+        .table-bordered {
+            border: 1px solid #dee2e6;
+        }
+        .table-bordered th, .table-bordered td {
+            border: 1px solid #dee2e6;
+        }
+
+        /* Small table */
+        .table-sm th, .table-sm td {
+            padding: 5px;
+        }
+
+        /* Footer */
+        .footer {
+          text-align: center;
+          font-size: 14px;
+          color: #adb5bd;
+          margin-top: 20px;
+        }
+    </style>      
+</head>
+
+<body>
+
+    <div class="container">
+        {% block body %}{% endblock %}
+    </div>
+
+</body>
+</html>

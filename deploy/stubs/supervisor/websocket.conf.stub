@@ -1,0 +1,12 @@
+# target=/etc/supervisor/conf.d/websocket.conf
+# owner=root
+# mode=644
+
+[program:websocket]
+directory={{app_dir}}
+command={{app_dir}}/deploy/prod/websocket.sh
+user={{user}}
+autostart=true
+autorestart=true
+stdout_logfile={{log_dir}}/websocket.log
+stderr_logfile={{log_dir}}/websocket.err.log

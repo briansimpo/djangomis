@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+# ------------------------------
+# CONFIGURATION
+# ------------------------------
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# All dev scripts live here
+UTIL_DIR="$BASE_DIR/deploy/dev"
+
+# ------------------------------
+# HELP MENU
+# ------------------------------
+show_help() {
+    echo "Usage: djangomis <command> [args...]"
+    echo
+    echo "Available commands:"
+
+    if [ ! -d "$UTIL_DIR" ]; then
+        echo "  (Error: Directory $UTIL_DIR not found)"
+        return
+    fi
+
+    for file in "$UTIL_DIR"/*.sh; do
+        [ -e "$file" ] || continue
+
+        cmd=$(basename "$file" .sh)
+        desc=$(head -n 1 "$file" | grep "^#" | sed 's/^# *//')
+
+        [ -z "$desc" ] && desc="(no description)"
+
+        printf "  %-20s %s\n" "$cmd" "$desc"
+    done | sort
+}
+
+# ------------------------------
+# MAIN EXECUTION
+# ------------------------------
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+
+    if [ $# -lt 1 ]; then
+        show_help
+        exit 0
+    fi
+
+    CMD_NAME="$1"
+    shift
+
+    SCRIPT_PATH="$UTIL_DIR/$CMD_NAME.sh"
+
+    if [ -f "$SCRIPT_PATH" ]; then
+        exec bash "$SCRIPT_PATH" "$@"
+    else
+        echo "Error: Command '$CMD_NAME' not found."
+        echo "Check $UTIL_DIR/ for a file named $CMD_NAME.sh"
+        echo
+        show_help
+        exit 1
+    fi
+fi

@@ -1,0 +1,12 @@
+# target=/etc/supervisor/conf.d/gunicorn.conf
+# owner=root
+# mode=644
+
+[program:gunicorn]
+directory={{app_dir}}
+command={{app_dir}}/deploy/prod/gunicorn.sh
+user={{user}}
+autostart=true
+autorestart=true
+stdout_logfile={{log_dir}}/gunicorn.log
+stderr_logfile={{log_dir}}/gunicorn.err.log

@@ -1,0 +1,18 @@
+<form method="POST" action="{% url 'workspace:switch_period' %}" x-data class="inline-flex items-center">
+    {% csrf_token %}
+    <select name="calendar_period_id" @change="$el.form.submit()"
+        class="block w-full px-3 py-2 border border-slate-200 rounded-xl bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all">
+        
+        <option value="">All Periods</option>
+
+        {% for calendar_period in calendar_periods %}
+            <option value="{{ period.id }}"
+                    {% if selected_period_id|stringformat:"s" == calendar_period.id|stringformat:"s" %}
+                    selected
+                {% endif %}
+            >
+                {{ calendar_period.name|truncatechars:30 }}
+            </option>
+        {% endfor %}
+    </select>
+</form>

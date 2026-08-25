@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+
+# ------------------------------
+# CONFIGURATION
+# ------------------------------
+
+# Directory where this script lives
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# deploy directory
+UTIL_DIR="$BASE_DIR/deploy"
+
+# service scripts directory
+CMD_DIR="$UTIL_DIR/cmd"
+
+# ------------------------------
+# HELP MENU
+# ------------------------------
+show_help() {
+    echo "Usage: djangomis <command> [args...]"
+    echo "Example: djangomis restart"
+    echo "Example: djangomis deploy"
+    echo
+    echo "Available commands:"
+
+    if [ ! -d "$CMD_DIR" ]; then
+        echo "  (Error: Directory $CMD_DIR not found)"
+        return
+    fi
+
+    for file in "$CMD_DIR"/*.sh; do
+        [ -e "$file" ] || continue
+
+        cmd=$(basename "$file" .sh)
+
+        desc=$(head -n 1 "$file" | grep "^#" | sed 's/^# *//')
+        [ -z "$desc" ] && desc="(no description)"
+
+        printf "  %-20s %s\n" "$cmd" "$desc"
+    done | sort
+}
+
+# ------------------------------
+# TAB COMPLETION
+# ------------------------------
+_server_autocomplete() {
+
+    local cur="${COMP_WORDS[COMP_CWORD]}"
+
+    if [ ! -d "$CMD_DIR" ]; then
+        return
+    fi
+
+    local suggestions
+    suggestions=$(for f in "$CMD_DIR"/*.sh; do
+        [ -e "$f" ] && basename "$f" .sh
+    done)
+
+    COMPREPLY=( $(compgen -W "$suggestions" -- "$cur") )
+}
+
+complete -F _server_autocomplete djangomis
+
+# ------------------------------
+# MAIN EXECUTION
+# ------------------------------
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+
+    if [ $# -lt 1 ]; then
+        show_help
+        exit 0
+    fi
+
+    CMD_NAME="$1"
+    shift
+
+    SCRIPT_PATH="$CMD_DIR/$CMD_NAME.sh"
+
+    if [ -f "$SCRIPT_PATH" ]; then
+        exec bash "$SCRIPT_PATH" "$@"
+    else
+        echo "Error: Command '$CMD_NAME' not found."
+        echo
+        show_help
+        exit 1
+    fi
+fi

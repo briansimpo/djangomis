@@ -1,0 +1,75 @@
+{% extends "workspace/layouts/base.html" %}
+
+{% load static %}
+
+{% block extra_head %}
+    <style>
+        [x-cloak] { display: none !important; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    </style>
+{% endblock extra_head %}
+
+{% block body %}
+
+<div x-data="{ sidebarOpen: false }" @keydown.escape.window="sidebarOpen = false">
+
+    {% block header %}
+        {% include "workspace/layouts/header.html" %}
+    {% endblock header %}
+
+    <div class="flex pt-28 lg:pt-20 mb-24">
+
+        {# Mobile overlay #}
+        <div 
+            x-show="sidebarOpen"
+            x-transition.opacity
+            @click="sidebarOpen = false"
+            class="fixed inset-0 z-30 bg-black/30 lg:hidden"
+            x-cloak>
+        </div>
+
+        {% block sidebar %}
+        <aside
+            
+            class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform bg-white border-r border-slate-200 lg:translate-x-0 pt-28 lg:pt-20"
+            :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
+
+            <div class="h-full px-3 pb-4 overflow-y-auto custom-scrollbar">
+                {% block sidemenu %}{% endblock %}
+            </div>
+
+        </aside>
+        {% endblock sidebar %}
+
+        {% block mainbar %}
+        <main class="flex-1 lg:ml-64 p-2 lg:p-4 min-w-0">
+            {% block breadcrumb %}
+                <nav class="flex mb-4 text-slate-500 text-sm">
+                    {% block breadcrumb_items %}{% endblock %}
+                </nav>
+            {% endblock %}
+
+            {% block content_header %}
+            <div class="flex flex-col gap-4 mb-6 border-b border-slate-200 pb-4 md:flex-row md:items-end md:justify-between">
+                <div class="min-w-0">
+                    <h1 class="text-2xl font-bold text-slate-900 leading-tight">
+                        {% block content_title %}{% endblock %}
+                    </h1>
+                </div>
+                <div class="flex gap-2 flex-wrap">
+                    {% block content_action %}{% endblock %}
+                </div>
+            </div>
+            {% endblock %}
+
+            <div class="block-content">
+                {% block content %}{% endblock %}
+            </div>
+
+        </main>
+        {% endblock mainbar %}
+
+    </div>
+</div>
+{% endblock body %}

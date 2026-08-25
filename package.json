@@ -1,0 +1,36 @@
+{
+  "name": "djangomis",
+  "version": "1.0.0",
+  "description": "Student Academic Information System",
+  "main": "vite.config.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djangomis/djangomis.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/djangomis/djangomis/issues"
+  },
+  "homepage": "https://github.com/djangomis/djangomis#readme",
+  "devDependencies": {
+    "daisyui": "^5.5.14",
+    "vite": "^7.3.1"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.1.0",
+    "@tailwindcss/vite": "^4.1.18",
+    "alpinejs": "^3.15.5",
+    "chart.js": "^4.5.1",
+    "htmx-ext-ws": "^2.0.4",
+    "htmx.org": "^2.0.8",
+    "nprogress": "^0.2.0",
+    "sortablejs": "^1.15.7",
+    "tailwindcss": "^4.1.18"
+  }
+}

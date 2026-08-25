@@ -1,0 +1,107 @@
+{% extends "account/base_entrance.html" %}
+{% load allauth account accounts i18n %}
+
+{% block head_title %}
+    {% trans "Sign In" %}
+{% endblock %}
+
+{% block content %}
+	{% element h1 %}
+		{% trans "Sign In" %}
+	{% endelement %}
+
+	{% if not SOCIALACCOUNT_ONLY %}
+		{% setvar link %}
+			<a href="{{ signup_url }}">
+		{% endsetvar %}
+
+		{% setvar end_link %}
+			</a>
+		{% endsetvar %}
+	
+		{% element p %}
+			{% if show_signup_url %}
+				{% blocktranslate %}You don't have an account? {{ link }}Sign Up{{ end_link }}{% endblocktranslate %}
+			{% endif%}
+		{% endelement %}
+
+		<form method="post" action="{{ login_url }}"  class="mt-8 space-y-6">
+			{% csrf_token %}
+			{{ redirect_field }}
+
+			<!-- Non-field errors -->
+			{% if form.non_field_errors %}
+				<div class="mt-4">
+					<p class="text-sm text-red-600">{{ form.non_field_errors.0 }}</p>
+				</div>
+			{% endif %}
+
+			<!-- Login Field -->
+			<div>
+				<label for="{{ form.login.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+					<strong>
+					{{ form.login.label|default:_("Email") }}
+					{% if form.login.field.required %}
+						<span class="text-red-600">*</span>
+					{% endif %}
+					</strong>
+				</label>
+				{{ form.login|add_class:"block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500" }}
+				{% if form.login.errors %}
+					<p class="mt-1 text-sm text-red-600">{{ form.login.errors.0 }}</p>
+				{% endif %}
+			</div>
+
+			<!-- Password Field -->
+			<div>
+				<label for="{{ form.password.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+					<strong>
+					{{ form.password.label|default:_("Password") }}
+					{% if form.password.field.required %}
+						<span class="text-red-600">*</span>
+					{% endif %}
+					</strong>
+				</label>
+				{{ form.password|add_class:"block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500" }}
+				{% if form.password.errors %}
+					<p class="mt-1 text-sm text-red-600">{{ form.password.errors.0 }}</p>
+				{% endif %}
+			</div>
+
+			<!-- Remember Me + Forgot Password -->
+			<div class="flex items-center justify-between">
+				<div class="flex items-center space-x-2">
+					{{ form.remember|add_class:"h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" }}
+					<label for="{{ form.remember.id_for_label }}" class="text-sm text-gray-700">
+						<strong>
+						{{ form.remember.label|default:_("Remember me") }}
+						{% if form.remember.field.required %}
+							<span class="text-red-600">*</span>
+						{% endif %}
+						</strong>
+					</label>
+				</div>
+				<div class="text-sm">
+					<a href="{% url 'account_reset_password' %}" class="font-medium text-indigo-600 hover:text-indigo-500">
+						{% trans "Forgot your password?" %}
+					</a>
+				</div>
+			</div>
+
+			<!-- Submit Button -->
+			<div>
+				<button type="submit" class="w-full btn btn-primary block">
+					{% trans "Sign In" %}
+				</button>
+			</div>
+
+		</form>
+	{% endif %}
+
+	{% if SOCIALACCOUNT_ENABLED %}
+		<div class="mt-8">
+			{% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+		</div>
+	{% endif %}
+
+{% endblock %}
