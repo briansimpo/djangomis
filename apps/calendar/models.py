@@ -8,7 +8,6 @@ from .managers import CalendarPeriodManager
 
 
 
-
 class CalendarType(OptionModel):
     is_default = models.BooleanField(default=False)
 

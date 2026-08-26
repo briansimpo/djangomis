@@ -48,8 +48,7 @@ class DeliveryService:
         try:
             response = provider.send(
                 user=delivery.notification.recipient,
-                notification=delivery.notification,
-                delivery=delivery,
+                notification=delivery.notification
             )
             cls.mark_success(delivery, metadata=response)
 

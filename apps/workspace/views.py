@@ -3,12 +3,12 @@ from django.urls import reverse
 from django.contrib import messages
 from django.views.generic import TemplateView, FormView
 from djangospice.web.templates import get_template_name
-from djangospice.apps.helpers import get_user_apps
 from djangospice.htmx.views.generic import HTMXView
 from djangospice.htmx.renderers import htmx_render
 from apps.accounts.mixins import StaffLoginRequired
 from apps.calendar.helpers import get_requested_calendar_period_id, get_open_calendar_period, clear_session_calendar_period_id, set_session_calendar_period_id
 from apps.organization.helpers import get_requested_org_unit_id, clear_session_org_unit_id, set_session_org_unit_id
+from apps.appmanager.helpers import get_user_apps
 from .helpers import user_belongs_to_org_unit
 from .apps import app_name
 

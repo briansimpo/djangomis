@@ -36,7 +36,6 @@ APPS = [
 
     # Async / Realtime
     "channels",
-    "notifications",
 
     # Background jobs
     "django_celery_beat",
@@ -59,12 +58,12 @@ APPS = [
 
     # Djarf
     "djangospice",
-    "djangospice.admina",
-    "djangospice.api",
-    "djangospice.htmx",
     "djangospice.events",
+    "djangospice.jobs",
+    "djangospice.rest",
+    "djangospice.widgets",
     
-    "core.notification",
+    "apps.notification",
     "core.apps",
     "core.accounts",
     "core.users",
