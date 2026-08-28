@@ -3,7 +3,8 @@ from djangospice.core.payload import Payload
 from djangospice.html.fragments import HTMLFragment
 from djangospice.realtime.broadcast import Broadcast
 from djangospice.web.templates import get_template_name
-from apps.notifications.apps import namespace
+from .apps import namespace
+
 
 class Alert:
     _TEMPLATE = get_template_name("alert", namespace)
@@ -22,7 +23,8 @@ class Alert:
     def send(cls, user_or_id: Union[int, object], message: str, tags: str = "info"):
         payload = Payload(tags=tags, message=message)
         data = cls.fragment(messages=[payload], oob=True).render()
-        Broadcast.user(user=cls._get_user_id(user_or_id), data=data)
+        user = cls._get_user_id(user_or_id)
+        Broadcast.user(user=user, data=data)
 
     @classmethod
     def fragment(cls, messages: Union[Payload, List[Payload]], oob: bool = True) -> HTMLFragment:
