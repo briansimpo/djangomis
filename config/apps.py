@@ -3,7 +3,6 @@ APPS = [
     "unfold",
     "unfold.contrib.forms",
     "django_vite",
-    "django_hosts",
 
     # Django core
     "django.contrib.admin",

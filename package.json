@@ -1,7 +1,7 @@
 {
   "name": "djangospice",
-  "version": "1.0.0",
-  "description": "Student Academic Information System",
+  "version": "0.1.0",
+  "description": "Djangospice",
   "main": "vite.config.js",
   "scripts": {
     "dev": "vite",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/djangospice/djangospice.git"
+    "url": "git+https://github.com/briansimpo/djangospice.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/djangospice/djangospice/issues"
+    "url": "https://github.com/briansimpo/djangospice/issues"
   },
-  "homepage": "https://github.com/djangospice/djangospice#readme",
+  "homepage": "https://github.com/briansimpodjangospice#readme",
   "devDependencies": {
     "daisyui": "^5.5.14",
     "vite": "^7.3.1"

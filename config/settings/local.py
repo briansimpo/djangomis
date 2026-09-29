@@ -13,7 +13,7 @@ DEBUG = env.bool("DJANGO_DEBUG", True)
 SECRET_KEY = env("DJANGO_SECRET_KEY", default="k3zPD3t6eHL07YLlS3p0oQgE7CqGmp0j2wMXXehe24LZgFMDo4b5BcAla8Tb8OiI")
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["localhost", ".localhost", "0.0.0.0", "127.0.0.1"]  # noqa: S104
+ALLOWED_HOSTS = ["localhost",  "0.0.0.0", "127.0.0.1"]  # noqa: S104
 
 # DOMAIN
 # The host address where the Django application will run.
@@ -22,13 +22,9 @@ DJANGO_HOST = env("DJANGO_HOST", default="localhost")
 # The port on which the Django application will listen.
 DJANGO_PORT = env("DJANGO_PORT", default="8000")
 
-
 DJANGO_SOCKET_HOST = env("DJANGO_SOCKET_HOST", default="localhost")
 DJANGO_SOCKET_PORT = env("DJANGO_SOCKET_PORT", default="8001")
 
-ROOT_HOSTCONF = "config.urlconf.hosts"
-DEFAULT_HOST = "localhost"
-PARENT_HOST = DJANGO_HOST
 
 # Django Admin URL.
 ADMIN_URL = env("DJANGO_ADMIN_URL", default="admin/")
@@ -42,11 +38,11 @@ DJANGO_VITE = {
 
 # EMAIL CREDENTIALS
 # ------------------------------------------------------------------------------
-EMAIL_HOST = env("EMAIL_HOST", default="mail.djangospice.com")
+EMAIL_HOST = env("EMAIL_HOST", default="smtp.gmail.com")
 EMAIL_PORT = env("EMAIL_PORT", default=587)
 EMAIL_USE_TLS = env("EMAIL_USE_TLS", default=True)
-EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="noreply@djangospice.com")
-EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="Ipweteka?321")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
 
 
 # CACHES

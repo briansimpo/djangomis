@@ -8,8 +8,8 @@ vite: npm run dev
 worker: celery -A config.celery_app worker --loglevel=info
 
 # 4. The Task Scheduler (Beat)
-# beat: celery -A config.celery_app beat --loglevel=info
+beat: celery -A config.celery_app beat --loglevel=info
 
 
 # 5. The Websocket Server
-# websocket: uvicorn config.asgi:application --host 0.0.0.0 --port 8001
+websocket: uvicorn config.asgi:application --host 0.0.0.0 --port 8001

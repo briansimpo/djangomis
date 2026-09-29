@@ -1,6 +1,6 @@
 {% load static %}
 {% load django_vite %}
-{% load htmx %}
+{% load djangospice_htmx %}
 {% load static %}
 
 <!DOCTYPE html>
@@ -29,7 +29,6 @@
         {% block extra_body %}{% endblock extra_body %}
         
         {% htmx_modal %}
-        {% htmx_download %} 
         {% htmx_confirm %} 
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

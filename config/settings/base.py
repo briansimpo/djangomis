@@ -143,8 +143,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "django_hosts.middleware.HostsRequestMiddleware",
-    "django_hosts.middleware.HostsResponseMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -153,9 +151,6 @@ MIDDLEWARE = [
     "config.middleware.ErrorHandler",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "apps.workforce.middleware.WorkforceContextMiddleware",
-    "simple_history.middleware.HistoryRequestMiddleware",
-    "defender.middleware.FailedLoginMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "allauth.account.middleware.AccountMiddleware",
     
@@ -215,9 +210,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "djangospice_installer.context_processors.app_metadata",
                 "apps.organization.context_processors.org_metadata",
-                "apps.organization.context_processors.org_scope",
-                "apps.workspace.context_processors.workspace_context",
-                
+                "apps.organization.context_processors.org_unitscope",
             ],
         },
     },
