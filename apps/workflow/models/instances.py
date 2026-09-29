@@ -3,7 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
-from djangospice.db.models import BaseModel
+from djangospice_framework.db.models import BaseModel
 from apps.workflow.enums import TaskStatus, WorkflowStatus
 from apps.workflow.models.approvables import BaseApprovableModel
 from .definitions import Workflow, WorkflowState, WorkflowAction
@@ -51,7 +51,7 @@ class WorkflowTask(BaseModel):
         return f"Task {self.id} for {self.instance} [{self.status}]"
     
     
-class WorkflowAction(BaseModel):
+class WorkflowActionLog(BaseModel):
     instance = models.ForeignKey(WorkflowInstance, related_name="actions", on_delete=models.CASCADE)
     task = models.ForeignKey(WorkflowTask, blank=True, null=True, on_delete=models.SET_NULL)
     action = models.ForeignKey(WorkflowAction, on_delete=models.PROTECT)

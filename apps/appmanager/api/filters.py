@@ -1,5 +1,5 @@
 import django_filters
-from djangospice.filters.base import OptionFilter
+from djangospice_framework.filters.base import OptionFilter
 from apps.appmanager.models import App, Category
 from apps.appmanager.helpers import get_category_list
 

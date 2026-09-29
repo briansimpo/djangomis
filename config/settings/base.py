@@ -18,7 +18,7 @@ if READ_DOT_ENV_FILE:
 
 # GENERAL
 # ------------------------------------------------------------------------------
-APP_NAME = env("DJANGO_APP_NAME", default="djangomis")
+APP_NAME = env("DJANGO_APP_NAME", default="djangospice")
 SITE_LOGO = "img/logo.png"
 SITE_ICON = "img/icon.png"
 
@@ -117,10 +117,6 @@ SUPERUSER_EMAIL = env("SUPERUSER_EMAIL", default="admin@djangomis.com")
 # This password will be used when creating the superuser during initial setup.
 SUPERUSER_PASSWORD = env("SUPERUSER_PASSWORD", default="Adm1n@Sch0l@rm1$2024!")
 
-# HTMX websocket live updates (task progress, live table status).
-# Keep disabled by default in local/dev unless a websocket server is running.
-HTMX_WS_ENABLED = env.bool("HTMX_WS_ENABLED", default=False)
-
 
 # PASSWORDS
 # ------------------------------------------------------------------------------
@@ -155,7 +151,6 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "config.middleware.ErrorHandler",
-    "djangospice.middleware.DecompressGZipMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "apps.workforce.middleware.WorkforceContextMiddleware"
@@ -218,11 +213,10 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
-                "djangospice.htmx.context_processors.htmx_ws_url",
-                "core.apps.context_processors.app_metadata",
+                "apps.appmanager.context_processors.app_metadata",
                 "apps.organization.context_processors.org_metadata",
                 "apps.organization.context_processors.org_scope",
-                "core.workspace.context_processors.workspace_context",
+                "apps.workspace.context_processors.workspace_context",
                 
             ],
         },
@@ -357,13 +351,13 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_CHANGE_EMAIL = False
 # https://docs.allauth.org/en/latest/account/configuration.html
-ACCOUNT_ADAPTER = "core.accounts.adapters.UserAccountAdapter"
+ACCOUNT_ADAPTER = "accounts.adapters.UserAccountAdapter"
 # https://docs.allauth.org/en/latest/account/forms.html
-ACCOUNT_FORMS = {"signup": "core.accounts.forms.SignupForm"}
+ACCOUNT_FORMS = {"signup": "accounts.forms.SignupForm"}
 # https://docs.allauth.org/en/latest/socialaccount/configuration.html
-SOCIALACCOUNT_ADAPTER = "core.accounts.adapters.SocialAccountAdapter"
+SOCIALACCOUNT_ADAPTER = "accounts.adapters.SocialAccountAdapter"
 # https://docs.allauth.org/en/latest/socialaccount/configuration.html
-SOCIALACCOUNT_FORMS = {"signup": "core.accounts.forms.SocialSignupForm"}
+SOCIALACCOUNT_FORMS = {"signup": "accounts.forms.SocialSignupForm"}
 
 
 # django-rest-framework

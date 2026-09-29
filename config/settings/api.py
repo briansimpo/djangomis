@@ -14,7 +14,7 @@ REST_FRAMEWORK = {
     # "DEFAULT_PERMISSION_CLASSES": (
     #     "rest_framework.permissions.IsAuthenticated",
     # ),
-    "DEFAULT_METADATA_CLASS": "djangospice.api.metadata.Metadata",
+    "DEFAULT_METADATA_CLASS": "djangospice_api.metadata.Metadata",
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 

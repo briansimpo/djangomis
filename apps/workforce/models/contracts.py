@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from djangospice.db.models import BaseModel, OptionModel
+from djangospice_framework.db.models import BaseModel, OptionModel
 from apps.party.models import Party
 from apps.workforce.enums import ContractStatus
 from apps.workforce.models import Worker

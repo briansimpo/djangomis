@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
-from djangospice.db.models import BaseModel
+from djangospice_framework.db.models import BaseModel
 
 
 class Workflow(BaseModel):

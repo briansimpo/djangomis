@@ -3,7 +3,7 @@ from django.db.models import Q, F
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import gettext_lazy as _
-from djangospice.db.models import BaseModel, OptionModel
+from djangospice_framework.db.models import BaseModel, OptionModel
 from apps.workforce.enums import DeploymentStatus
 from .reporting import ReportingType
 from .workstreams import Workstream
@@ -83,7 +83,7 @@ class Deployment(BaseModel):
         ordering = ["-start_date"]
         constraints = [
             models.CheckConstraint(
-                check=Q(end_date__isnull=True) | Q(end_date__gte=F("start_date")),
+                condition=Q(end_date__isnull=True) | Q(end_date__gte=F("start_date")),
                 name="check_deployment_dates_validity"
             )
         ]
@@ -125,7 +125,7 @@ class Supervision(BaseModel):
                 name="uniq_supervision"
             ),
             models.CheckConstraint(
-                check=~Q(supervisor=F('subordinate')),
+                condition=Q(supervisor=F('subordinate')),
                 name="prevent_self_supervision"
             )
         ]
@@ -176,11 +176,11 @@ class Delegation(BaseModel):
         ordering = ["-start_date"]
         constraints = [
             models.CheckConstraint(
-                check=~Q(delegator=F('delegate')),
+                condition=Q(delegator=F('delegate')),
                 name="prevent_self_delegation"
             ),
             models.CheckConstraint(
-                check=Q(end_date__gte=F("start_date")),
+                condition=Q(end_date__gte=F("start_date")),
                 name="check_delegation_dates_validity"
             )
         ]

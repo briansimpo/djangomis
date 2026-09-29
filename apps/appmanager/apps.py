@@ -1,8 +1,8 @@
-from django.apps import AppConfig
 from django.db.models.signals import post_migrate
 
-from djangospice.apps.discovery import ModuleDiscovery
-from djangospice.apps.bootstrap import Bootstrap
+from djangospice_framework.apps import AppConfig
+from djangospice_framework.apps.discovery import ModuleDiscovery
+from djangospice_framework.apps.bootstrap import Bootstrap
 from .installer import AppInstaller
 
 
@@ -25,3 +25,4 @@ class AppManagerConfig(AppConfig):
         Bootstrap().run()
         
 
+namespace = AppManagerConfig.namespace

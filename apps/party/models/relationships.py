@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from djangospice.db.models import BaseModel, OptionModel
+from djangospice_framework.db.models import BaseModel, OptionModel
 from .parties import Party
 
 
@@ -76,7 +76,7 @@ class PartyRelationship(BaseModel):
         constraints = [
             # Database guardrail: Prevents circular errors by disallowing a Party from relating to itself
             models.CheckConstraint(
-                check=~models.Q(source_party=models.F('target_party')),
+                condition=models.Q(source_party=models.F('target_party')),
                 name='prevent_self_referential_relationship'
             )
         ]

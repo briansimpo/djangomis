@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from djangospice.rest.paginators import Pagination
+from djangospice_api.paginators import Pagination
 from apps.appmanager.models import App
 from .serializers import AppSerializer
 from .filters import AppFilter

@@ -1,12 +1,12 @@
 from typing import Any
-from apps.workflow.models import WorkflowAction, WorkflowTransition, WorkflowInstance, WorkflowTask
+from apps.workflow.models import WorkflowActionLog, WorkflowTransition, WorkflowInstance, WorkflowTask
 
 
 class AuditService:
 
     def log(self, instance:WorkflowInstance, task:WorkflowTask, transition:WorkflowTransition, actor:Any, comment="", extra_data=None):
 
-        return WorkflowAction.objects.create(
+        return WorkflowActionLog.objects.create(
             instance=instance,
             task=task,
             action=transition.action,

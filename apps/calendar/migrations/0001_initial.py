@@ -133,7 +133,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddConstraint(
             model_name='holiday',
-            constraint=models.CheckConstraint(check=models.Q(('end_date__isnull', True), ('end_date__gte', models.F('start_date')), _connector='OR'), name='holiday_valid_date_range'),
+            constraint=models.CheckConstraint(condition=models.Q(('end_date__isnull', True), ('end_date__gte', models.F('start_date')), _connector='OR'), name='holiday_valid_date_range'),
         ),
         migrations.AddConstraint(
             model_name='schedule',

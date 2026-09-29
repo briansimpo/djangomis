@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from .models import Company, AddressType, Address, Contact
+from .models import Company, AddressType, Address, Contact, OrgUnit, OrgUnitClosure, OrgUnitType
+
 
 
 class AddressInline(admin.TabularInline):
@@ -79,3 +80,140 @@ class ContactAdmin(admin.ModelAdmin):
     search_fields = ["company__name", "value", "notes"]
     raw_id_fields = ["company"]
  
+
+
+
+@admin.register(OrgUnitType)
+class OrgUnitTypeAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "code",
+        "level",
+    )
+    list_display_links = (
+        "name",
+    )
+    list_filter = (
+        "level",
+    )
+    search_fields = (
+        "name",
+        "code",
+    )
+    ordering = (
+        "level",
+        "name",
+    )
+    list_per_page = 50
+
+
+@admin.register(OrgUnit)
+class OrgUnitAdmin(admin.ModelAdmin):
+    list_display = (
+        "code",
+        "name",
+        "type",
+        "parent",
+        "level",
+    )
+    list_display_links = (
+        "code",
+        "name",
+    )
+    list_filter = (
+        "type",
+        "level",
+    )
+    search_fields = (
+        "code",
+        "name",
+    )
+    ordering = (
+        "type",
+        "level",
+        "name",
+    )
+    autocomplete_fields = (
+        "type",
+        "parent",
+    )
+    readonly_fields = (
+        "level",
+    )
+    list_select_related = (
+        "type",
+        "parent",
+    )
+    list_per_page = 50
+
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "code",
+                    "name",
+                    "type",
+                    "parent",
+                ),
+            },
+        ),
+        (
+            "Hierarchy",
+            {
+                "fields": (
+                    "level",
+                ),
+            },
+        ),
+        (
+            "Metadata",
+            {
+                "classes": ("collapse",),
+                "fields": (
+                    "metadata",
+                ),
+            },
+        ),
+    )
+
+
+@admin.register(OrgUnitClosure)
+class OrgUnitClosureAdmin(admin.ModelAdmin):
+    list_display = (
+        "ancestor",
+        "descendant",
+        "depth",
+    )
+    list_filter = (
+        "depth",
+    )
+    search_fields = (
+        "ancestor__code",
+        "ancestor__name",
+        "descendant__code",
+        "descendant__name",
+    )
+    autocomplete_fields = (
+        "ancestor",
+        "descendant",
+    )
+    readonly_fields = (
+        "ancestor",
+        "descendant",
+        "depth",
+    )
+    list_select_related = (
+        "ancestor",
+        "descendant",
+    )
+    list_per_page = 100
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False

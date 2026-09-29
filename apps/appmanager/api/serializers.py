@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from djangospice.rest.serializers import NestedModelSerializer, OptionModelSerializer
+from djangospice_api.serializers import NestedModelSerializer, OptionModelSerializer
 from apps.appmanager.models import App, Category
 
 

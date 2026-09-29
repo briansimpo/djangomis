@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth import get_user_model
-from djangospice.db.models import BaseModel
+from djangospice_framework.db.models import BaseModel
 from apps.workflow.enums import WorkflowStatus
 from apps.organization.models import OrgUnit
 
@@ -47,7 +47,7 @@ class BaseApprovableModel(BaseModel):
         self.save(update_fields=["calendar_period"])
     
 
-class ApprovableModelMixin(ABC):
+class ApprovableModelMixin:
 
     @abstractmethod
     def get_summary(self) -> dict:

@@ -1,8 +1,8 @@
 from datetime import timedelta
 from django.db import models
-from djangospice.db.models import BaseModel, OptionModel
-from djangospice.core.validation import has_value
-from enums.datetime import Recurrence, Month
+from djangospice_framework.db.models import BaseModel, OptionModel
+from djangospice_framework.core.validation import has_value
+from djangospice_framework.enums.datetime import Recurrence, Month
 from apps.organization.models import OrgUnit
 from .managers import CalendarPeriodManager
 
@@ -129,7 +129,7 @@ class Holiday(BaseModel):
         ordering = ["start_date", "name"]
         constraints = [
             models.CheckConstraint(
-                check=models.Q(end_date__isnull=True) | models.Q(end_date__gte=models.F("start_date")),
+                condition=models.Q(end_date__isnull=True) | models.Q(end_date__gte=models.F("start_date")),
                 name="holiday_valid_date_range",
             )
         ]

@@ -1,6 +1,6 @@
 from django.db.models.signals import post_migrate
-from djangospice.apps import AppConfig
-from djangospice.apps.installer import AppInstaller
+from djangospice_framework.apps import AppConfig
+from apps.appmanager.installer import AppInstaller
 
 
 class OrganizationConfig(AppConfig):

@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models import Q, F
 from django.utils.translation import gettext_lazy as _
-from djangospice.db.models import BaseModel, OptionModel
+from djangospice_framework.db.models import BaseModel, OptionModel
 from apps.workforce.enums import PlacementStatus
 from .reporting import Position
 from .contracts import Contract
@@ -75,7 +75,7 @@ class Placement(BaseModel):
         constraints = [
             # Ensure dates are logical
             models.CheckConstraint(
-                check=Q(end_date__isnull=True) | Q(end_date__gte=F("start_date")),
+                condition=Q(end_date__isnull=True) | Q(end_date__gte=F("start_date")),
                 name="check_placement_dates_validity"
             ),
             # Prevent the exact same worker from occupying the exact same position 

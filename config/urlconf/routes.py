@@ -9,7 +9,7 @@ from rest_framework.renderers import JSONOpenAPIRenderer
 from drf_spectacular.views import SpectacularAPIView,SpectacularSwaggerView,SpectacularRedocView
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from djangospice.web.sites import get_admin_app_title
+from djangospice_framework.web.sites import get_admin_app_title
 
 
 admin.site.site_title = get_admin_app_title()
@@ -38,10 +38,10 @@ urlpatterns += [
 urlpatterns += i18n_patterns(
 
     path(settings.ADMIN_URL, admin.site.urls),
-    path("api/", include("djangospice.rest.urls")),
-    path("notification/", include("apps.notification.urls")), 
-    path("account/", include("apps.accounts.urls")),
-    path("workspace/", include("apps.workspace.urls")), 
+    path("api/", include("djangospice_api.urls")),
+    path("notification/", include("djangospice_notification.urls")), 
+    path("account/", include("accounts.urls")),
+    path("workspace/", include("workspace.urls")), 
    
 )
 

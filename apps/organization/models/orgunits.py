@@ -1,6 +1,6 @@
 from django.db import models
-from djangospice.db.models import BaseModel, OptionModel
-from djangospice.core.formatting import normalize
+from djangospice_framework.db.models import BaseModel, OptionModel
+from djangospice_framework.core.formatting import normalize
 from apps.organization.managers import OrgUnitManager
 
 

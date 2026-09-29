@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import (
     Workflow, WorkflowOutcome,
     WorkflowState, WorkflowAction, WorkflowTransition,
-    WorkflowInstance, WorkflowTask, WorkflowAction, WorkflowRuleGroup,
+    WorkflowInstance, WorkflowTask, WorkflowActionLog, WorkflowRuleGroup,
     WorkflowRule, Actor, SLA
 )
 
@@ -156,8 +156,8 @@ class WorkflowTaskAdmin(admin.ModelAdmin):
     date_hierarchy = "started_at"
 
 
-@admin.register(WorkflowAction)
-class WorkflowActionAdmin(admin.ModelAdmin):
+@admin.register(WorkflowActionLog)
+class WorkflowActionLogAdmin(admin.ModelAdmin):
     list_display = ("instance", "action", "actor", "from_state", "to_state", "created_at")
     list_filter = ("action", "from_state__workflow")
     search_fields = ("instance__object_id", "actor__username", "comment")

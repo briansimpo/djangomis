@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import Permission
-from djangospice.db.models import BaseModel, OptionModel 
+from djangospice_framework.db.models import BaseModel, OptionModel 
 
 
 class Category(OptionModel):

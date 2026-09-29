@@ -44,7 +44,6 @@ APPS = [
     # Forms / UI helpers
     "crispy_forms",
     "crispy_tailwind",
-    "widget_tweaks",
     "django_tables2",
     "django_filters",
     "django_countries",
@@ -56,20 +55,25 @@ APPS = [
     # Middleware-related
     "corsheaders",
 
-    # Djarf
-    "djangospice",
-    "djangospice.events",
-    "djangospice.jobs",
-    "djangospice.rest",
-    "djangospice.widgets",
+    "accounts",
+    "users",
+    "workspace",
+
+    # Djangospice
+    "djangospice_api",
+    "djangospice_htmx",
+    "djangospice_widget",
+    "djangospice_notification",
+    "djangospice_table",
+    "djangospice_lookup",
     
-    "apps.notification",
-    "core.apps",
-    "core.accounts",
-    "core.users",
+    "apps.appmanager",
     "apps.organization",
-    "core.calendar",
-    "core.workspace",
+    "apps.calendar",
+    "apps.party",
+    "apps.workforce",
+    "apps.workflow",
+    
 ]
 
 

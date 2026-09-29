@@ -1,7 +1,7 @@
 from django import template 
 from django.apps import apps
 from django.urls import reverse
-from djangospice.web.urls import safe_reverse
+from djangospice_framework.web.urls import safe_reverse
 
 register = template.Library() 
 

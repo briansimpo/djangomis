@@ -3,9 +3,9 @@ import os
 from django.apps import apps
 from django.templatetags.static import static
 
-from djangospice.web.urls import get_valid_url
-from djangospice.apps.config import AppConfig
-from djangospice.apps.installer import Options, Settings, Permissions, Fixtures, PeriodicTasks
+from djangospice_framework.web.urls import get_valid_url
+from djangospice_framework.apps.config import AppConfig
+from djangospice_framework.apps.installer import Options, Settings, Permissions, Fixtures, PeriodicTasks
 
       
 class AppInstaller:
@@ -75,8 +75,8 @@ class AppInstaller:
         Returns:
             Model: The App model.
         """
-        from .apps import app_name
-        return apps.get_model(app_name, "App")
+        from .models import namespace
+        return apps.get_model(namespace, "App")
 
     def create_app(self):
         """
