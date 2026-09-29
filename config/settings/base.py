@@ -7,7 +7,7 @@ import environ
 
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
-# djangomis/
+# djangospice/
 APPS_DIR = BASE_DIR / "apps"
 env = environ.Env()
 
@@ -56,7 +56,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "HOST":  env("DATABASE_HOST", default="localhost"),
         "PORT":  env("DATABASE_PORT", default=5432),
-        "NAME": env("DATABASE_NAME", default="djangomis"),
+        "NAME": env("DATABASE_NAME", default="djangospice"),
         "USER": env("DATABASE_USER", default="postgres"),
         "PASSWORD": env("DATABASE_PASSWORD", default="postgres")
     }
@@ -108,9 +108,9 @@ AUTHENTICATION_BACKENDS = [
 AUTH_USER_MODEL = "users.User"
 
 # The email address for the Django superuser.
-# This can be set through environment variables and defaults to "admin@djangomis.com".
+# This can be set through environment variables and defaults to "admin@djangospice.com".
 # The superuser account is typically created during the initial setup of the application.
-SUPERUSER_EMAIL = env("SUPERUSER_EMAIL", default="admin@djangomis.com")
+SUPERUSER_EMAIL = env("SUPERUSER_EMAIL", default="admin@djangospice.com")
 
 # The password for the Django superuser.
 # This can be set through environment variables and defaults to "Admin@djangomis2024!".
@@ -153,7 +153,7 @@ MIDDLEWARE = [
     "config.middleware.ErrorHandler",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "apps.workforce.middleware.WorkforceContextMiddleware"
+    "apps.workforce.middleware.WorkforceContextMiddleware",
     "simple_history.middleware.HistoryRequestMiddleware",
     "defender.middleware.FailedLoginMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -213,7 +213,7 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
-                "apps.appmanager.context_processors.app_metadata",
+                "djangospice_installer.context_processors.app_metadata",
                 "apps.organization.context_processors.org_metadata",
                 "apps.organization.context_processors.org_scope",
                 "apps.workspace.context_processors.workspace_context",
@@ -252,16 +252,16 @@ EMAIL_BACKEND = env("DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.s
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-timeout
 EMAIL_TIMEOUT = 10
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
-DEFAULT_FROM_EMAIL = env("DJANGO_DEFAULT_FROM_EMAIL", default="djangomis <noreply@djangomis.com>",)
+DEFAULT_FROM_EMAIL = env("DJANGO_DEFAULT_FROM_EMAIL", default="djangospice <noreply@djangospice.com>",)
 # https://docs.djangoproject.com/en/dev/ref/settings/#server-email
 SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
-EMAIL_SUBJECT_PREFIX = env("DJANGO_EMAIL_SUBJECT_PREFIX", default="[djangomis]",)
+EMAIL_SUBJECT_PREFIX = env("DJANGO_EMAIL_SUBJECT_PREFIX", default="[djangospice]",)
 
 # ADMIN
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#admins
-ADMINS = [("""djangomis""", "djangomissuite@gmail.com")]
+ADMINS = [("""djangospice""", "djangomissuite@gmail.com")]
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
 # https://cookiecutter-django.readthedocs.io/en/latest/settings.html#other-environment-settings
@@ -385,8 +385,8 @@ CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins
 # By Default swagger ui is available only to admin user(s). You can change permission classes to change that
 # See more configuration options at https://drf-spectacular.readthedocs.io/en/latest/settings.html#settings
 SPECTACULAR_SETTINGS = {
-    "TITLE": "djangomis API",
-    "DESCRIPTION": "Documentation of djangomis API endpoints",
+    "TITLE": "djangospice API",
+    "DESCRIPTION": "Documentation of djangospice API endpoints",
     "VERSION": "1.0.0",
     "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
     "SCHEMA_PATH_PREFIX": "/api/",
@@ -435,7 +435,7 @@ REST_FRAMEWORK = {
 }
 
 SOCIALACCOUNT_PROVIDERS = {
-    "djangomis": {
+    "djangospice": {
         "OAUTH_PKCE_ENABLED": True,
     },
 }

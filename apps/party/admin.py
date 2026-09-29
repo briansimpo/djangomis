@@ -70,11 +70,11 @@ class PartyTagAssignmentInline(admin.TabularInline):
 
 @admin.register(Party)
 class PartyAdmin(admin.ModelAdmin):
-    list_display = ('code', 'party_type', 'is_active', 'created')
+    list_display = ( 'party_type', 'is_active', 'created')
     list_filter = ('party_type', 'is_active', 'created')
     search_fields = ('code', 'person_profile__first_name', 'person_profile__last_name', 'organization_profile__name')
     ordering = ('-created',)
-    readonly_fields = ('created', 'updated')
+    readonly_fields = ('created', 'modified')
     
     # The absolute command center aggregation
     inlines = [
@@ -90,42 +90,31 @@ class PartyAdmin(admin.ModelAdmin):
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ('full_name', 'party_code', 'id_type', 'id_number', 'gender', 'date_of_birth')
+    list_display = ('full_name', 'party', 'id_type', 'id_number', 'gender', 'date_of_birth')
     list_filter = ('gender', 'marital_status', 'id_type', 'blood_type')
     search_fields = ('first_name', 'middle_name', 'last_name', 'id_number', 'party__code')
-    readonly_fields = ('created', 'updated')
+    readonly_fields = ('created', 'modified')
     
     @admin.display(description=_("Full Name"), ordering='last_name')
     def full_name(self, obj):
         return f"{obj.first_name} {obj.last_name}"
 
-    @admin.display(description=_("Party Code"), ordering='party__code')
-    def party_code(self, obj):
-        return obj.party.code
 
 
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ('name', 'party_code', 'org_type', 'legal_structure', 'tax_number')
+    list_display = ('name', 'party', 'org_type', 'legal_structure', 'tax_number')
     list_filter = ('org_type', 'legal_structure', 'fiscal_year_end_month')
     search_fields = ('name', 'trade_name', 'registration_number', 'tax_number', 'party__code')
-    readonly_fields = ('created', 'updated')
-
-    @admin.display(description=_("Party Code"), ordering='party__code')
-    def party_code(self, obj):
-        return obj.party.code
-
+    readonly_fields = ('created', 'modified')
 
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ('name', 'party_code', 'group_type')
+    list_display = ('name', 'party', 'group_type')
     list_filter = ('group_type',)
     search_fields = ('name', 'group_type', 'party__code')
-    readonly_fields = ('created', 'updated')
+    readonly_fields = ('created', 'modified')
 
-    @admin.display(description=_("Party Code"), ordering='party__code')
-    def party_code(self, obj):
-        return obj.party.code
 
 # =========================================================================
 # GRAPH GRAPH & COMMUNICATION LOGISTICS MANAGERS
@@ -137,7 +126,7 @@ class PartyRelationshipAdmin(admin.ModelAdmin):
     list_filter = ('relationship_type', 'is_active', 'start_date')
     # Using autocomplete_fields prevents administrative lag when database scales to millions of records
     autocomplete_fields = ['source_party', 'target_party']
-    readonly_fields = ('created', 'updated')
+    readonly_fields = ('created', 'modified')
 
 
 @admin.register(Address)
@@ -174,7 +163,7 @@ class OrganizationTypeAdmin(BaseOptionAdmin):
 class LegalStructureAdmin(admin.ModelAdmin):
     list_display = ('code', 'name', 'created')
     search_fields = ('code', 'name')
-    readonly_fields = ('created', 'updated')
+    readonly_fields = ('created', 'modified')
 
 
 @admin.register(AddressType)

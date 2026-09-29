@@ -129,7 +129,7 @@ class ContractMutationService:
         if contract.status == ContractStatus.TERMINATED:
             raise InvalidContractState("Cannot reactivate terminated contract.")
         contract.status = ContractStatus.ACTIVE
-        contract.save(update_fields=["status", "updated"])
+        contract.save(update_fields=["status", "modified"])
         return contract
 
     @classmethod
@@ -138,7 +138,7 @@ class ContractMutationService:
         if contract.status == ContractStatus.TERMINATED:
             raise InvalidContractState("Cannot suspend terminated contract.")
         contract.status = ContractStatus.SUSPENDED
-        contract.save(update_fields=["status", "updated"])
+        contract.save(update_fields=["status", "modified"])
         return contract
 
     @classmethod
@@ -148,7 +148,7 @@ class ContractMutationService:
             raise InvalidContractState("Termination date cannot precede contract start.")
         contract.status = ContractStatus.TERMINATED
         contract.valid_until = termination_date
-        contract.save(update_fields=["status", "valid_until", "updated"])
+        contract.save(update_fields=["status", "valid_until", "modified"])
         return contract
 
     @classmethod
@@ -166,7 +166,7 @@ class ContractMutationService:
     @transaction.atomic
     def archive_contract(cls, contract: Contract) -> Contract:
         contract.metadata = {**(contract.metadata or {}), "archived": True}
-        contract.save(update_fields=["metadata", "updated"])
+        contract.save(update_fields=["metadata", "modified"])
         return contract
 
     @classmethod
@@ -183,14 +183,14 @@ class ContractMutationService:
     @transaction.atomic
     def change_sponsor(cls, contract: Contract, sponsor_party: Any) -> Contract:
         contract.sponsor_party = sponsor_party
-        contract.save(update_fields=["sponsor_party", "updated"])
+        contract.save(update_fields=["sponsor_party", "modified"])
         return contract
 
     @classmethod
     @transaction.atomic
     def change_contract_type(cls, contract: Contract, contract_type: Any) -> Contract:
         contract.contract_type = contract_type
-        contract.save(update_fields=["contract_type", "updated"])
+        contract.save(update_fields=["contract_type", "modified"])
         return contract
 
     @classmethod

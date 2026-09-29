@@ -17,9 +17,9 @@ CMD_DIR="$UTIL_DIR/cmd"
 # HELP MENU
 # ------------------------------
 show_help() {
-    echo "Usage: djangomis <command> [args...]"
-    echo "Example: djangomis restart"
-    echo "Example: djangomis deploy"
+    echo "Usage: djangospice <command> [args...]"
+    echo "Example: djangospice restart"
+    echo "Example: djangospice deploy"
     echo
     echo "Available commands:"
 
@@ -59,7 +59,7 @@ _server_autocomplete() {
     COMPREPLY=( $(compgen -W "$suggestions" -- "$cur") )
 }
 
-complete -F _server_autocomplete djangomis
+complete -F _server_autocomplete djangospice
 
 # ------------------------------
 # MAIN EXECUTION

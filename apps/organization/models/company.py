@@ -236,7 +236,7 @@ class Contact(BaseModel):
     class Meta:
         verbose_name = _("Contact Method")
         verbose_name_plural = _("Contact Methods")
-        ordering = ["-is_primary", "channel", "-created_at"]
+        ordering = ["-is_primary", "channel", "-created"]
         constraints = [
             models.UniqueConstraint(
                 fields=["company", "channel", "usage", "value"], 

@@ -89,7 +89,7 @@ class PositionMutationService:
         PositionValidationService.validate_reactivation(position)
         
         position.status = PositionStatus.ACTIVE
-        position.save(update_fields=["status", "updated"])
+        position.save(update_fields=["status", "modified"])
         return position
 
     @classmethod
@@ -100,7 +100,7 @@ class PositionMutationService:
             return position
 
         position.status = PositionStatus.SUSPENDED
-        position.save(update_fields=["status", "updated"])
+        position.save(update_fields=["status", "modified"])
         return position
 
     @classmethod
@@ -110,7 +110,7 @@ class PositionMutationService:
             return position
 
         position.status = PositionStatus.ABOLISHED
-        position.save(update_fields=["status", "updated"])
+        position.save(update_fields=["status", "modified"])
         return position
     
 

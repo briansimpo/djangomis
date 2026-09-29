@@ -25,7 +25,7 @@ psycopg==3.3.6
 python-slugify==9.1.1
 qrcode==8.2
 redis==8.1.0
-requests==2.32.5
+requests==2.34.2
 semver==3.0.4
 tablib==3.10.0
 uvicorn==0.54.0

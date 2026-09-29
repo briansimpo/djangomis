@@ -36,16 +36,16 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^http?://([a-z0-9-]+)\.localhost:3000$",  
     r"^http?://localhost:3000$",              
 
-    # Production: any tenant on djangomis.com
-    r"^https?://([a-z0-9-]+)\.djangomis\.com$",
+    # Production: any tenant on djangospice.com
+    r"^https?://([a-z0-9-]+)\.djangospice\.com$",
     r"^https?://([a-z0-9-]+)\.com$",
 ]
 
 # By Default swagger ui is available only to admin user(s). You can change permission classes to change that
 # See more configuration options at https://drf-spectacular.readthedocs.io/en/latest/settings.html#settings
 SPECTACULAR_SETTINGS = {
-    "TITLE": "djangomis API",
-    "DESCRIPTION": "Auto-generated OpenAPI schema for djangomis",
+    "TITLE": "djangospice API",
+    "DESCRIPTION": "Auto-generated OpenAPI schema for djangospice",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
     "COMPONENT_SPLIT_REQUEST": True,

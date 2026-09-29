@@ -69,7 +69,7 @@ class AddressAdmin(admin.ModelAdmin):
     list_display = ["company", "address_type", "line1", "city", "country", "is_primary"]
     list_filter = ["address_type", "is_primary", "country"]
     search_fields = ["company__name", "line1", "city", "postal_code"]
-    raw_id_fields = ["company", "address_type"]
+
 
 
 @admin.register(Contact)
@@ -78,7 +78,6 @@ class ContactAdmin(admin.ModelAdmin):
     list_display = ["company", "channel", "usage", "value", "is_primary", "is_verified"]
     list_filter = ["channel", "usage", "is_primary", "is_verified"]
     search_fields = ["company__name", "value", "notes"]
-    raw_id_fields = ["company"]
  
 
 

@@ -40,7 +40,6 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'users',
                 'abstract': False,
             },
-            bases=(models.Model),
             managers=[
                 ('objects', users.managers.UserManager()),
             ],

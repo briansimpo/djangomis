@@ -27,7 +27,7 @@ DJANGO_SOCKET_HOST = env("DJANGO_SOCKET_HOST", default="localhost")
 DJANGO_SOCKET_PORT = env("DJANGO_SOCKET_PORT", default="8001")
 
 ROOT_HOSTCONF = "config.urlconf.hosts"
-DEFAULT_HOST = "www"
+DEFAULT_HOST = "localhost"
 PARENT_HOST = DJANGO_HOST
 
 # Django Admin URL.
@@ -42,10 +42,10 @@ DJANGO_VITE = {
 
 # EMAIL CREDENTIALS
 # ------------------------------------------------------------------------------
-EMAIL_HOST = env("EMAIL_HOST", default="mail.djangomis.com")
+EMAIL_HOST = env("EMAIL_HOST", default="mail.djangospice.com")
 EMAIL_PORT = env("EMAIL_PORT", default=587)
 EMAIL_USE_TLS = env("EMAIL_USE_TLS", default=True)
-EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="noreply@djangomis.com")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="noreply@djangospice.com")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="Ipweteka?321")
 
 

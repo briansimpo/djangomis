@@ -99,7 +99,7 @@ class Person(BaseModel):
     id_number = models.CharField(_("Identification Number"), max_length=100, blank=True, null=True)
     
     # Static Physical Biometrics
-    blood_type = models.CharField(_("Blood Type"), max_length=3, choices=BloodType.choices, blank=True, null=True)
+    blood_type = models.CharField(_("Blood Type"), max_length=50, choices=BloodType.choices, blank=True, null=True)
     height_cm = models.DecimalField(_("Height (cm)"), max_digits=5, decimal_places=2, blank=True, null=True)
     weight_kg = models.DecimalField(_("Weight (kg)"), max_digits=5, decimal_places=2, blank=True, null=True)
 
@@ -152,11 +152,11 @@ class Organization(BaseModel):
         help_text=_("Official business registry, company house, or charter number.")
     )
     tax_number = models.CharField(
-        _("Tax ID / VAT Number"), 
+        _("Tax ID / TPIN"), 
         max_length=50, 
         blank=True, 
         null=True, 
-        help_text=_("VAT, EIN, or national tax corporate registry handle.")
+        help_text=_("TPIN, EIN, or national tax corporate registry handle.")
     )
     incorporation_date = models.DateField(
         _("Date of Incorporation"), 
@@ -209,6 +209,3 @@ class Group(BaseModel):
         return f"{self.name} ({self.group_type})"
     
     
-    
-class PartyMixin(models.Model):
-    party  = models.ForeignKey(Party, on_delete=models.CASCADE)

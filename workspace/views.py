@@ -8,7 +8,7 @@ from djangospice_htmx.shortcuts import htmx_render
 from accounts.mixins import StaffLoginRequired
 from apps.calendar.helpers import get_requested_calendar_period_id, get_open_calendar_period, clear_session_calendar_period_id, set_session_calendar_period_id
 from apps.organization.helpers import get_requested_org_unit_id, clear_session_org_unit_id, set_session_org_unit_id
-from apps.appmanager.helpers import get_user_apps
+from djangospice_installer.helpers import get_user_apps
 from .helpers import user_belongs_to_org_unit
 from .apps import namespace
 

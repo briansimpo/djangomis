@@ -1,9 +1,9 @@
-Hello from djangomis!
+Hello from djangospice!
 
 {% block content %}{% endblock content %}
 
 {% if tenant and tenant.name %}
 {{ tenant.name }}
 {% else %}
-djangomis
+djangospice
 {% endif %}

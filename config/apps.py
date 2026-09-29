@@ -60,14 +60,14 @@ APPS = [
     "workspace",
 
     # Djangospice
+    "djangospice_installer",
     "djangospice_api",
     "djangospice_htmx",
     "djangospice_widget",
     "djangospice_notification",
     "djangospice_table",
     "djangospice_lookup",
-    
-    "apps.appmanager",
+
     "apps.organization",
     "apps.calendar",
     "apps.party",

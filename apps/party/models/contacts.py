@@ -35,7 +35,7 @@ class Address(BaseModel):
     line2 = models.CharField(_("Address Line 2"), max_length=255, blank=True, null=True)
     city = models.CharField(_("City"), max_length=100)
     region = models.CharField(_("Region / State"), max_length=100, blank=True, null=True)
-    country = models.CharField(_("Country"), max_length=100)
+    country = models.CharField(_("Country"), max_length=100, blank=True, null=True)
     postal_code = models.CharField(_("Postal / ZIP Code"), max_length=20, blank=True, null=True)
     
     # GIS coordinates for automated maps and asset logistics routing
@@ -47,7 +47,7 @@ class Address(BaseModel):
     class Meta:
         verbose_name = _("Address")
         verbose_name_plural = _("Addresses")
-        ordering = ["-is_primary", "created_at"]
+        ordering = ["-is_primary", "created"]
         constraints = [
             models.UniqueConstraint(
                 fields=["party", "address_type"], 
