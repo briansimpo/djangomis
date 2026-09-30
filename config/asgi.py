@@ -16,7 +16,7 @@ from pathlib import Path
 from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
-from config.urlconf.websockets import urlpatterns
+from config.websockets import urlpatterns
 
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent

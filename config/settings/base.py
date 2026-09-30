@@ -20,7 +20,7 @@ if READ_DOT_ENV_FILE:
 # ------------------------------------------------------------------------------
 APP_NAME = env("DJANGO_APP_NAME", default="djangospice")
 SITE_LOGO = "img/logo.png"
-SITE_ICON = "img/icon.png"
+SITE_ICON = "img/favicon.ico"
 
 # Local time zone. Choices are
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -69,7 +69,7 @@ DATABASES = {
 # The root URL configuration for tenant-specific routing.
 # This setting points to the URL configuration that handles routing for
 # tenant schemas (i.e., URLs that are specific to each tenant).
-ROOT_URLCONF = "config.urlconf.routes"
+ROOT_URLCONF = "config.routes"
 
 
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
