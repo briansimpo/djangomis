@@ -153,6 +153,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "djangospice_lookup.middleware.LookupExceptionMiddleware",
     
 ]
 
@@ -436,3 +437,4 @@ SOCIALACCOUNT_PROVIDERS = {
 DEFENDER_USERNAME_FORM_FIELD="email"
 DEFENDER_REDIS_URL = "redis://localhost:6379/0"
 DEFENDER_LOGIN_FAILURE_LIMIT = 5
+
