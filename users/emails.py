@@ -1,6 +1,6 @@
 
-from djangospice_framework.core.mail import Email
-from djangospice_framework.web.templates import get_template_name
+from djangospice.core.mail import Email
+from djangospice.templates import get_template_name
 from .apps import namespace
 
 

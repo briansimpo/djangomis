@@ -1,8 +1,8 @@
 from datetime import timedelta
 from django.db import models
-from djangospice_framework.db.models import BaseModel, OptionModel
-from djangospice_framework.core.validation import has_value
-from djangospice_framework.enums.datetime import Recurrence, Month
+from djangospice.db.models import BaseModel, OptionModel
+from djangospice.core.validation import has_value
+from djangospice.enums.datetime import Recurrence, Month
 from apps.organization.models import OrgUnit
 from .managers import CalendarPeriodManager
 

@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
-from djangospice_framework.db.models import BaseModel
+from djangospice.db.models import BaseModel
 from apps.workflow.enums import RuleOperator
 from .definitions import WorkflowTransition
 

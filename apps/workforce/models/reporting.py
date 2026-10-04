@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models import F, Q
 from django.utils.translation import gettext_lazy as _
-from djangospice_framework.db.models import BaseModel, OptionModel
+from djangospice.db.models import BaseModel, OptionModel
 from .positions import Position
 
     

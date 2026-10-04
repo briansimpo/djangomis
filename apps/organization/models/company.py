@@ -1,10 +1,10 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
-from djangospice_framework.db.models import BaseModel, OptionModel, FileFields
-from djangospice_framework.files.helpers import file_upload_path, get_file_path
-from djangospice_framework.web.urls import get_host_name
-from djangospice_framework.enums.contacts import ContactChannel, ContactUsage
+from djangospice.db.models import BaseModel, OptionModel, FileFields
+from djangospice.files.helpers import file_upload_path, get_file_path
+from djangospice.urls import get_host_name
+from djangospice.enums.contacts import ContactChannel, ContactUsage
 
 
 class LogoMixin(FileFields):

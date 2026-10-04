@@ -56,16 +56,16 @@ APPS = [
 
     "accounts",
     "users",
-    "workspace",
+    # "workspace",
 
     # Djangospice
-    "djangospice_installer",
-    "djangospice_api",
-    "djangospice_htmx",
-    "djangospice_widget",
-    "djangospice_notification",
-    "djangospice_table",
-    "djangospice_lookup",
+    "djangospice.app_registry",
+    "djangospice.api",
+    "djangospice.htmx",
+    "djangospice.widget",
+    "djangospice.notification",
+    "djangospice.table",
+    "djangospice.lookup",
 
     "apps.organization",
     "apps.calendar",

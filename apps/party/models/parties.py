@@ -1,8 +1,8 @@
 from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
-from djangospice_framework.db.models import BaseModel, OptionModel
-from djangospice_framework.enums.people import BloodType, Title, Gender, IDType, MaritalStatus
+from djangospice.db.models import BaseModel, OptionModel
+from djangospice.enums.people import BloodType, Title, Gender, IDType, MaritalStatus
 from apps.party.enums import PartyType
 
 

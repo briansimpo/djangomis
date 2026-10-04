@@ -1,6 +1,6 @@
 from djangospice_widget.widget import Widget
 from djangospice_widget.decorators import widget
-from djangospice_framework.web.templates import get_template_name
+from djangospice.templates import get_template_name
 from apps.organization.apps import namespace
 
 

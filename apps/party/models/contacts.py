@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from djangospice_framework.db.models import BaseModel, OptionModel
-from djangospice_framework.enums.contacts import ContactChannel, ContactUsage
+from djangospice.db.models import BaseModel, OptionModel
+from djangospice.enums.contacts import ContactChannel, ContactUsage
 from .parties import Party
 
 

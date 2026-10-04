@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models import Q, F
 from django.utils.translation import gettext_lazy as _
-from djangospice_framework.db.models import BaseModel, OptionModel
+from djangospice.db.models import BaseModel, OptionModel
 from apps.workforce.enums import PlacementStatus
 from .reporting import Position
 from .contracts import Contract

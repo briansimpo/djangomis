@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
-from djangospice_framework.db.models import BaseModel
+from djangospice.db.models import BaseModel
 from apps.workflow.enums import DurationUnit, EscalationStrategy
 from .definitions import WorkflowState
 

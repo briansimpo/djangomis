@@ -3,7 +3,7 @@ from allauth.account.views import SignupView as AllauthSignupView
 from allauth.account.views import LoginView as AllauthLoginView
 from allauth.account.views import PasswordResetView as AllauthPasswordResetView
 from allauth.account.views import ReauthenticateView as AllauthReauthenticateView
-from djangospice_framework.web.templates import get_template_name
+from djangospice.templates import get_template_name
 from .forms import LoginForm, SignupForm, ResetPasswordForm, ReauthenticateForm
 from .adapters import UserAccountAdapter
 

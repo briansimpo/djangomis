@@ -1,5 +1,4 @@
 from django.contrib import admin
-from unfold.admin import ModelAdmin
 from .models import (
     CalendarType,
     CalendarPeriod,
@@ -10,7 +9,7 @@ from .models import (
 
 
 @admin.register(CalendarType)
-class CalendarTypeAdmin(ModelAdmin):
+class CalendarTypeAdmin(admin.ModelAdmin):
     list_display = ("name", "is_default")
     list_filter = ("is_default",)
     search_fields = ("name",)
@@ -23,7 +22,7 @@ class CalendarPeriodInline(admin.TabularInline):
 
 
 @admin.register(CalendarPeriod)
-class CalendarPeriodAdmin(ModelAdmin):
+class CalendarPeriodAdmin(admin.ModelAdmin):
     list_display = (
         "name",
         "calendar_type",
@@ -67,13 +66,13 @@ class CalendarPeriodAdmin(ModelAdmin):
 
 
 @admin.register(Activity)
-class ActivityAdmin(ModelAdmin):
+class ActivityAdmin(admin.ModelAdmin):
     list_display = ("code", "name")
     search_fields = ("name",)
 
 
 @admin.register(Schedule)
-class ScheduleAdmin(ModelAdmin):
+class ScheduleAdmin(admin.ModelAdmin):
     list_display = (
         "period",
         "activity",
@@ -103,7 +102,7 @@ class ScheduleAdmin(ModelAdmin):
 
 
 @admin.register(Holiday)
-class HolidayAdmin(ModelAdmin):
+class HolidayAdmin(admin.ModelAdmin):
     list_display = (
         "name",
         "calendar_type",

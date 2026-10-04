@@ -3,7 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
-from djangospice_framework.db.models import BaseModel
+from djangospice.db.models import BaseModel
 from apps.workflow.enums import TaskStatus, WorkflowStatus
 from apps.workflow.models.approvables import BaseApprovableModel
 from .definitions import Workflow, WorkflowState, WorkflowAction

@@ -1,5 +1,5 @@
 from django.db import models
-from djangospice_framework.db.models import BaseModel
+from djangospice.db.models import BaseModel
 
 from apps.party.enums import BiometricModality, BiometricSubType
 from .parties import Person

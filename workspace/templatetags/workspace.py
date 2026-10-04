@@ -1,6 +1,6 @@
 from django import template
 
-from djangospice_framework.web.templates import get_template_name
+from djangospice.templates import get_template_name
 
 from apps.calendar.helpers import get_session_calendar_period_id, get_calendar_periods
 from apps.organization.helpers import get_session_org_unit_id

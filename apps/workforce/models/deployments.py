@@ -3,7 +3,7 @@ from django.db.models import Q, F
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import gettext_lazy as _
-from djangospice_framework.db.models import BaseModel, OptionModel
+from djangospice.db.models import BaseModel, OptionModel
 from apps.workforce.enums import DeploymentStatus
 from .reporting import ReportingType
 from .workstreams import Workstream

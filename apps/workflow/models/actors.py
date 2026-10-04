@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
-from djangospice_framework.db.models import BaseModel
+from djangospice.db.models import BaseModel
 from apps.organization.models import OrgUnit
 from apps.workforce.models import Worker, Position
 from apps.workflow.enums import ActorSource

@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from djangospice_framework.db.models import BaseModel
+from djangospice.db.models import BaseModel
 from apps.party.models import Party
 
 

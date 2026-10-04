@@ -19,8 +19,8 @@ if READ_DOT_ENV_FILE:
 # GENERAL
 # ------------------------------------------------------------------------------
 APP_NAME = env("DJANGO_APP_NAME", default="djangospice")
-SITE_LOGO = "img/logo.png"
-SITE_ICON = "img/favicon.ico"
+SITE_LOGO = "logo.png"
+SITE_ICON = "favicon.ico"
 
 # Local time zone. Choices are
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -99,7 +99,7 @@ MIGRATION_MODULES = {"sites": "contrib.sites.migrations"}
 AUTHENTICATION_BACKENDS = [
     "oauth2_provider.backends.OAuth2Backend",
     "django.contrib.auth.backends.ModelBackend",
-    "core.accounts.backends.AuthBackend",
+    "accounts.backends.AuthBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
@@ -148,12 +148,12 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "config.middleware.ErrorHandler",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "allauth.account.middleware.AccountMiddleware",
-    "djangospice_lookup.middleware.LookupExceptionMiddleware",
+    "config.middleware.ErrorHandler",
+    "djangospice.lookup.middleware.LookupExceptionMiddleware",
     
 ]
 
@@ -209,7 +209,7 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
-                "djangospice_installer.context_processors.app_metadata",
+                "app_registry.context_processors.app_metadata",
                 "apps.organization.context_processors.org_metadata",
                 "apps.organization.context_processors.org_unitscope",
             ],

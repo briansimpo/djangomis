@@ -14,7 +14,7 @@ REST_FRAMEWORK = {
     # "DEFAULT_PERMISSION_CLASSES": (
     #     "rest_framework.permissions.IsAuthenticated",
     # ),
-    "DEFAULT_METADATA_CLASS": "djangospice_api.metadata.Metadata",
+    "DEFAULT_METADATA_CLASS": "djangospice.api.metadata.Metadata",
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
@@ -23,7 +23,7 @@ REST_AUTH = {
     "JWT_AUTH_COOKIE": "access-token",       # SPA uses this cookie
     "JWT_AUTH_REFRESH_COOKIE": "refresh-token",
     "JWT_AUTH_HTTPONLY": True,               # cookies are HttpOnly
-    "PASSWORD_RESET_SERIALIZER": "core.users.api.serializers.PasswordResetSerializer",
+    "PASSWORD_RESET_SERIALIZER": "users.api.serializers.PasswordResetSerializer",
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
@@ -31,13 +31,8 @@ CORS_URLS_REGEX = r"^/api/.*$"
 CORS_ALLOW_CREDENTIALS = True
 
 # Regex for allowed origins
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    # Development: any subdomain of localhost:3000
-    r"^http?://([a-z0-9-]+)\.localhost:3000$",  
+CORS_ALLOWED_ORIGIN_REGEXES = [ 
     r"^http?://localhost:3000$",              
-
-    # Production: any tenant on djangospice.com
-    r"^https?://([a-z0-9-]+)\.djangospice\.com$",
     r"^https?://([a-z0-9-]+)\.com$",
 ]
 

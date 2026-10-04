@@ -2,13 +2,13 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.contrib import messages
 from django.views.generic import TemplateView, FormView
-from djangospice_framework.web.templates import get_template_name
-from djangospice_htmx.views.generic import HTMXView
-from djangospice_htmx.shortcuts import htmx_render
+from djangospice.templates import get_template_name
+from djangospice.htmx.views.generic import HTMXView
+from djangospice.htmx.shortcuts import htmx_render
 from accounts.mixins import StaffLoginRequired
 from apps.calendar.helpers import get_requested_calendar_period_id, get_open_calendar_period, clear_session_calendar_period_id, set_session_calendar_period_id
 from apps.organization.helpers import get_requested_org_unit_id, clear_session_org_unit_id, set_session_org_unit_id
-from djangospice_installer.helpers import get_user_apps
+from djangospice.app_registry.permissions import app_access
 from .helpers import user_belongs_to_org_unit
 from .apps import namespace
 
@@ -77,7 +77,7 @@ class UserAppsView(HTMXView):
         """
         Normal page load
         """
-        apps = get_user_apps(request)
+        apps = app_access.for_user(request.user)
         return htmx_render(request, self.htmx_template_name, {
             "apps": apps
         })
@@ -87,7 +87,7 @@ class UserAppsView(HTMXView):
         HTMX filtering
         """
         q = request.POST.get("q", "").strip()
-        apps = get_user_apps(request)
+        apps = app_access.for_user(request.user)
 
         if q:
             apps = apps.filter(verbose_name__icontains=q)
