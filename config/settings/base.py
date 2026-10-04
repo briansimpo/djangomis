@@ -209,7 +209,7 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
-                "app_registry.context_processors.app_metadata",
+                "djangospice.app_registry.context_processors.app_metadata",
                 "apps.organization.context_processors.org_metadata",
                 "apps.organization.context_processors.org_unitscope",
             ],

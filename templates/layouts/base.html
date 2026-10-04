@@ -1,7 +1,7 @@
 {% load static %}
 {% load django_vite %}
-{% load djangospice.htmx %}
-{% load djangospice_widget %}
+{% load htmx %}
+{% load widget %}
 {% load static %}
 
 <!DOCTYPE html>
@@ -16,8 +16,8 @@
         {% vite_asset "static/js/main.js" %}
 
         {% block favicon %}
-        <link rel="shortcut icon" href="{% static 'img/icon.png' %}" type="image/png" sizes="96x96">
-        <link rel="icon" href="{% static 'img/icon.png' %}" type="image/png" sizes="96x96">
+        <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/png" sizes="96x96">
+        <link rel="icon" href="{% static 'logo.png' %}" type="image/png" sizes="96x96">
         {% endblock favicon %}
         
         {% block extra_head %}{% endblock %}

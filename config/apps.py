@@ -56,7 +56,7 @@ APPS = [
 
     "accounts",
     "users",
-    # "workspace",
+    "workspace",
 
     # Djangospice
     "djangospice",
