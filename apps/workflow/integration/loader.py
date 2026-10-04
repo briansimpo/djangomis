@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 def load_workflows():
 
     try:
+        workflows =  []
         with transaction.atomic():
             for approval_workflow in registry.get_all():
 
@@ -33,8 +34,10 @@ def load_workflows():
                             "is_terminal": state.is_terminal,
                         },
                     )
-                    
-        logger.info("Approval workflows synchronized successfully.")
+                workflows.append(workflow)
+
+        if len(workflows) > 0:         
+            logger.info("Workflows synchronized successfully.")
 
     except Exception as e:
         logger.error(str(e))
