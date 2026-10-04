@@ -115,7 +115,7 @@ SUPERUSER_EMAIL = env("SUPERUSER_EMAIL", default="admin@djangospice.com")
 # The password for the Django superuser.
 # This can be set through environment variables and defaults to "Admin@djangomis2024!".
 # This password will be used when creating the superuser during initial setup.
-SUPERUSER_PASSWORD = env("SUPERUSER_PASSWORD", default="Adm1n@Sch0l@rm1$2024!")
+SUPERUSER_PASSWORD = env("SUPERUSER_PASSWORD", default="Admin@1234")
 
 
 # PASSWORDS
