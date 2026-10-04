@@ -1,7 +1,7 @@
-from djangospice.app_registry import DjangospiceConfig
+from djangospice.app_registry import AppConfig
 
 
-class PartyConfig(DjangospiceConfig):
+class PartyConfig(AppConfig):
     name = "apps.party"
 
 

@@ -1,4 +1,4 @@
-from djangospice_lookup.decorators import register_lookup
+from djangospice.lookup.decorators import register_lookup
 
 from .models import Company, Address
 

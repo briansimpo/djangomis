@@ -1,7 +1,7 @@
-from djangospice.app_registry import DjangospiceConfig
+from djangospice.app_registry import AppConfig
 
 
-class WorkforceConfig(DjangospiceConfig):
+class WorkforceConfig(AppConfig):
     name = "apps.workforce"
   
 

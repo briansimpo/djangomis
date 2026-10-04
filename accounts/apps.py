@@ -1,6 +1,6 @@
-from djangospice.app_registry import DjangospiceConfig
+from djangospice.app_registry import AppConfig
 
-class AccountsConfig(DjangospiceConfig):
+class AccountsConfig(AppConfig):
     name = "accounts"
     namespace = "accounts"
     

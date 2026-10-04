@@ -47,10 +47,12 @@ class ApprovalWorkflow:
             order=1
         ),
         ApprovalState(
+            code="Stage 2",
             name="Stage 2",
             order=2,
         ),
         ApprovalState(
+            code="Stage 3",
             name="Stage 3",
             order=3,
             is_terminal=True,

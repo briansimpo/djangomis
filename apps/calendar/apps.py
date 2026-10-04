@@ -1,7 +1,10 @@
-from djangospice.app_registry import DjangospiceConfig
+from djangospice.app_registry import AppConfig
 
 
-class CalendarConfig(DjangospiceConfig):
+class CalendarConfig(AppConfig):
+    default = True
     name = "apps.calendar"
+    app_key = "app.calendar"
+
     
 namespace = CalendarConfig.namespace

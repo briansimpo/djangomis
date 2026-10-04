@@ -1,8 +1,9 @@
-from djangospice.app_registry import DjangospiceConfig
+from djangospice.app_registry import AppConfig
 
 
-class OrganizationConfig(DjangospiceConfig):
+class OrganizationConfig(AppConfig):
     name = "apps.organization"
-    
+    app_key = "apps.organization"
+
 
 namespace = OrganizationConfig.namespace

@@ -1,6 +1,6 @@
-from djangospice.app_registry import DjangospiceConfig
+from djangospice.app_registry import AppConfig
 
-class WorkspaceConfig(DjangospiceConfig):
+class WorkspaceConfig(AppConfig):
     name = "workspace"
     label = "workspace"
     verbose_name = "Workspace"

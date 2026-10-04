@@ -59,6 +59,7 @@ APPS = [
     # "workspace",
 
     # Djangospice
+    "djangospice",
     "djangospice.app_registry",
     "djangospice.api",
     "djangospice.htmx",

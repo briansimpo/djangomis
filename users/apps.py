@@ -1,7 +1,7 @@
-from djangospice.app_registry import DjangospiceConfig
+from djangospice.app_registry import AppConfig
 
 
-class UsersConfig(DjangospiceConfig):
+class UsersConfig(AppConfig):
     name = "users"
     verbose_name = "Users"
 

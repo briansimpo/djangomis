@@ -1,9 +1,9 @@
 from django.db.models.signals import post_migrate
 from django.utils.module_loading import autodiscover_modules
-from djangospice.app_registry import DjangospiceConfig
+from djangospice.app_registry import AppConfig
 
 
-class WorkflowConfig(DjangospiceConfig):
+class WorkflowConfig(AppConfig):
     name = "apps.workflow"
 
     def ready(self):
