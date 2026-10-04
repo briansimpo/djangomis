@@ -43,7 +43,7 @@ urlpatterns += i18n_patterns(
     path("lookup/", include("djangospice.lookup.urls")), 
     path("table/", include("djangospice.table.urls")), 
     path("widget/", include("djangospice.widget.urls")), 
-    path("account/", include("accounts.urls")),
+    path("accounts/", include("accounts.urls")),
     path("workspace/", include("workspace.urls")), 
    
 )

@@ -110,7 +110,7 @@ AUTH_USER_MODEL = "users.User"
 # The email address for the Django superuser.
 # This can be set through environment variables and defaults to "admin@djangospice.com".
 # The superuser account is typically created during the initial setup of the application.
-SUPERUSER_EMAIL = env("SUPERUSER_EMAIL", default="admin@djangospice.com")
+SUPERUSER_EMAIL = env("SUPERUSER_EMAIL", default="admin@site.com")
 
 # The password for the Django superuser.
 # This can be set through environment variables and defaults to "Admin@djangomis2024!".
