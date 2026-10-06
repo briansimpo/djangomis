@@ -1,0 +1,37 @@
+{% extends "workspace/layouts/page.html" %}
+
+{% load static app_tags %}
+
+{% block content %}
+    <main class="mb-12">
+                
+        <div class="sticky top-30 lg:top-20 z-40 bg-white border-b border-slate-200" >
+            <div class="max-w-7xl mx-auto px-2 py-4">
+                <div class="relative w-full max-w-md mx-auto">
+                    
+                    <input type="text" name="q" placeholder="Type to filter apps..." class="block w-full pl-10 pr-3 py-2 border border-slate-200 rounded-xl bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white"
+                        hx-post="{% app_url 'get_apps' %}"
+                        hx-trigger="keyup changed delay:200ms"
+                        hx-target="#apps"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto pt-34">
+            <!-- Title fades when searching -->
+            <div class="mb-12 overflow-hidden opacity-100 max-h-40">
+                <h1 class="text-2xl font-black text-slate-800 text-center">App Launcher</h1>
+                <p class="text-slate-500 text-center">Quick access to your workspace</p>
+            </div>
+
+            <!-- Apps Grid -->
+            <div hx-get="{% app_url 'get_apps' %}" hx-trigger="load" hx-target="#apps">
+                <div id="apps"></div>
+            </div>
+            
+        </div>
+    </main>
+
+{% endblock content %}
+

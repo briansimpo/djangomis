@@ -18,4 +18,4 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 window.NProgress = NProgress
 
-// import "@/js/app";
+import "@/js/app";

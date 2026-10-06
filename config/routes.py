@@ -38,13 +38,14 @@ urlpatterns += [
 urlpatterns += i18n_patterns(
 
     path(settings.ADMIN_URL, admin.site.urls),
+    path("", include("workspace.urls")), 
     path("api/", include("djangospice.api.urls")),
     path("notification/", include("djangospice.notification.urls")), 
     path("lookup/", include("djangospice.lookup.urls")), 
     path("table/", include("djangospice.table.urls")), 
     path("widget/", include("djangospice.widget.urls")), 
     path("accounts/", include("accounts.urls")),
-    path("workspace/", include("workspace.urls")), 
+    
    
 )
 

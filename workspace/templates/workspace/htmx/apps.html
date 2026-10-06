@@ -1,7 +1,7 @@
 <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 sm:gap-6 lg:gap-10 p-4 lg:p-8">
 
     {% for app in apps %}
-    <a href="{{ app.absolute_url }}" target="_blank" class="app-card group flex flex-col items-center justify-center text-center transition-transform duration-200 hover:scale-105 active:scale-95">
+    <a href="{{ app.url }}" target="_blank" class="app-card group flex flex-col items-center justify-center text-center transition-transform duration-200 hover:scale-105 active:scale-95">
 
         <!-- Icon -->
         <div class="flex items-center justify-center w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-2xl bg-white shadow-sm group-hover:shadow-lg transition">
@@ -10,7 +10,7 @@
 
         <!-- Label -->
         <span class="mt-2 sm:mt-3 lg:mt-4 text-xs sm:text-sm lg:text-base font-semibold text-slate-600 group-hover:text-slate-900 leading-tight text-center line-clamp-2">
-            {{app.verbose_name}}
+            {{app.name}}
         </span>
 
     </a>

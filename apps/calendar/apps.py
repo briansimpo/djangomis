@@ -6,5 +6,6 @@ class CalendarConfig(AppConfig):
     name = "apps.calendar"
     app_key = "app.calendar"
 
+
     
 namespace = CalendarConfig.namespace

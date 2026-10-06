@@ -8,13 +8,17 @@ from djangospice.htmx.shortcuts import htmx_render
 from accounts.mixins import StaffLoginRequired
 from apps.calendar.helpers import get_requested_calendar_period_id, get_open_calendar_period, clear_session_calendar_period_id, set_session_calendar_period_id
 from apps.organization.helpers import get_requested_org_unit_id, clear_session_org_unit_id, set_session_org_unit_id
-from djangospice.app_registry.permissions import app_access
+from djangospice.app_registry.permissions import AppAccess
 from .helpers import user_belongs_to_org_unit
 from .apps import namespace
 
 
-class HomeView(StaffLoginRequired, TemplateView):
+class HomeView(TemplateView):
     template_name = get_template_name("home.html", namespace)
+ 
+
+class AppsView(StaffLoginRequired, TemplateView):
+    template_name = get_template_name("apps.html", namespace)
     
 
 class BaseSwitchView(StaffLoginRequired, FormView):
@@ -70,14 +74,16 @@ class SwitchPeriodView(BaseSwitchView):
         return self.redirect_back()
 
   
-class UserAppsView(HTMXView):
+class GetAppsView(HTMXView):
     htmx_template_name = get_template_name("htmx/apps.html", namespace)
 
     def get(self, request, *args, **kwargs):
         """
         Normal page load
         """
-        apps = app_access.for_user(request.user)
+
+        app_access = AppAccess(request.user)
+        apps = app_access.all()
         return htmx_render(request, self.htmx_template_name, {
             "apps": apps
         })
@@ -87,13 +93,12 @@ class UserAppsView(HTMXView):
         HTMX filtering
         """
         q = request.POST.get("q", "").strip()
-        apps = app_access.for_user(request.user)
+        app_access = AppAccess(request.user)
+        apps = app_access.all()
 
         if q:
-            apps = apps.filter(verbose_name__icontains=q)
+            apps = apps.filter(name__icontains=q)
 
-        return htmx_render(
-            request,
-            self.htmx_template_name,
-            {"apps": apps}
-        )
+        return htmx_render(request, self.htmx_template_name, {
+            "apps": apps
+        })

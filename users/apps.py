@@ -3,8 +3,8 @@ from djangospice.app_registry import AppConfig
 
 class UsersConfig(AppConfig):
     name = "users"
-    verbose_name = "Users"
     app_key = "users"
+    app_url = "/users"
 
 
 namespace = UsersConfig.namespace
