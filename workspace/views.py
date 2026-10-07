@@ -13,12 +13,12 @@ from .helpers import user_belongs_to_org_unit
 from .apps import namespace
 
 
-class HomeView(TemplateView):
-    template_name = get_template_name("home.html", namespace)
+class IndexView(TemplateView):
+    template_name = get_template_name("index.html", namespace)
  
 
-class AppsView(StaffLoginRequired, TemplateView):
-    template_name = get_template_name("apps.html", namespace)
+class HomeView(StaffLoginRequired, TemplateView):
+    template_name = get_template_name("home.html", namespace)
     
 
 class BaseSwitchView(StaffLoginRequired, FormView):

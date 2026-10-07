@@ -6,6 +6,10 @@ from apps.organization.managers import OrgUnitManager
 
 class OrgUnitType(OptionModel):
     level = models.PositiveIntegerField(default=1)
+    
+    class Meta:
+        verbose_name = "Org Unit Type"
+        verbose_name_plural = "Org Unit Types"
 
 
 class OrgUnit(BaseModel):

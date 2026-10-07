@@ -55,7 +55,7 @@ class Migration(migrations.Migration):
                 ('email', models.EmailField(blank=True, max_length=254, null=True, verbose_name='Email Address')),
                 ('phone', models.CharField(blank=True, max_length=50, null=True, verbose_name='Phone Number')),
                 ('website', models.URLField(blank=True, null=True, verbose_name='Website')),
-                ('primary_url', models.URLField(blank=True, help_text='Primary tenant portal URL.', null=True, verbose_name='Primary URL')),
+                ('primary_url', models.URLField(blank=True, help_text='Primary portal URL.', null=True, verbose_name='Primary URL')),
                 ('email_domain', models.CharField(blank=True, help_text='Email domain for organization users.', max_length=100, null=True, verbose_name='Email Domain')),
                 ('support_email', models.EmailField(blank=True, help_text='Support or helpdesk email.', max_length=254, null=True, verbose_name='Support Email')),
                 ('country', django_countries.fields.CountryField(blank=True, max_length=2, null=True, verbose_name='Country')),

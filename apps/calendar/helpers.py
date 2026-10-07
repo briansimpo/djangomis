@@ -35,7 +35,7 @@ def get_calendar_periods(org_unit_id):
     if org_unit_id:
         return CalendarPeriod.objects.filter(org_unit_id=org_unit_id).order_by("-start_day")
     else:
-        return CalendarPeriod.objects.none()
+        return CalendarPeriod.objects.filter(is_open=True)
 
 
 # ---------------------------------------------------------------------------

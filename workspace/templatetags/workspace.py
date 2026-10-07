@@ -12,7 +12,7 @@ register = template.Library()
 
 
 @register.inclusion_tag(
-    get_template_name("components/org_unit_switcher.html", namespace),
+    get_template_name("components/orgunit_switcher.html", namespace),
     takes_context=True,
 )
 def org_unit_switcher(context):
@@ -31,7 +31,7 @@ def org_unit_switcher(context):
 
 
 @register.inclusion_tag(
-    get_template_name( "components/calendar_period_switcher.html",  namespace),
+    get_template_name( "components/calendar_switcher.html",  namespace),
     takes_context=True,
 )
 def calendar_switcher(context):

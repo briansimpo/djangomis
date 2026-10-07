@@ -77,7 +77,7 @@ class Company(BaseModel, LogoMixin):
     phone = models.CharField(_("Phone Number"), max_length=50, blank=True, null=True)
     website = models.URLField(_("Website"), blank=True, null=True)
     
-    primary_url = models.URLField(_("Primary URL"), blank=True, null=True, help_text=_("Primary tenant portal URL."))
+    primary_url = models.URLField(_("Primary URL"), blank=True, null=True, help_text=_("Primary portal URL."))
     email_domain = models.CharField(_("Email Domain"), max_length=100, blank=True, null=True, help_text=_("Email domain for organization users."))
     support_email = models.EmailField(_("Support Email"), blank=True, null=True, help_text=_("Support or helpdesk email."))
 

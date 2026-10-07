@@ -1,7 +1,6 @@
 {% load static %}
 {% load django_vite %}
 {% load htmx %}
-{% load widget %}
 
 
 <!DOCTYPE html>
@@ -26,7 +25,8 @@
     <body hx-ext="ws" ws-connect="{{htmx_ws_url}}" id="body"  class="bg-slate-50 text-slate-900" {% block body_attrs %}{% endblock %}>
         {% include "widgets/alert.html" %}
 
-        {% block body %}{% endblock body %}
+        {% block body %}
+        {% endblock body %}
         {% block extra_body %}{% endblock extra_body %}
         
         {% htmx_modal %}
