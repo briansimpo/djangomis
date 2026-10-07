@@ -2,9 +2,9 @@ from djangospice.app_registry import AppConfig
 
 
 class CalendarConfig(AppConfig):
-    default = True
     name = "apps.calendar"
     app_key = "app.calendar"
+    app_name = "Org Calendar"
 
 
     

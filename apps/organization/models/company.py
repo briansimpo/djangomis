@@ -103,7 +103,7 @@ class Company(BaseModel, LogoMixin):
 
     class Meta:
         verbose_name = _("Company Profile")
-        verbose_name_plural = _("Company Profiles")
+        verbose_name_plural = _("company profile")
         ordering = ["name"]
 
     def __str__(self):
@@ -125,7 +125,7 @@ class AddressType(OptionModel):
     """
     class Meta:
         verbose_name = _("Address Type")
-        verbose_name_plural = _("Address Types")
+        verbose_name_plural = _("address types")
 
 
 class Address(BaseModel):
@@ -160,7 +160,7 @@ class Address(BaseModel):
     
     class Meta:
         verbose_name = _("Address")
-        verbose_name_plural = _("Addresses")
+        verbose_name_plural = _("addresses")
         ordering = ["-is_primary", "created"]
         constraints = [
             models.UniqueConstraint(
@@ -234,8 +234,8 @@ class Contact(BaseModel):
     )
 
     class Meta:
-        verbose_name = _("Contact Method")
-        verbose_name_plural = _("Contact Methods")
+        verbose_name = _("Contact")
+        verbose_name_plural = _("contacts")
         ordering = ["-is_primary", "channel", "-created"]
         constraints = [
             models.UniqueConstraint(

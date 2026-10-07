@@ -9,7 +9,7 @@ class OrgUnitType(OptionModel):
     
     class Meta:
         verbose_name = "Org Unit Type"
-        verbose_name_plural = "Org Unit Types"
+        verbose_name_plural = "org unit types"
 
 
 class OrgUnit(BaseModel):
@@ -24,7 +24,7 @@ class OrgUnit(BaseModel):
 
     class Meta:
         verbose_name = "Org Unit"
-        verbose_name_plural = "Org Units"
+        verbose_name_plural = "org units"
         constraints = [
             models.UniqueConstraint(
                 fields=["code", "type", "level"],
