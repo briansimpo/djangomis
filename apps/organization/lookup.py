@@ -1,7 +1,7 @@
 from djangospice.lookup.decorators import register_lookup
 
-from .models import Company, Address
+from .models import OrgUnit, OrgUnitType
 
 
-register_lookup(Company)
-register_lookup(Address)
+register_lookup(OrgUnit)
+register_lookup(OrgUnitType)

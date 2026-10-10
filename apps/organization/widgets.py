@@ -1,8 +1,5 @@
 from djangospice.widget.widget import Widget
 from djangospice.widget.decorators import widget
-from djangospice.templates import get_template_name
-from apps.organization.apps import namespace
-
 
 @widget
 class ChatWidget(Widget):

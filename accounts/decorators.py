@@ -1,7 +1,7 @@
 from functools import wraps
 from django.http import HttpResponseForbidden, JsonResponse
 from django.shortcuts import redirect
-from djangospice.urls import safe_reverse
+from djangospice.routing import safe_reverse
 
 
 def _require_access(view_func, *, allow_authenticated: bool, allow_staff: bool = False, allow_client: bool = False, allow_guest: bool = False, json_only: bool = False):

@@ -19,8 +19,6 @@ if READ_DOT_ENV_FILE:
 # GENERAL
 # ------------------------------------------------------------------------------
 APP_NAME = env("DJANGO_APP_NAME", default="djangospice")
-SITE_LOGO = "logo.png"
-SITE_ICON = "favicon.ico"
 
 # Local time zone. Choices are
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name

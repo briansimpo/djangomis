@@ -5,7 +5,7 @@ from allauth.socialaccount.models import SocialLogin
 from allauth.account.adapter import DefaultAccountAdapter
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 from djangospice.core.mail import send_email
-from djangospice.urls import safe_reverse
+from djangospice.routing import safe_reverse
 from users.models import User
 from accounts.roles import Role   
 

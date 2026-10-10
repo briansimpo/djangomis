@@ -1,6 +1,7 @@
 import "@fortawesome/fontawesome-free/js/all"
 import "@/css/main.css";
 import "@/css/app.css";
+import "@/css/lookup.css";
 
 import htmx from "htmx.org";
 window.htmx = htmx; 
@@ -19,3 +20,4 @@ import "nprogress/nprogress.css";
 window.NProgress = NProgress
 
 import "@/js/app";
+import "@/js/lookup";
