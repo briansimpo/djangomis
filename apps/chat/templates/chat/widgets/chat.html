@@ -1,0 +1,98 @@
+
+<div class="flex min-h-screen items-center justify-center bg-gray-100 p-4 dark:bg-gray-950">
+
+    <!-- Chat Widget -->
+    <div
+        class="flex h-[85vh] min-h-[500px] w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl dark:border-gray-700 dark:bg-gray-900"
+        {{ html_attrs }}
+    >
+        <!-- Header -->
+        <header class="flex shrink-0 items-center gap-3 bg-emerald-700 px-5 py-4 text-white">
+            <div class="flex h-11 w-11 items-center justify-center rounded-full bg-emerald-600 text-lg font-semibold">
+                {{ widget.title|slice:":1" }}
+            </div>
+
+            <div class="min-w-0 flex-1">
+                <h2 class="truncate text-base font-semibold">
+                    {{ widget.title }}
+                </h2>
+
+                {% if conversation %}
+                    <p class="truncate text-xs text-emerald-100">
+                        {{ conversation }}
+                    </p>
+                {% else %}
+                    <p class="text-xs text-emerald-100">
+                        Chat
+                    </p>
+                {% endif %}
+            </div>
+        </header>
+
+        <!-- Messages -->
+        <section
+            id="{{ widget.id }}-messages"
+            class="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto bg-[#efeae2] bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.035)_1px,transparent_0)] [background-size:20px_20px] px-4 py-6 sm:px-8 dark:bg-gray-950 dark:bg-none"
+            aria-live="polite"
+            aria-relevant="additions"
+        >
+            {% if messages %}
+
+                {% for message in messages %}
+                    <article
+                        class="flex w-full {% if message.role == 'user' %}justify-end{% else %}justify-start{% endif %}"
+                    >
+                        <div
+                            class="max-w-[85%] whitespace-pre-wrap break-words rounded-xl px-3 py-2 text-sm leading-relaxed shadow-sm sm:max-w-[75%]
+                            {% if message.role == 'user' %}
+                                rounded-tr-none bg-[#d9fdd3] text-gray-900 dark:bg-emerald-900 dark:text-emerald-50
+                            {% else %}
+                                rounded-tl-none bg-white text-gray-800 dark:bg-gray-800 dark:text-gray-100
+                            {% endif %}"
+                        >
+                            {{ message.content }}
+                        </div>
+                    </article>
+                {% endfor %}
+
+            {% else %}
+
+                <div class="flex flex-1 items-center justify-center">
+                    <div class="max-w-sm rounded-xl bg-white/90 px-5 py-4 text-center text-sm text-gray-600 shadow-sm dark:bg-gray-800 dark:text-gray-300">
+                        {{ empty_message }}
+                    </div>
+                </div>
+
+            {% endif %}
+        </section>
+
+        <!-- Message Composer -->
+        <form
+            class="shrink-0 border-t border-gray-200 bg-[#f0f2f5] p-3 dark:border-gray-700 dark:bg-gray-900 sm:p-4"
+            method="post"
+            hx-post="{{ widget.endpoint }}"
+            hx-target="#{{ widget.id }}"
+            hx-swap="outerHTML"
+        >
+            {% csrf_token %}
+
+            <div class="mx-auto flex max-w-2xl items-end gap-2 rounded-3xl bg-white p-2 shadow-sm ring-1 ring-gray-200 focus-within:ring-2 focus-within:ring-emerald-500 dark:bg-gray-800 dark:ring-gray-700">
+                <textarea
+                    class="max-h-32 min-h-10 flex-1 resize-y border-0 bg-transparent px-3 py-2.5 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:ring-0 dark:text-gray-100"
+                    name="{{ message_parameter }}"
+                    placeholder="{{ placeholder }}"
+                    rows="1"
+                    required
+                    aria-label="{{ placeholder }}"
+                ></textarea>
+
+                <button
+                    type="submit"
+                    class="mb-0.5 inline-flex h-10 shrink-0 items-center justify-center rounded-full bg-emerald-600 px-5 text-sm font-semibold text-white transition hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                >
+                    {{ submit_label }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

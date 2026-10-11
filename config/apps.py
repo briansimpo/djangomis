@@ -73,6 +73,7 @@ APPS = [
     "apps.party",
     "apps.workforce",
     "apps.workflow",
+    "apps.chat",
     
 ]
 
