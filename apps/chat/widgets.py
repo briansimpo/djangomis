@@ -27,7 +27,7 @@ class ChatWidget(Widget):
 
     session_key_prefix: ClassVar[str] = "djangospice_chat"
 
-    lazy = False
+    lazy = True
 
     def get_session_key(self) -> str:
         """Return the session key for this widget instance."""
