@@ -41,22 +41,23 @@ class WorkspaceContextForm(forms.Form):
             WorkspaceContextService.get_session_selection(request)
         )
 
-        # Restrict organisation units to those accessible to the user.
+        accessible_org_units = WorkspaceContextService.get_user_org_units(
+            request.user
+        )
+
         self.fields["org_unit"].queryset = OrgUnit.objects.filter(
-            pk__in=[
-                unit.pk
-                for unit in WorkspaceContextService.get_user_org_units(
-                    request.user
-                )
-            ]
+            pk__in=[unit.pk for unit in accessible_org_units]
         ).order_by("level")
 
-        # Restrict calendar periods to the selected organisation unit.
-        if org_unit:
+        if org_unit and WorkspaceContextService.can_access_org_unit(
+            request.user, org_unit
+        ):
             self.fields["calendar_period"].queryset = (
                 WorkspaceContextService.get_calendar_periods(org_unit.pk)
             )
+        else:
+            org_unit = None
+            calendar_period = None
 
-        # Preselect the current context.
         self.initial["org_unit"] = org_unit
         self.initial["calendar_period"] = calendar_period

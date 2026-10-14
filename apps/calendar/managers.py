@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class CalendarPeriodQuerySet(models.QuerySet):
     def by_org_unit(self, org_unit):
         """Filter by a specific organizational unit (accepts ID or object)."""

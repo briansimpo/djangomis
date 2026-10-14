@@ -150,8 +150,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "allauth.account.middleware.AccountMiddleware",
-    "config.middleware.ErrorHandler",
     "djangospice.lookup.middleware.LookupExceptionMiddleware",
+    "config.middleware.ErrorHandler",
     
 ]
 
@@ -209,7 +209,6 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "djangospice.app_registry.context_processors.app_metadata",
                 "apps.organization.context_processors.org_metadata",
-                "apps.organization.context_processors.org_unitscope",
             ],
         },
     },
