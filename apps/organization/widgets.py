@@ -7,6 +7,7 @@ from .filters import OrgUnitFilter
 @widget
 class OrgUnitTable(Table):
     model = OrgUnit
+    lazy = True
     alphabet_field = "name"
     selectable = True
     fields = ("code", "name", "parent")
