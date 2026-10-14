@@ -1,0 +1,33 @@
+<div class="grid grid-cols-3 justify-center justify-items-center gap-4 p-4 sm:grid-cols-4 sm:gap-6 sm:p-6 md:grid-cols-5 lg:grid-cols-6 lg:gap-10 lg:p-8">
+
+    {% for app in apps %}
+        <a
+            href="{{ app.url }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="app-card group flex w-full max-w-32 flex-col items-center justify-center text-center transition-transform duration-200 hover:scale-105 active:scale-95"
+        >
+            <!-- Icon -->
+            <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm transition group-hover:shadow-lg sm:h-[4.5rem] sm:w-[4.5rem] md:h-20 md:w-20 lg:h-24 lg:w-24">
+                {% if app.icon %}
+                    <img
+                        src="{{ app.icon }}"
+                        alt=""
+                        loading="lazy"
+                        class="h-10 w-10 object-contain sm:h-12 sm:w-12 md:h-14 md:w-14 lg:h-20 lg:w-20"
+                    />
+                {% else %}
+                    <span class="text-xl font-bold text-indigo-600">
+                        {{ app.name|first|upper }}
+                    </span>
+                {% endif %}
+            </div>
+
+            <!-- Label -->
+            <span class="mt-2 line-clamp-2 w-full text-center text-xs font-semibold leading-tight text-slate-600 transition group-hover:text-slate-900 sm:mt-3 sm:text-sm lg:mt-4 lg:text-base">
+                {{ app.name }}
+            </span>
+        </a>
+    {% endfor %}
+
+</div>
