@@ -12,8 +12,8 @@ class ContractType(OptionModel):
     (e.g., 'Full-Time Employee', 'Independent Contractor', 'Third-Party Vendor Sourced').
     """
     class Meta:
-        verbose_name = _("Engagement Type")
-        verbose_name_plural = _("Engagement Types")
+        verbose_name = _("Contract Type")
+        verbose_name_plural = _("Contract Types")
 
     def __str__(self):
         return str(self.name)
@@ -28,7 +28,7 @@ class Contract(BaseModel):
         Worker,
         on_delete=models.PROTECT,
         related_name="contracts",
-        verbose_name=_("Workforce Member")
+        verbose_name=_("Worker")
     )
     sponsor_party = models.ForeignKey(
         Party,
@@ -44,10 +44,10 @@ class Contract(BaseModel):
         related_name="contracts",
         null=True,
         blank=True,
-        verbose_name=_("Agreement Categorization")
+        verbose_name=_("Contract Type")
     )
     status = models.CharField(
-        _("Agreement Status"),
+        _("Contract Status"),
         max_length=20,
         choices=ContractStatus.choices,
         default=ContractStatus.ACTIVE
@@ -65,11 +65,11 @@ class Contract(BaseModel):
     )
 
     class Meta:
-        verbose_name = _("Contract Agreement")
-        verbose_name_plural = _("Contract Agreements")
+        verbose_name = _("Contract")
+        verbose_name_plural = _("Contracts")
         ordering = ["-valid_from"]
 
     def __str__(self):
-        return f"ENG-{self.id}: {self.worker} [{self.contract_type}]"
+        return f"{self.worker} [{self.contract_type}]"
     
   

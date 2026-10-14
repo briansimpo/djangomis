@@ -107,7 +107,7 @@ class WorkforceContext:
         position = WorkforceResolver.get_primary_position(worker)
         supervisor = WorkforceAuthority.resolve_supervisor(worker)
         org_unit = WorkforceResolver.get_org_unit(worker)
-        return WorkforceContextData(
+        context = WorkforceContextData(
             user=user,
             party=party,
             worker=worker,
@@ -117,4 +117,6 @@ class WorkforceContext:
             is_active_worker=True
             
         )
+
+        return context
        

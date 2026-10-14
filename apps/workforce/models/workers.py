@@ -18,7 +18,7 @@ class Worker(BaseModel):
     )
    
     worker_number = models.CharField(
-        _("Workforce Reference Handle"),
+        _("Worker Number"),
         max_length=100,
         unique=True,
         help_text=_("Unique workforce identifier asset token (e.g., badge number, serial sequence).")
@@ -36,8 +36,8 @@ class Worker(BaseModel):
     )
 
     class Meta:
-        verbose_name = _("Workforce Member")
-        verbose_name_plural = _("Workforce Members")
+        verbose_name = _("Worker")
+        verbose_name_plural = _("Workers")
         ordering = ["worker_number"]
 
     def __str__(self):

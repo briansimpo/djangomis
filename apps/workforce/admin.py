@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import (
     PositionType,
     ReportingType,
-    WorkforceRole,
+    DeploymentRole,
     Position,
     ReportingLine,
     WorkstreamType,
@@ -25,7 +25,7 @@ from .models import (
 @admin.register(
     PositionType,
     ReportingType,
-    WorkforceRole,
+    DeploymentRole,
     WorkstreamType,
     ContractType,
     PlacementType,
@@ -70,7 +70,6 @@ class ReportingLineInline(admin.TabularInline):
     model = ReportingLine
     fk_name = "supervisor"
     extra = 0
-    verbose_name = "Downstream Report"
     autocomplete_fields = (
         "subordinate",
         "reporting_type",

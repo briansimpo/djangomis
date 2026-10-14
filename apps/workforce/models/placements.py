@@ -69,8 +69,8 @@ class Placement(BaseModel):
     )
 
     class Meta:
-        verbose_name = _("Position Placement")
-        verbose_name_plural = _("Position Placements")
+        verbose_name = _("Placement")
+        verbose_name_plural = _("Placements")
         ordering = ["-start_date"]
         constraints = [
             # Ensure dates are logical

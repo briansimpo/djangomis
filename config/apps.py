@@ -43,6 +43,7 @@ APPS = [
     # Forms / UI helpers
     "crispy_forms",
     "crispy_tailwind",
+    "widget_tweaks",
     "django_tables2",
     "django_filters",
     "django_countries",

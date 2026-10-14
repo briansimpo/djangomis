@@ -1,12 +1,13 @@
-
 from djangospice.widget import widget
-from djangospice.table import Table, Field
-from apps.organization.models.orgunits import OrgUnit
+from djangospice.table import Table
+from .models import OrgUnit
+from .filters import OrgUnitFilter
 
 
 @widget
 class OrgUnitTable(Table):
     model = OrgUnit
-    lazy = True
+    alphabet_field = "name"
     selectable = True
-    fields = ("code", "name", Field(name="parent", label="Belongs To"))
+    fields = ("code", "name", "parent")
+    filterset_class = OrgUnitFilter

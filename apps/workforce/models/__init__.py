@@ -4,14 +4,14 @@ from .workers import Worker
 from .placements import Placement, PlacementType
 from .contracts import Contract, ContractType
 from .workstreams import Workstream, WorkstreamType
-from .deployments import Delegation, Deployment, Supervision, WorkforceRole
+from .deployments import Delegation, Deployment, Supervision, DeploymentRole
 
 
 __all__ = [
     ContractType, 
     PositionType,
     ReportingType,
-    WorkforceRole,
+    DeploymentRole,
     ReportingLine,
     Worker,
     Position,

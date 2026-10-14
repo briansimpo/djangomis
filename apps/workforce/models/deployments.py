@@ -10,14 +10,14 @@ from .workstreams import Workstream
 from .contracts import Contract
 
 
-class WorkforceRole(OptionModel):
+class DeploymentRole(OptionModel):
     """
     Look-up dictionary for flexible behavioral capacity tags and transient roles assigned 
     to individuals (e.g., 'Scrum Master', 'Security Reviewer').
     """
     class Meta:
-        verbose_name = _("Workforce Role")
-        verbose_name_plural = _("Workforce Roles")
+        verbose_name = _("Deployment Role")
+        verbose_name_plural = _("Deployment Roles")
 
     def __str__(self):
         return self.name
@@ -41,7 +41,7 @@ class Deployment(BaseModel):
         verbose_name=_("Target Workstream")
     )
     role = models.ForeignKey(
-        WorkforceRole,
+        DeploymentRole,
         on_delete=models.PROTECT,
         related_name="deployments",
         verbose_name=_("Behavioral Role")
@@ -160,7 +160,7 @@ class Delegation(BaseModel):
         verbose_name=_("Delegate")
     )
     delegated_role = models.ForeignKey(
-        WorkforceRole,
+        DeploymentRole,
         on_delete=models.CASCADE,
         related_name="delegation_instances",
         verbose_name=_("Capability Transferred")
@@ -171,8 +171,8 @@ class Delegation(BaseModel):
     is_active = models.BooleanField(_("Is Active"), default=True)
 
     class Meta:
-        verbose_name = _("Delegation Log")
-        verbose_name_plural = _("Delegation Logs")
+        verbose_name = _("Delegation")
+        verbose_name_plural = _("Delegations")
         ordering = ["-start_date"]
         constraints = [
             models.CheckConstraint(
