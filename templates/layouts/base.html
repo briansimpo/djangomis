@@ -2,6 +2,7 @@
 {% load django_vite %}
 {% load htmx %}
 {% load lookup %}
+{% load table %}
 
 
 <!DOCTYPE html>
@@ -21,6 +22,7 @@
         {% endblock favicon %}
 
         {% lookup_assets %}
+        {% table_assets %}
         
         {% block extra_head %}{% endblock %}
     </head>
