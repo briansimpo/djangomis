@@ -1,0 +1,8 @@
+from django.shortcuts import render
+from djangospice.templates import get_template_name
+from apps.calendar.apps import namespace
+
+
+def home(request):
+    template_name = get_template_name("home", namespace)
+    return render(request, template_name)

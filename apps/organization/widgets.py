@@ -9,6 +9,7 @@ class OrgUnitTable(Table):
     model = OrgUnit
     lazy = True
     alphabet_field = "name"
+    paginate_by = 1
     selectable = True
     fields = ("code", "name", "parent")
     filterset_class = OrgUnitFilter

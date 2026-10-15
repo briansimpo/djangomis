@@ -11,15 +11,29 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="csrf-token" content="{{ csrf_token }}">
-        <title>{% block title %} {{org.short_name|default:"Djangospice"}} {% endblock title %}</title>
-        
-        {% vite_hmr_client %}
-        {% vite_asset "static/js/main.js" %}
+
+        {% block title %}
+        <title> 
+            {% if org %}
+                {{org.short_name}} - {{app_verbose}}
+            {% else %}
+                {{app_verbose}}
+            {% endif %}
+        </title>
+        {% endblock title %}
 
         {% block favicon %}
-        <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/png" sizes="96x96">
-        <link rel="icon" href="{% static 'logo.png' %}" type="image/png" sizes="96x96">
+            {% if org %}
+                <link rel="shortcut icon" href="{{org.favicon_url}}" type="image/png" sizes="96x96">
+                <link rel="icon" href="{{org.logo_url}}" type="image/png" sizes="96x96">
+            {% else %}
+                <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/png" sizes="96x96">
+                <link rel="icon" href="{% static 'logo.png' %}" type="image/png" sizes="96x96">
+            {% endif %}
         {% endblock favicon %}
+  
+        {% vite_hmr_client %}
+        {% vite_asset "static/js/main.js" %}
 
         {% lookup_assets %}
         {% table_assets %}
@@ -27,17 +41,13 @@
         {% block extra_head %}{% endblock %}
     </head>
 
-    <body hx-ext="ws" ws-connect="{{htmx_ws_url}}" id="body"  class="bg-slate-50 text-slate-900" {% block body_attrs %}{% endblock %}>
+    <body id="body"  class="bg-slate-50 text-slate-900" {% block body_attrs %}{% endblock %}>
         {% include "widgets/alert.html" %}
 
         {% block body %}
-        {% block content %}{% endblock %}
+            {% block content %}{% endblock %}
         {% endblock %}
         {% block extra_body %}{% endblock %}
         
-        {% htmx_modal %}
-        {% htmx_confirm %} 
-
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </body>
 </html>

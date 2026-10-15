@@ -19,16 +19,16 @@
 
             <a href="{{ app_home }}" class="flex min-w-0 items-center gap-2 rounded-lg sm:gap-3">
                 {% if org.logo %}
-                    <img src="{{ org.logo_url }}"alt="{{ app_name }} logo" class="h-8 max-w-20 shrink-0 object-contain sm:h-10 sm:max-w-36">
+                    <img src="{{ org.logo_url }}" alt="{{ app_verbose }} logo" class="h-8 max-w-20 shrink-0 object-contain sm:h-10 sm:max-w-36">
                 {% else %}
                     <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-base font-bold text-white">
-                        {{ app_name|capfirst|slice:":1" }}
+                        {{ app_verbose|capfirst|slice:":1" }}
                     </span>
                 {% endif %}
 
                 <span class="min-w-0">
                     <span class="block truncate text-sm font-semibold tracking-tight text-slate-900 sm:text-lg">
-                        {{ app_name|capfirst }}
+                        {{ app_verbose|capfirst }}
                     </span>
 
                     {% if org %}

@@ -1,4 +1,4 @@
-{% extends "workspace/layouts/base.html" %}
+{% extends "layouts/base.html" %}
 
 {% load static %}
 
@@ -15,7 +15,7 @@
 <div x-data="{ sidebarOpen: false }" @keydown.escape.window="sidebarOpen = false">
 
     {% block header %}
-        {% include "workspace/layouts/header.html" %}
+        {% include "layouts/header.html" %}
     {% endblock header %}
 
     <div class="flex pt-28 lg:pt-20 mb-24">
@@ -36,7 +36,9 @@
             :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
 
             <div class="h-full px-3 pb-4 overflow-y-auto custom-scrollbar">
-                {% block sidemenu %}{% endblock %}
+                {% block sidemenu %}
+                    {% include "layouts/menu.html" with name=app_label %}
+                {% endblock %}
             </div>
 
         </aside>

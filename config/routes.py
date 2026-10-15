@@ -39,13 +39,12 @@ urlpatterns += i18n_patterns(
 
     path(settings.ADMIN_URL, admin.site.urls),
     path(DJANGOSPICE_URL, djangospice_urls()), 
-
-    path("", include("workspace.urls")), 
     path("accounts/", include("accounts.urls")),
+
+    path("", include("apps.workspace.urls")), 
     path("calendar/", include("apps.calendar.urls")),
     path("organization/", include("apps.organization.urls")),
     
-   
 )
 
 

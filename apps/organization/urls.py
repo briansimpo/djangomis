@@ -1,9 +1,9 @@
 from django.urls import path
-
+from .apps import namespace
 from . import views
 
 
-app_name = "organization"
+app_name = namespace
 
 
 urlpatterns = [

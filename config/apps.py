@@ -57,7 +57,7 @@ APPS = [
 
     "accounts",
     "users",
-    "workspace",
+   
 
     # Djangospice
     "djangospice",
@@ -69,6 +69,7 @@ APPS = [
     "djangospice.table",
     "djangospice.lookup",
 
+    "apps.workspace",
     "apps.organization",
     "apps.calendar",
     "apps.party",
