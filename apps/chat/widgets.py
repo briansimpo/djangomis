@@ -4,7 +4,6 @@ from typing import ClassVar
 
 from djangospice.widget.widget import Widget
 from djangospice.widget.decorators import widget
-from djangospice.core.logging import logger
 from djangospice.templates import get_template_name
 from .conversation import Conversation
 from .apps import namespace
@@ -128,8 +127,6 @@ class ChatWidget(Widget):
             return
 
         message = message.strip()
-
-        logger.info(message)
 
         if not message or len(message) > self.max_message_length:
             return

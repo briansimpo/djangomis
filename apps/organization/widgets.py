@@ -1,15 +1,16 @@
 from djangospice.widget import widget
-from djangospice.table import Table
+from djangospice.table_widget import TableWidget
 from .models import OrgUnit
+from .tables import OrgUnitTable
 from .filters import OrgUnitFilter
 
 
 @widget
-class OrgUnitTable(Table):
+class OrgUnitTableWidget(TableWidget):
     model = OrgUnit
-    lazy = True
-    alphabet_field = "name"
-    paginate_by = 1
-    selectable = True
-    fields = ("code", "name", "parent")
+    table_class = OrgUnitTable
     filterset_class = OrgUnitFilter
+    alphabet_field = "name"
+    selectable = True
+    lazy = False
+  

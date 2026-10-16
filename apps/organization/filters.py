@@ -1,4 +1,3 @@
-from django.db.models import Q
 import django_filters
 from djangospice.filters import BaseFilter
 from djangospice.lookup import LookupWidget
@@ -12,12 +11,6 @@ class OrgUnitFilter(BaseFilter):
         label="Parent", 
         widget=LookupWidget(model=OrgUnit, placeholder="Search parent"),
     )
-    
-    def evaluate(self, value):
-        return ( 
-            Q(code__icontains=value) | 
-            Q(name__icontains=value) 
-        )
     
     class Meta:
         model = OrgUnit

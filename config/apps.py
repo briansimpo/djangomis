@@ -66,7 +66,7 @@ APPS = [
     "djangospice.htmx",
     "djangospice.widget",
     "djangospice.notification",
-    "djangospice.table",
+    "djangospice.table_widget",
     "djangospice.lookup",
 
     "apps.workspace",

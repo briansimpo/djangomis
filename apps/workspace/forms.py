@@ -10,7 +10,7 @@ from .services import WorkspaceContextService
 class WorkspaceContextForm(forms.Form):
     org_unit = forms.ModelChoiceField(
         label="Organisation Unit",
-        queryset=OrgUnit.objects.all(),
+        queryset=OrgUnit.objects.none(),
         required=True,
         widget=LookupWidget(
             model=OrgUnit,
@@ -21,7 +21,7 @@ class WorkspaceContextForm(forms.Form):
 
     calendar_period = forms.ModelChoiceField(
         label="Calendar Period",
-        queryset=CalendarPeriod.objects.all(),
+        queryset=CalendarPeriod.objects.none(),
         required=True,
         widget=LookupWidget(
             model=CalendarPeriod,
