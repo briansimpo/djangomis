@@ -14,4 +14,4 @@ class OrgUnitFilter(BaseFilter):
     
     class Meta:
         model = OrgUnit
-        fields = ["parent"]  
+        fields = ["code", "name", "parent"]  
