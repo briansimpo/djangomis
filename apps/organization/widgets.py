@@ -12,5 +12,5 @@ class OrgUnitTableWidget(TableWidget):
     filterset_class = OrgUnitFilter
     alphabet_field = "name"
     selectable = True
-    lazy = False
+    lazy = True
   
