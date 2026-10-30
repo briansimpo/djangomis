@@ -5,10 +5,22 @@ from typing import ClassVar
 from djangospice.widget.widget import Widget
 from djangospice.widget.decorators import widget
 from djangospice.templates import get_template_name
-from djangospice.notification.test import notify_user
 from .conversation import Conversation
 from .apps import namespace
 
+
+def notify_user(user):
+    from djangospice.websocket import Broadcast
+    Broadcast.event(
+        event="notification.created",
+        user=user,
+        data={
+            "id": 1,
+            "title": "Realtime test",
+            "message": "Hello from Djangospice!",
+        },
+    )
+    print("posted")
 
 @widget
 class ChatWidget(Widget):
@@ -136,7 +148,7 @@ class ChatWidget(Widget):
 
     def post(self):
         self.send_message()
-        notify_user(self.user.pk)
+        notify_user(self.user)
         return self.response()
 
     def get_context(self):

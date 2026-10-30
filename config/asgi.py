@@ -1,4 +1,3 @@
-# ruff: noqa
 """
 ASGI config for test project.
 
@@ -12,26 +11,24 @@ https://docs.djangoproject.com/en/dev/howto/deployment/asgi/
 import os
 import sys
 from pathlib import Path
-
-from django.core.asgi import get_asgi_application
-from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
+from channels.routing import ProtocolTypeRouter, URLRouter
+from django.core.asgi import get_asgi_application
 from djangospice.websocket.routing import websocket_urlpatterns
 
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 sys.path.append(str(BASE_DIR / "apps"))
 
-
-# If DJANGO_SETTINGS_MODULE is unset, default to the local settings
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
 
+django_asgi_app = get_asgi_application()
+
+ws_patterns = websocket_urlpatterns()
 
 application = ProtocolTypeRouter({
-    "http": get_asgi_application(),
-    "websocket": AuthMiddlewareStack(  # Wrapped URLRouter with Auth middleware
-        URLRouter(
-           websocket_urlpatterns()
-        )
-    )
+    "http": django_asgi_app,
+    "websocket": AuthMiddlewareStack(
+        URLRouter(ws_patterns)
+    ),
 })
