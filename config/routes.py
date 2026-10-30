@@ -10,7 +10,6 @@ from drf_spectacular.views import SpectacularAPIView,SpectacularSwaggerView,Spec
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from djangospice.site import get_admin_app_title, djangospice_urls
-from djangospice.conf import DJANGOSPICE_URL
 
 admin.site.site_title = get_admin_app_title()
 admin.site.site_header = get_admin_app_title()
@@ -38,7 +37,7 @@ urlpatterns += [
 urlpatterns += i18n_patterns(
 
     path(settings.ADMIN_URL, admin.site.urls),
-    path(DJANGOSPICE_URL, djangospice_urls()), 
+    path("", djangospice_urls()), 
     path("accounts/", include("accounts.urls")),
 
     path("", include("apps.workspace.urls")), 

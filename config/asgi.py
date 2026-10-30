@@ -16,7 +16,7 @@ from pathlib import Path
 from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
-from config.websockets import urlpatterns
+from djangospice.websocket.routing import websocket_urlpatterns
 
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -31,7 +31,7 @@ application = ProtocolTypeRouter({
     "http": get_asgi_application(),
     "websocket": AuthMiddlewareStack(  # Wrapped URLRouter with Auth middleware
         URLRouter(
-            urlpatterns
+           websocket_urlpatterns()
         )
     )
 })

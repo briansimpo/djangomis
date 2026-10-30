@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse
 
@@ -24,20 +25,15 @@ class WorkspaceContext(Widget):
         return redirect(referer or reverse(self.redirect_url))
 
     def post(self):
-        form = WorkspaceContextForm(self.request.POST, request=self.request)
-
-        if not form.is_valid():
-           return self.redirect_back()
-
-        org_unit = form.cleaned_data.get("org_unit")
-        calendar_period = form.cleaned_data.get("calendar_period")
+        org_unit = self.request_value("org_unit")
+        calendar_period = self.request_value("calendar_period")
 
         try:
             WorkspaceContextService.resolve_user_selection(
                 request=self.request,
                 user=self.user,
-                org_unit_id=org_unit.pk if org_unit else None,
-                calendar_period_id=calendar_period.pk if calendar_period else None
+                org_unit_id=org_unit,
+                calendar_period_id=calendar_period
             )
         except ValueError:
             return self.redirect_back()

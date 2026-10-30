@@ -1,8 +1,6 @@
 {% load static %}
 {% load django_vite %}
-{% load htmx %}
-{% load lookup %}
-{% load table_widget %}
+{% load djangospice %}
 
 
 <!DOCTYPE html>
@@ -31,13 +29,14 @@
                 <link rel="icon" href="{% static 'logo.png' %}" type="image/png" sizes="96x96">
             {% endif %}
         {% endblock favicon %}
-  
-        {% vite_hmr_client %}
-        {% vite_asset "static/js/main.js" %}
 
-        {% lookup_assets %}
-        {% table_assets %}
-        
+        {% djangospice_assets 'websocket' %}
+        {% djangospice_assets 'lookup' %}
+        {% djangospice_assets 'table_widget' %}
+       
+        {% vite_hmr_client %}
+        {% vite_asset "static/js/app.js" %}
+
         {% block extra_head %}{% endblock %}
     </head>
 

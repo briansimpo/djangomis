@@ -68,6 +68,7 @@ APPS = [
     "djangospice.notification",
     "djangospice.table_widget",
     "djangospice.lookup",
+    "djangospice.websocket",
 
     "apps.workspace",
     "apps.organization",
