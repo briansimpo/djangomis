@@ -8,8 +8,6 @@ import htmx from "htmx.org";
 import Alpine from "alpinejs";
 import Sortable from "sortablejs";
 
-import NProgress from "nprogress";
-import "nprogress/nprogress.css";
 
 // --------------------------------------------------
 // Global libraries
@@ -18,14 +16,7 @@ import "nprogress/nprogress.css";
 window.htmx = htmx;
 window.Alpine = Alpine;
 window.Sortable = Sortable;
-window.NProgress = NProgress;
 
-// --------------------------------------------------
-// HTMX extensions
-// --------------------------------------------------
-
-// Load extensions only after HTMX has been initialized.
-await import("htmx-ext-ws");
 
 // --------------------------------------------------
 // CSRF protection
@@ -58,19 +49,39 @@ if (document.readyState === "loading") {
 }
 
 // --------------------------------------------------
-// Djangospice Realtime
+// Djangospice Notifications
 // --------------------------------------------------
 
-function initializeRealtime() {
-    if (!globalThis.Djangospice?.Realtime) {
+async function initializeNotifications() {
+    const notification = globalThis.Djangospice?.Notification;
+
+    if (!notification) {
         console.error(
-            "Djangospice Realtime is unavailable. " +
-            "Check that the websocket assets are loaded before app.js."
+            "Djangospice Notification is unavailable. " +
+            "Check that notification assets are loaded before app.js."
         );
         return;
     }
 
-    const Realtime = Djangospice.Realtime;
+    await notification.initialize();
+
+}
+
+// --------------------------------------------------
+// Djangospice Realtime
+// --------------------------------------------------
+
+function initializeRealtime() {
+
+    const Realtime = globalThis.Djangospice?.Realtime;
+
+    if (!Realtime) {
+        console.error(
+            "Djangospice Realtime is unavailable. " +
+            "Check that websocket assets are loaded before app.js."
+        );
+        return;
+    }
 
     // Connection events
     Realtime.on("connected", () => {
@@ -92,7 +103,10 @@ function initializeRealtime() {
         console.error("Djangospice Realtime error:", event);
     });
 
-    // Connect
+    // Initialize notification listeners before connecting.
+    initializeNotifications();
+
+    // Connect using automatic same-origin configuration.
     Realtime.connect().catch((error) => {
         console.error(
             "Djangospice Realtime connection failed:",
