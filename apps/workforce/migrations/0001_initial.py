@@ -119,7 +119,7 @@ class Migration(migrations.Migration):
                 ('is_visible', models.BooleanField(default=True)),
             ],
             options={
-                'verbose_name': 'DeploymentRole',
+                'verbose_name': 'Deployment Role',
                 'verbose_name_plural': 'Deployment Roles',
             },
             bases=(djangospice.db.mixins.SerializesModels, models.Model),
@@ -318,8 +318,8 @@ class Migration(migrations.Migration):
                 ('delegated_role', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='delegation_instances', to='workforce.deploymentrole', verbose_name='Capability Transferred')),
             ],
             options={
-                'verbose_name': 'Delegation Log',
-                'verbose_name_plural': 'Delegation Logs',
+                'verbose_name': 'Delegation',
+                'verbose_name_plural': 'Delegations',
                 'ordering': ['-start_date'],
                 'constraints': [models.CheckConstraint(condition=models.Q(('delegator', models.F('delegate'))), name='prevent_self_delegation'), models.CheckConstraint(condition=models.Q(('end_date__gte', models.F('start_date'))), name='check_delegation_dates_validity')],
             },
