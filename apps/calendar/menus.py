@@ -1,5 +1,5 @@
 from simple_menu import Menu, MenuItem
-from djangospice.routing import safe_action
+from djangospice.utils import safe_action
 from .apps import namespace
 
 

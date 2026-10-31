@@ -9,7 +9,7 @@ from rest_framework.renderers import JSONOpenAPIRenderer
 from drf_spectacular.views import SpectacularAPIView,SpectacularSwaggerView,SpectacularRedocView
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from djangospice.site import get_admin_app_title, djangospice_urls
+from djangospice.site.utils import get_admin_app_title, djangospice_urls
 
 admin.site.site_title = get_admin_app_title()
 admin.site.site_header = get_admin_app_title()

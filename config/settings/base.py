@@ -2,6 +2,7 @@
 """Base settings to build other settings files upon."""
 
 from pathlib import Path
+from djangospice.package import djangospice_packages
 from config.apps import APPS
 import environ
 
@@ -83,6 +84,13 @@ ASGI_APPLICATION = "config.asgi.application"
 # APPS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
+
+# INSTALLED_APPS = djangospice_packages(
+#     project_dir=BASE_DIR,
+#     installed_apps=APPS,
+#     app_directories=["apps"],
+# )
+
 INSTALLED_APPS = APPS
 
 
@@ -207,7 +215,7 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
-                "djangospice.app_registry.context_processors.app_metadata",
+                "djangospice.apps.context_processors.app_metadata",
                 "apps.organization.context_processors.org_metadata",
             ],
         },

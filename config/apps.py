@@ -60,8 +60,8 @@ APPS = [
    
 
     # Djangospice
-    "djangospice",
-    "djangospice.app_registry",
+    "djangospice.site",
+    "djangospice.apps",
     "djangospice.api",
     "djangospice.events",
     "djangospice.htmx",

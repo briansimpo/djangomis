@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 
 from djangospice.widget import Widget, widget
-from djangospice.templates import get_template_name
+from djangospice.utils import get_template_name
 
 from .services import WorkspaceContextService
 from .forms import WorkspaceContextForm

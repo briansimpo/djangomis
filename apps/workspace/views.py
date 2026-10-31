@@ -1,9 +1,9 @@
 from django.views.generic import TemplateView
-from djangospice.templates import get_template_name
+from djangospice.utils import get_template_name
 from djangospice.htmx.views.generic import HTMXView
 from djangospice.htmx.shortcuts import htmx_render
 from accounts.mixins import StaffLoginRequired
-from djangospice.app_registry.permissions import AppAccess
+from djangospice.apps.access import AppAccess
 from .apps import namespace
 
 

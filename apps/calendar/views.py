@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from djangospice.templates import get_template_name
+from djangospice.utils import get_template_name
 from apps.calendar.apps import namespace
 
 

@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
 from djangospice.db.models import BaseModel, OptionModel, FileFields
 from djangospice.files.helpers import file_upload_path, get_file_path
-from djangospice.site import get_host_name
+from djangospice.site.utils import get_host_name
 from djangospice.enums.contacts import ContactChannel, ContactUsage
 
 

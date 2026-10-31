@@ -1,5 +1,5 @@
 from django import template
-from djangospice.routing import safe_reverse
+from djangospice.utils import safe_reverse
 register = template.Library()
 
 

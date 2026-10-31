@@ -4,7 +4,7 @@ from typing import ClassVar
 
 from djangospice.widget.widget import Widget
 from djangospice.widget.decorators import widget
-from djangospice.templates import get_template_name
+from djangospice.utils import get_template_name
 from .notifications import ChatNotification
 from .conversation import Conversation
 from .apps import namespace
