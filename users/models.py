@@ -47,17 +47,9 @@ class User(AbstractUser):
     @property
     def full_name(self):
         return self.get_full_name()
- 
-    def update_login_status(self):
-        self.is_first_login = False
-        self.save()
-    
-    def activate(self):
-        self.is_active = True
-        self.save()
 
-    def deactivate(self):
-        self.is_active = False
-        self.save()
+    def notify(self, notification):
+        from djangospice.notification.notifier import Notifier
+        return Notifier.send(self, notification)
 
 

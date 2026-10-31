@@ -63,6 +63,7 @@ APPS = [
     "djangospice",
     "djangospice.app_registry",
     "djangospice.api",
+    "djangospice.events",
     "djangospice.htmx",
     "djangospice.widget",
     "djangospice.notification",

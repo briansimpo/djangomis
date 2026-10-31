@@ -401,18 +401,20 @@ UNFOLD = {
 }
 
 # Set up the channel layer
-# CHANNEL_LAYERS = {
-#     "default": {
-#         "BACKEND": "channels_redis.core.RedisChannelLayer",
-#         "CONFIG": {
-#             "hosts": [("127.0.0.1", 6379)],
-#         },
-#     },
-# }
-
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer",
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [
+                {
+                    "address": "redis://127.0.0.1:6379/1",
+                    "socket_timeout": None,
+                    "socket_connect_timeout": 5,
+                },
+            ],
+            "capacity": 1500,
+            "expiry": 60,
+        },
     },
 }
 

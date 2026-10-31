@@ -5,7 +5,6 @@ from typing import ClassVar
 from djangospice.widget.widget import Widget
 from djangospice.widget.decorators import widget
 from djangospice.templates import get_template_name
-from djangospice.notification.notifier import Notifier
 from .notifications import ChatNotification
 from .conversation import Conversation
 from .apps import namespace
@@ -137,7 +136,7 @@ class ChatWidget(Widget):
 
     def post(self):
         self.send_message()
-        Notifier.send(self.user, ChatNotification())
+        self.user.notify(ChatNotification)
         return self.response()
 
     def get_context(self):
