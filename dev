@@ -12,7 +12,7 @@ UTIL_DIR="$BASE_DIR/deploy/dev"
 # HELP MENU
 # ------------------------------
 show_help() {
-    echo "Usage: djangospice <command> [args...]"
+    echo "Usage: dev <command> [args...]"
     echo
     echo "Available commands:"
 

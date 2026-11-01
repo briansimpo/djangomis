@@ -357,42 +357,8 @@ SOCIALACCOUNT_ADAPTER = "accounts.adapters.SocialAccountAdapter"
 SOCIALACCOUNT_FORMS = {"signup": "accounts.forms.SocialSignupForm"}
 
 
-# django-rest-framework
-# -------------------------------------------------------------------------------
-# django-rest-framework - https://www.django-rest-framework.org/api-guide/settings/
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework.authentication.SessionAuthentication",
-        "rest_framework.authentication.TokenAuthentication",
-    ),
-    "DEFAULT_FILTER_BACKENDS": [
-        "rest_framework.filters.SearchFilter",
-        "django_filters.rest_framework.DjangoFilterBackend",
-    ],
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
-    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 20,
-}
-
-# django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
-CORS_URLS_REGEX = r"^/api/.*$"
-CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins
-
-# By Default swagger ui is available only to admin user(s). You can change permission classes to change that
-# See more configuration options at https://drf-spectacular.readthedocs.io/en/latest/settings.html#settings
-SPECTACULAR_SETTINGS = {
-    "TITLE": "djangospice API",
-    "DESCRIPTION": "Documentation of djangospice API endpoints",
-    "VERSION": "1.0.0",
-    "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
-    "SCHEMA_PATH_PREFIX": "/api/",
-}
-
 # Custom stuff...
 # ------------------------------------------------------------------------------
-OPEN_EXCHANGE_RATES_APP_ID="3b447f6b32424fb68fc22ead0eda4840"
-
 IMPORT_EXPORT_SHOW_ERRORS = env.bool("IMPORT_EXPORT_SHOW_ERROR", True)
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 1048576
 
@@ -402,8 +368,7 @@ UNFOLD = {
     "SITE_HEADER": APP_NAME,
     "SHOW_HISTORY": True, 
     "SHOW_VIEW_ON_SITE": True, 
-    "SHOW_BACK_BUTTON": False,
-    
+    "SHOW_BACK_BUTTON": False, 
 }
 
 # Set up the channel layer
@@ -446,5 +411,5 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 DEFENDER_USERNAME_FORM_FIELD="email"
-DEFENDER_REDIS_URL = "redis://localhost:6379/0"
+DEFENDER_REDIS_URL = REDIS_URL
 DEFENDER_LOGIN_FAILURE_LIMIT = 5

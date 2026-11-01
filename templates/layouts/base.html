@@ -1,8 +1,6 @@
 {% load static %}
 {% load django_vite %}
 {% load djangospice %}
-{% load widget %}
-
 
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
@@ -31,7 +29,8 @@
             {% endif %}
         {% endblock favicon %}
 
-        {% djangospice_assets %}
+        
+        {% djangospice_bundle %}
         
         {% vite_hmr_client %}
         {% vite_asset "static/js/app.js" %}
