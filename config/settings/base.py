@@ -3,7 +3,7 @@
 
 from pathlib import Path
 from djangospice.package import djangospice_packages
-from config.apps import APPS
+from config.settings.apps import APPS
 import environ
 
 
