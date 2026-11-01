@@ -5,11 +5,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import include, path
 from django.conf.urls.i18n import i18n_patterns
 
-from rest_framework.renderers import JSONOpenAPIRenderer
-from drf_spectacular.views import SpectacularAPIView,SpectacularSwaggerView,SpectacularRedocView
-
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from djangospice.site.utils import get_admin_app_title, djangospice_urls
+from djangospice.site.routing import http_urlpatterns
+from djangospice.site.utils import get_admin_app_title
 
 admin.site.site_title = get_admin_app_title()
 admin.site.site_header = get_admin_app_title()
@@ -22,27 +19,11 @@ urlpatterns = [
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
 
-# API URLS
-urlpatterns += [
-    path("api/token/", TokenObtainPairView.as_view(), name="drf-token-obtain-pair"),
-    path("api/token/refresh/", TokenRefreshView.as_view(), name="drf-token-refresh"),
-    path("api/schema/yml", SpectacularAPIView.as_view(), name="schema"),
-    path("api/schema/json",SpectacularAPIView.as_view(renderer_classes=[JSONOpenAPIRenderer]),name="swagger-json",),
-    path("api/schema/swagger/", SpectacularSwaggerView.as_view(url_name="schema"),name="swagger-ui"),
-    path("api/schema/docs/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
-    
-]
-
-
 urlpatterns += i18n_patterns(
 
     path(settings.ADMIN_URL, admin.site.urls),
-    path("", djangospice_urls()), 
+    path("", http_urlpatterns()),  
     path("accounts/", include("accounts.urls")),
-
-    path("", include("apps.workspace.urls")), 
-    path("calendar/", include("apps.calendar.urls")),
-    path("organization/", include("apps.organization.urls")),
     
 )
 
