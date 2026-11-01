@@ -1,5 +1,5 @@
 from djangospice.widget import widget
-from djangospice.table_widget import TableWidget
+from djangospice.table_widget.widget import TableWidget
 from .models import OrgUnit
 from .tables import OrgUnitTable
 from .filters import OrgUnitFilter

@@ -1,5 +1,5 @@
 import django_filters
-from djangospice.filters import BaseFilter
+from djangospice.filters.base import BaseFilter
 from djangospice.lookup import LookupWidget
 from .models import OrgUnit
 

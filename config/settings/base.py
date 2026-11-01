@@ -85,13 +85,11 @@ ASGI_APPLICATION = "config.asgi.application"
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 
-# INSTALLED_APPS = djangospice_packages(
-#     project_dir=BASE_DIR,
-#     installed_apps=APPS,
-#     app_directories=["apps"],
-# )
-
+# Existing Django and third-party applications.
 INSTALLED_APPS = APPS
+
+# Append discovered Djangospice applications.
+INSTALLED_APPS += djangospice_packages(project_dir=BASE_DIR)
 
 
 # MIGRATIONS

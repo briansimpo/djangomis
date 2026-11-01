@@ -22,10 +22,6 @@ DJANGO_HOST = env("DJANGO_HOST", default="localhost")
 # The port on which the Django application will listen.
 DJANGO_PORT = env("DJANGO_PORT", default="8000")
 
-DJANGO_SOCKET_HOST = env("DJANGO_SOCKET_HOST", default="localhost")
-DJANGO_SOCKET_PORT = env("DJANGO_SOCKET_PORT", default="8001")
-
-
 # Django Admin URL.
 ADMIN_URL = env("DJANGO_ADMIN_URL", default="admin/")
 

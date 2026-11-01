@@ -54,31 +54,6 @@ APPS = [
 
     # Middleware-related
     "corsheaders",
-
-    "accounts",
-    "users",
-   
-
-    # Djangospice
-    "djangospice.site",
-    "djangospice.apps",
-    "djangospice.api",
-    "djangospice.events",
-    "djangospice.htmx",
-    "djangospice.widget",
-    "djangospice.notification",
-    "djangospice.table_widget",
-    "djangospice.lookup",
-    "djangospice.websocket",
-
-    "apps.workspace",
-    "apps.organization",
-    "apps.calendar",
-    "apps.party",
-    "apps.workforce",
-    "apps.workflow",
-    "apps.chat",
-    
 ]
 
 
