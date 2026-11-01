@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse
 
@@ -11,7 +10,7 @@ from .apps import namespace
 
 
 @widget
-class WorkspaceContext(Widget):
+class ContextWidget(Widget):
     template_name = get_template_name("widgets/context.html", namespace)
     redirect_url = "workspace:home"
 
@@ -39,4 +38,27 @@ class WorkspaceContext(Widget):
             return self.redirect_back()
 
         return self.redirect_back()
+
+
+@widget
+class NotificationWidget(Widget):
+    template_name = get_template_name("widgets/notification.html", namespace)
+    lazy = True
+
+    def get_context(self):
+        context = super().get_context()
+        notifications = self.user.notifications.unread()
+
+        unread_count = notifications.count()
+        unread_notifications = list(notifications)
+    
+        payload = {
+            "unread_count": unread_count,
+            "unread_notifications": unread_notifications,
+        }
+
+        context.update(payload)
+        
+        return context
+
 

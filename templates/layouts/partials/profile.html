@@ -1,0 +1,136 @@
+<div class="relative shrink-0" x-data="{ profileOpen: false }" @keydown.escape.window="profileOpen = false">
+    <button
+        type="button"
+        @click="profileOpen = !profileOpen"
+        :aria-expanded="profileOpen.toString()"
+        aria-label="Open user menu"
+        class="flex items-center gap-2 rounded-xl p-1.5 transition
+                hover:bg-slate-100 focus:outline-none
+                focus-visible:ring-2 focus-visible:ring-indigo-500/30
+                sm:gap-2.5"
+    >
+        <span
+            class="flex h-9 w-9 shrink-0 items-center justify-center
+                    overflow-hidden rounded-xl border border-indigo-100
+                    bg-indigo-50 text-sm font-semibold text-indigo-700"
+        >
+            {{ user.full_name|default:user.username|slice:":1"|upper }}
+        </span>
+
+        <span class="hidden max-w-36 text-left sm:block">
+            <span class="block truncate text-sm font-semibold text-slate-800">
+                {{ user.full_name|default:user.username }}
+            </span>
+            <span class="block text-xs text-slate-500">
+                {% if user.is_superuser %}
+                    Super Admin
+                {% elif user.is_staff %}
+                    Staff
+                {% else %}
+                    Account
+                {% endif %}
+            </span>
+        </span>
+
+        <svg
+            class="hidden h-4 w-4 text-slate-400 transition-transform sm:block"
+            :class="{ 'rotate-180': profileOpen }"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+        >
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                d="m6 9 6 6 6-6"
+            />
+        </svg>
+    </button>
+
+    <div
+        x-cloak
+        x-show="profileOpen"
+        x-transition.origin.top.right
+        @click.outside="profileOpen = false"
+        class="absolute right-0 top-full z-50 mt-2
+                w-[min(16rem,calc(100vw-1.5rem))]
+                max-h-[calc(100dvh-5rem)] overflow-y-auto
+                overscroll-contain rounded-xl border border-slate-200
+                bg-white shadow-xl shadow-slate-900/10"
+    >
+        <div class="border-b border-slate-100 bg-slate-50/70 px-4 py-3">
+            <p class="truncate text-sm font-semibold text-slate-900">
+                {{ user.full_name|default:user.username }}
+            </p>
+            <p class="mt-0.5 truncate text-xs text-slate-500">
+                {{ user.email }}
+            </p>
+        </div>
+
+        {% if user.is_superuser %}
+            <div class="p-1.5">
+                <a
+                    href="{% url 'admin:index' %}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex items-center gap-2.5 rounded-lg px-3 py-2.5
+                            text-sm text-slate-700 transition hover:bg-slate-50"
+                >
+                    <svg
+                        class="h-4 w-4 text-slate-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="1.7"
+                            d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                        />
+                    </svg>
+
+                    Admin Panel
+
+                    <svg
+                        class="ml-auto h-3.5 w-3.5 text-slate-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="1.7"
+                            d="M14 4h6v6m-11 4L20 4"
+                        />
+                    </svg>
+                </a>
+            </div>
+        {% endif %}
+
+        <div class="border-t border-slate-100 p-1.5">
+            <a
+                href="{% url 'account_logout' %}"
+                class="flex items-center gap-2.5 rounded-lg px-3 py-2.5
+                        text-sm font-medium text-rose-600 transition hover:bg-rose-50"
+            >
+                <svg
+                    class="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.8"
+                        d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4m7 14 5-5-5-5m5 5H9"
+                    />
+                </svg>
+                Sign out
+            </a>
+        </div>
+    </div>
+</div>
