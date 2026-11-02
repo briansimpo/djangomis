@@ -1,7 +1,7 @@
 from djangospice.package import AppConfig
 
 class WorkspaceConfig(AppConfig):
-    name = "apps.workspace"
+    name = "workspace"
     verbose_name = "Workspace"
 
 

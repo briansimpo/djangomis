@@ -43,14 +43,13 @@ class OrgContextWidget(Widget):
 @widget
 class NotificationWidget(Widget):
     template_name = get_template_name("widgets/notification.html", namespace)
-    lazy = True
 
     def get_context(self):
         context = super().get_context()
         notifications = self.user.notifications.unread()
 
         unread_count = notifications.count()
-        unread_notifications = list(notifications)
+        unread_notifications = list(notifications[:10])
     
         payload = {
             "unread_count": unread_count,
