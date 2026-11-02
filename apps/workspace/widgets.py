@@ -10,8 +10,8 @@ from .apps import namespace
 
 
 @widget
-class ContextWidget(Widget):
-    template_name = get_template_name("widgets/context.html", namespace)
+class OrgContextWidget(Widget):
+    template_name = get_template_name("widgets/org_context.html", namespace)
     redirect_url = "workspace:home"
 
     def get_context(self):
