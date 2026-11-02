@@ -1,7 +1,8 @@
 from django.shortcuts import redirect
 from django.urls import reverse
 
-from djangospice.widget import Widget, widget
+from djangospice.widget import Widget
+from djangospice.widget.decorators import widget, post
 from djangospice.utils import get_template_name
 
 from .services import WorkspaceContextService
@@ -60,4 +61,12 @@ class NotificationWidget(Widget):
         
         return context
 
+    @post
+    def mark_all_as_read(self, request):
+        return self.response()
+      
+
+@widget
+class UserProfileWidget(Widget):
+    template_name = get_template_name("widgets/user_profile.html", namespace)
 

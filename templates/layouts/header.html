@@ -5,7 +5,7 @@
     <div class="flex h-16 items-center gap-2 px-3 sm:gap-3 sm:px-6 lg:h-[72px] lg:px-8">
 
         {# Brand and mobile navigation #}
-        {% include "layouts/partials/brand.html" %}
+        {% include "layouts/brand.html" %}
      
         {# Header actions #}
         <div class="flex shrink-0 items-center gap-1 sm:gap-2">
@@ -23,7 +23,7 @@
             <span class="mx-1 hidden h-8 w-px bg-slate-200 sm:block"></span>
 
             {# User profile dropdown #}
-            {% include "layouts/partials/profile.html" %}
+            {% render_widget "workspace.user_profile" %}
         </div>
     </div>
 </header>
