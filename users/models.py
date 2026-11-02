@@ -42,7 +42,7 @@ class User(AbstractUser):
     objects: ClassVar[UserManager] = UserManager()
 
     def __str__(self) -> str:
-        return f"{self.full_name} ({self.email})"
+        return f"{self.full_name}"
     
     @property
     def full_name(self):

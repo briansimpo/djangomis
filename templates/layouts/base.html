@@ -12,9 +12,11 @@
         {% block title %}
         <title> 
             {% if org %}
-                {{org.short_name}} - {{app_verbose}}
-            {% else %}
-                {{app_verbose}}
+                {% if user.is_authenticated %}
+                    {{org.short_name}} - {{app_title}}
+                {% else %}
+                    {{org.short_name}}
+                {% endif %}
             {% endif %}
         </title>
         {% endblock title %}

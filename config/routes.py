@@ -20,11 +20,9 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
-
     path(settings.ADMIN_URL, admin.site.urls),
-    path("", http_urlpatterns()),  
     path("accounts/", include("accounts.urls")),
-    
+    path("", http_urlpatterns()),  
 )
 
 

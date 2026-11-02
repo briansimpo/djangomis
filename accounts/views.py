@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView, RedirectView
 from allauth.account.views import SignupView as AllauthSignupView
 from allauth.account.views import LoginView as AllauthLoginView
+from allauth.account.views import LogoutView as AllauthLogoutView
 from allauth.account.views import PasswordResetView as AllauthPasswordResetView
 from allauth.account.views import ReauthenticateView as AllauthReauthenticateView
 from djangospice.utils import get_template_name
@@ -52,3 +53,10 @@ class ReauthenticateView(AllauthReauthenticateView):
     form_class = ReauthenticateForm
 
 reauthenticate = ReauthenticateView.as_view()
+
+
+class LogoutView(AllauthLogoutView):
+    template_name = get_template_name("account/logout.html")
+
+      
+logout = LogoutView.as_view()
