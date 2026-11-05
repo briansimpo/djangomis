@@ -213,8 +213,6 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
-                "djangospice.site.context_processors.site_metadata",
-                "apps.organization.context_processors.org_metadata",
             ],
         },
     },
@@ -389,26 +387,6 @@ CHANNEL_LAYERS = {
     },
 }
 
-OAUTH2_PROVIDER = {
-    "SCOPES": {
-        "read": "Read access",
-        "write": "Write access",
-        "email": "Access to your email address",
-        "profile": "Access to your profile information",
-    },
-}
-
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-    ),
-}
-
-SOCIALACCOUNT_PROVIDERS = {
-    "djangospice": {
-        "OAUTH_PKCE_ENABLED": True,
-    },
-}
 
 DEFENDER_USERNAME_FORM_FIELD="email"
 DEFENDER_REDIS_URL = REDIS_URL

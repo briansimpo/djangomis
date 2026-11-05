@@ -1,31 +1,10 @@
-<div class="relative shrink-0" x-data="{ contextOpen: false }" @keydown.escape.window="contextOpen = false">
-    <button
-        type="button"
+<div {{ widget.html_attr }} class="relative shrink-0" >
+    <button type="button"
         @click="contextOpen = !contextOpen"
-        :aria-expanded="contextOpen.toString()"
-        aria-label="Change workspace context"
-        class="flex items-center gap-2 rounded-xl p-1.5 transition
-                hover:bg-slate-100 focus:outline-none
-                focus-visible:ring-2 focus-visible:ring-indigo-500/30
-                sm:gap-2.5"
-    >
-        <span
-            class="flex h-9 w-9 shrink-0 items-center justify-center
-                    rounded-xl border border-indigo-100 bg-indigo-50
-                    text-indigo-600"
-        >
-            <svg
-                class="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-            >
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.7"
-                    d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4M9 9v.01M9 12v.01M9 15v.01M9 18v.01"
-                />
+        class="flex items-center gap-2 rounded-xl p-1.5 transition hover:bg-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/30 sm:gap-2.5">
+        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-indigo-100 bg-indigo-50 text-indigo-600">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/>
             </svg>
         </span>
 
@@ -38,19 +17,8 @@
             </span>
         </span>
 
-        <svg
-            class="hidden h-4 w-4 text-slate-400 transition-transform sm:block"
-            :class="{ 'rotate-180': contextOpen }"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-        >
-            <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                d="m6 9 6 6 6-6"
-            />
+        <svg class="hidden h-4 w-4 text-slate-400 transition-transform sm:block" :class="{ 'rotate-180': contextOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="m6 9 6 6 6-6"/>
         </svg>
     </button>
 
@@ -59,12 +27,7 @@
         x-show="contextOpen"
         x-transition.origin.top.right
         @click.outside="contextOpen = false"
-        class="absolute right-0 top-full z-50 mt-2
-                w-[min(22rem,calc(100vw-1.5rem))]
-                max-h-[calc(100dvh-5rem)] overflow-y-auto
-                overscroll-contain rounded-xl border border-slate-200
-                bg-white shadow-xl shadow-slate-900/10"
-    >
+        class="absolute right-0 top-full z-50 mt-2 w-[min(22rem,calc(100vw-1.5rem))] max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain rounded-xl border border-slate-200 bg-white shadow-xl shadow-slate-900/10">
         <div class="border-b border-slate-100 bg-slate-50/70 px-4 py-3">
             <p class="text-sm font-semibold text-slate-900">
                 Workspace context
@@ -75,7 +38,7 @@
         </div>
 
         <div class="p-4">
-            <form method="post" action="{{ widget.url }}" class="flex w-full min-w-0 flex-col gap-4">
+            <form hx-post="{{ widget.url }}" class="flex w-full min-w-0 flex-col gap-4">
                 {% csrf_token %}
 
                 {% for field in form %}

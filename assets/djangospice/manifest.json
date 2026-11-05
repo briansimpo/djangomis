@@ -1,19 +1,18 @@
 {
   "version": 1,
   "js": {
-    "main": "djangospice.b824de49ed45.js"
+    "main": "djangospice.bfdcc2644095.js"
   },
   "css": {
     "main": "djangospice.ba9c7a2e2726.css"
   },
   "apps": [
     "lookup",
-    "notification",
     "table_widget",
     "websocket"
   ],
   "source_count": {
-    "js": 4,
+    "js": 3,
     "css": 1
   }
 }

@@ -1,3 +1,4 @@
+
 import "@/css/main.css";
 import "@/css/app.css";
 
@@ -20,6 +21,10 @@ import {
 
 initializeLibraries();
 
+// --------------------------------------------------
+// Component registration
+// --------------------------------------------------
+
 registry
     .register("htmx", {
         initialize: initializeHTMX,
@@ -27,11 +32,11 @@ registry
     .register("alpine", {
         initialize: initializeAlpine,
     })
-    .register("notification", {
-        initialize: initializeNotification,
-    })
     .register("realtime", {
         initialize: initializeRealtime,
+    })
+    .register("notification", {
+        initialize: initializeNotification,
     });
 
 // --------------------------------------------------
@@ -63,4 +68,4 @@ if (document.readyState === "loading") {
 export {
     initializeApp,
     destroyApp,
-}; 
+};
