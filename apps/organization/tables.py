@@ -1,7 +1,6 @@
 import django_tables2 as tables
-from djangospice.table_widget.base import BaseTable
+from djangospice.table.base import BaseTable
 from .models import OrgUnit
-
 
 
 class OrgUnitTable(BaseTable):
