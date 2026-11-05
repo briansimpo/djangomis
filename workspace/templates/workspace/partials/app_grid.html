@@ -1,3 +1,5 @@
+
+{% if apps %}
 <div class="grid grid-cols-3 justify-center justify-items-center gap-4 p-4 sm:grid-cols-4 sm:gap-6 sm:p-6 md:grid-cols-5 lg:grid-cols-6 lg:gap-10 lg:p-8">
 
     {% for app in apps %}
@@ -5,8 +7,7 @@
             href="{{ app.url }}"
             target="_blank"
             rel="noopener noreferrer"
-            class="app-card group flex w-full max-w-32 flex-col items-center justify-center text-center transition-transform duration-200 hover:scale-105 active:scale-95"
-        >
+            class="app-card group flex w-full max-w-32 flex-col items-center justify-center text-center transition-transform duration-200 hover:scale-105 active:scale-95">
             <!-- Icon -->
             <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm transition group-hover:shadow-lg sm:h-[4.5rem] sm:w-[4.5rem] md:h-20 md:w-20 lg:h-24 lg:w-24">
                 {% if app.icon %}
@@ -31,3 +32,30 @@
     {% endfor %}
 
 </div>
+
+{% else %}
+
+    <div class="py-8 text-center">
+        <div class="flex justify-center mb-4 text-slate-300">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-12 h-12"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="1.5">
+                <circle cx="11" cy="11" r="7" />
+                <path stroke-linecap="round" d="m16 16 4 4" />
+            </svg>
+        </div>
+
+        <h3 class="text-lg font-semibold text-slate-700">
+            No apps found
+        </h3>
+
+        <p class="mt-1 text text-slate-500">
+            Try a different search term or contact admin to apps to you.
+        </p>
+    </div>
+
+{% endif %}

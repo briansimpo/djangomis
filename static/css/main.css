@@ -84,7 +84,7 @@
 
 	/* BASE BUTTON */
 	.btn {
-	  @apply inline-flex items-center justify-center gap-2 font-semibold rounded-lg transition-all shadow-sm border-0;
+	  @apply inline-flex items-center justify-center gap-2 rounded-lg transition-all shadow-sm border-0;
 	}
   
 	/* =========================

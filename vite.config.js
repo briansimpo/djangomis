@@ -1,26 +1,31 @@
 import { defineConfig } from "vite";
-import { resolve } from "path"
-import tailwindcss from "@tailwindcss/vite"
-
+import { resolve } from "path";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-	base: "/static/",
-	resolve:{
-		alias: {
-			"@": resolve("./static")
-		}
-	},
-	build: {
-		manifest: "manifest.json",
-		outDir: resolve("./assets"),
-		assetsDir: "output",
-		rollupOptions: {
-			input: {
-				main: resolve("./static/js/app.js")
-			},
-		}
-	},
-	plugins: [
-		tailwindcss()
-	]
-})
+    base: "/static/",
+
+    resolve: {
+        alias: {
+            "@": resolve("./static"),
+        },
+    },
+
+    build: {
+        manifest: "manifest.json",
+        outDir: resolve("./assets"),
+        emptyOutDir: false,
+
+        assetsDir: "output",
+
+        rollupOptions: {
+            input: {
+                main: resolve("./static/js/app.js"),
+            },
+        },
+    },
+
+    plugins: [
+        tailwindcss(),
+    ],
+});

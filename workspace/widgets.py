@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404
 from djangospice.widget import Widget
-from djangospice.widget.decorators import widget, post
+from djangospice.widget.decorators import widget, post, get
 from djangospice.utils import get_template_name
 from djangospice.notification.helpers import notification_read, notification_read_all
+from djangospice.apps.access import AppAccess
 from .services import WorkspaceContextService
 from .forms import WorkspaceContextForm
 from .apps import namespace
@@ -53,19 +54,19 @@ class NotificationWidget(Widget):
         return context
 
     @post
-    def mark_all_as_read(self, request):
+    def mark_all_as_read(self):
         unread_notifications = self.user.notifications.unread()
         for notification in unread_notifications:
             notification.mark_as_read()
 
-        notification_read_all(request.user)
+        notification_read_all(self.user)
         return self.response().empty()
 
     @post
-    def mark_as_read(self, request):
+    def mark_as_read(self):
         notification = get_object_or_404(
             self.user.notifications,
-            id=request.GET.get("id"),
+            id=self.request.GET.get("id"),
         )
 
         if notification.unread:
@@ -79,3 +80,33 @@ class NotificationWidget(Widget):
 class UserProfileWidget(Widget):
     template_name = get_template_name("widgets/user_profile.html", namespace)
 
+
+@widget
+class AppLauncherWidget(Widget):
+    template_name = get_template_name("widgets/app_launcher.html", namespace)
+    partial_template = get_template_name("partials/app_grid.html", namespace)
+
+    
+    def get_apps(self):
+        app_access = AppAccess(self.user)
+        return app_access.all()
+
+    @get
+    def load_apps(self):
+        apps =  self.get_apps()
+        context = {"apps": apps}
+        return self.response().render(self.partial_template, context)
+
+    @post
+    def search_apps(self):
+        q = self.request.POST.get("q", "").strip()
+        apps = self.get_apps()
+        if q:
+            apps = apps.filter(name__icontains=q)
+        context = {"apps": apps}
+        return self.response().render(self.partial_template, context)
+        
+        
+
+
+   
