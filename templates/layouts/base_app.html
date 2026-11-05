@@ -18,21 +18,21 @@
         {% include "layouts/header.html" %}
     {% endblock header %}
 
-    <div class="flex pt-28 lg:pt-20 mb-24">
+    <div class="flex mb-24">
 
         {# Mobile overlay #}
         <div 
             x-show="sidebarOpen"
             x-transition.opacity
             @click="sidebarOpen = false"
-            class="fixed inset-0 z-30 bg-black/30 lg:hidden"
+            class="fixed inset-0 z-30 bg-black/30 lg:hidden pt-16"
             x-cloak>
         </div>
 
         {% block sidebar %}
         <aside
             
-            class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform bg-white border-r border-slate-200 lg:translate-x-0 pt-28 lg:pt-20"
+            class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform bg-white border-r border-slate-200 lg:translate-x-0 pt-16"
             :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
 
             <div class="h-full px-3 pb-4 overflow-y-auto custom-scrollbar">

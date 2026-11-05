@@ -12,6 +12,7 @@ from .apps import namespace
 @widget
 class OrgContextWidget(Widget):
     template_name = get_template_name("widgets/org_context.html", namespace)
+    login_required = True
     
     def get_context(self):
         context = super().get_context()
@@ -38,6 +39,7 @@ class OrgContextWidget(Widget):
 @widget
 class NotificationWidget(Widget):
     template_name = get_template_name("widgets/notification.html", namespace)
+    login_required = True
     limit = 10
 
     def get_context(self):
@@ -79,12 +81,14 @@ class NotificationWidget(Widget):
 @widget
 class UserProfileWidget(Widget):
     template_name = get_template_name("widgets/user_profile.html", namespace)
+    login_required = True
 
 
 @widget
 class AppLauncherWidget(Widget):
     template_name = get_template_name("widgets/app_launcher.html", namespace)
     partial_template = get_template_name("partials/app_grid.html", namespace)
+    login_required = True
 
     
     def get_apps(self):

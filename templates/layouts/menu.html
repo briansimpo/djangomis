@@ -5,9 +5,8 @@
 {% with app_menu=menus|get_item:name %}
     {% if app_menu %}
 
-        <nav class="space-y-2 pt-8" >
-            <div class="px-3 py-2 text-xs font-semibold text-slate-400 uppercase tracking-widest">Main Menu</div>
-            
+        <nav class="space-y-2" >
+           
             {% for item in app_menu %}
                 {% if not item.children %}
 
