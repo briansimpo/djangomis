@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from djangospice.widget import Widget
-from djangospice.widget.decorators import widget, post, get
+from djangospice.widget.decorators import widget
+from djangospice.core.decorators import get, post
 from djangospice.utils import get_template_name
 from djangospice.notification.helpers import notification_read, notification_read_all
 from djangospice.apps.access import AppAccess
