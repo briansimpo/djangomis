@@ -6,6 +6,7 @@ from djangospice.htmx.shortcuts import response
 
 @executable
 class FriendRequest(Notification):
+    login_required = True
 
     def to_database(self, user):
         return DatabaseMessage(
