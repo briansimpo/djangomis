@@ -47,7 +47,7 @@
                 </span>
             </div>
             <button 
-                hx-post="{% widget_url widget.mark_all_as_read  %}" 
+                hx-post="{% widget_url widget.mark_all_as_read %}" 
                 hx-swap="none"
                 hx-disabled-elt="this"
                 class="text-xs text-indigo-600 hover:text-indigo-800 font-medium {% if unread_count == 0 %}hidden{% endif %}">
@@ -63,7 +63,7 @@
                     {% if notification.unread %}bg-indigo-50/40{% else %}bg-white{% endif %}
                     hover:bg-gray-50">
                     <!-- Notification icon -->
-                    <a href="{% widget_url notification.url %}" class="flex-shrink-0" aria-label="{{ notification.verb }}">
+                    <a href="{{ notification.url }}" class="flex-shrink-0" aria-label="{{ notification.verb }}">
                         <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-600">
                             <svg
                                 class="h-6 w-6"
