@@ -1,7 +1,7 @@
 from djangospice.exec.decorators import executable, get
 from djangospice.notification.base import Notification
 from djangospice.notification.messages import DatabaseMessage
-
+from djangospice.htmx.shortcuts import response
  
 
 @executable
@@ -15,8 +15,8 @@ class FriendRequest(Notification):
 
     @get
     def confirm(self):
-        pass
+        return response("Confirmed")
 
     @get
     def reject(self):
-        pass
+        return response("Rejected")
