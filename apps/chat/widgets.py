@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from typing import ClassVar
 
-from djangospice.widget.widget import Widget
+from djangospice.widget import Widget
 from djangospice.widget.decorators import widget
 from djangospice.utils import get_template_name
-from .notifications import ChatNotification
+from .notifications import FriendRequest
 from .conversation import Conversation
 from .apps import namespace
 
@@ -27,7 +27,6 @@ class ChatWidget(Widget):
 
     session_key_prefix: ClassVar[str] = "djangospice_chat"
 
-    lazy = True
 
     def get_session_key(self) -> str:
         """Return the session key for this widget instance."""
@@ -136,7 +135,7 @@ class ChatWidget(Widget):
 
     def post(self):
         self.send_message()
-        self.user.notify(ChatNotification)
+        self.user.notify(FriendRequest)
         return self.response()
 
     def get_context(self):

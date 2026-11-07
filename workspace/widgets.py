@@ -42,6 +42,7 @@ class NotificationWidget(Widget):
     template_name = get_template_name("widgets/notification.html", namespace)
     login_required = True
     limit = 10
+  
 
     def get_context(self):
         context = super().get_context()
@@ -112,6 +113,4 @@ class AppLauncherWidget(Widget):
         return self.response().render(self.partial_template, context)
         
         
-
-
-   
+ 
