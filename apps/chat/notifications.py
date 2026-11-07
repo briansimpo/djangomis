@@ -1,11 +1,10 @@
-from djangospice.core.decorators import get
-from djangospice.notification.decorators import actionable
+from djangospice.exec.decorators import executable, get
 from djangospice.notification.base import Notification
 from djangospice.notification.messages import DatabaseMessage
 
  
 
-@actionable
+@executable
 class FriendRequest(Notification):
 
     def to_database(self, user):
