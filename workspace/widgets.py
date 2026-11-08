@@ -3,7 +3,6 @@ from djangospice.widget import Widget
 from djangospice.widget.decorators import widget
 from djangospice.exec.decorators import get, post
 from djangospice.utils import get_template_name
-from djangospice.notification.helpers import notification_read, notification_read_all
 from djangospice.apps.access import AppAccess
 from .services import WorkspaceContextService
 from .forms import WorkspaceContextForm
@@ -62,9 +61,7 @@ class NotificationWidget(Widget):
         unread_notifications = self.user.notifications.unread()
         for notification in unread_notifications:
             notification.mark_as_read()
-
-        notification_read_all(self.user)
-        return self.response().empty()
+        return self.refresh_widget()
 
     @post
     def mark_as_read(self):
@@ -75,9 +72,7 @@ class NotificationWidget(Widget):
 
         if notification.unread:
             notification.mark_as_read()
-
-        notification_read(notification)
-        return self.response().empty()
+        return self.refresh_widget()
 
       
 @widget
