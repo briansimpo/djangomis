@@ -1,0 +1,40 @@
+<div class="fixed bottom-6 left-6 z-[9999] pointer-events-none">
+    <div id="htmx-alert" class="flex flex-col gap-3">
+        {% if messages %}
+            {% for message in messages %}
+                <div
+                    x-data="{ show: true }"
+                    x-show="show"
+                    x-init="setTimeout(() => show = false, 5000)"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="translate-y-4 opacity-0"
+                    x-transition:enter-end="translate-y-0 opacity-100"
+                    x-transition:leave="transition ease-in duration-200"
+                    x-transition:leave-start="translate-y-0 opacity-100"
+                    x-transition:leave-end="translate-y-3 opacity-0"
+                    class="pointer-events-auto flex items-center justify-between gap-6
+                           min-w-[360px] max-w-md px-5 py-4
+                           bg-[#202124] text-white border border-white/10
+                           rounded-lg shadow-2xl"
+                    role="alert"
+                >
+                    <!-- Message -->
+                    <div class="flex-1 min-w-0">
+                        <p class="text-base font-medium leading-relaxed tracking-wide">
+                            {{ message|capfirst }}
+                        </p>
+                    </div>
+
+                    <!-- Dismiss Button -->
+                    <button
+                        type="button"
+                        @click="show = false"
+                        class="shrink-0 text-gray-300 hover:text-white transition-colors text-sm font-semibold tracking-wide uppercase px-2 py-1 rounded hover:bg-white/10 focus:outline-none"
+                        aria-label="Dismiss notification">
+                        Dismiss
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
