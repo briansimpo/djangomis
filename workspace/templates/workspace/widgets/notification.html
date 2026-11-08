@@ -49,7 +49,6 @@
             <button 
                 hx-post="{% widget_url widget.mark_all_as_read %}" 
                 hx-swap="none"
-                hx-disabled-elt="this"
                 class="text-xs text-indigo-600 hover:text-indigo-800 font-medium {% if unread_count == 0 %}hidden{% endif %}">
                 Mark all as read
             </button>
@@ -84,13 +83,7 @@
                     <div class="min-w-0 flex-1">
 
                         <!-- Title -->
-                        <a href="{{ notification.url }}"
-                            class="block text-sm
-                                {% if notification.unread %}
-                                    font-semibold text-gray-900
-                                {% else %}
-                                    font-medium text-gray-800
-                                {% endif %}">
+                        <a href="{{ notification.url }}" class="block text-sm font-medium text-gray-800">
                             {{ notification.verb }}
                         </a>
 
@@ -145,7 +138,6 @@
                                 type="button"
                                 hx-post="{% widget_url widget.mark_as_read id=notification.id %}"
                                 hx-swap="none"
-                                hx-disabled-elt="this"
                                 class="whitespace-nowrap rounded text-xs font-medium text-indigo-600 hover:text-indigo-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
                                 Mark as read
                             </button>

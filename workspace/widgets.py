@@ -1,7 +1,9 @@
 from django.shortcuts import get_object_or_404
+from djangospice.htmx.shortcuts import response
 from djangospice.widget import Widget
 from djangospice.widget.decorators import widget
 from djangospice.exec.decorators import get, post
+from djangospice.notification.notify import notification_read, notification_read_all
 from djangospice.utils import get_template_name
 from djangospice.apps.access import AppAccess
 from .services import WorkspaceContextService
@@ -41,7 +43,6 @@ class NotificationWidget(Widget):
     template_name = get_template_name("widgets/notification.html", namespace)
     login_required = True
     limit = 10
-  
 
     def get_context(self):
         context = super().get_context()
@@ -59,10 +60,12 @@ class NotificationWidget(Widget):
     @post
     def mark_all_as_read(self):
         unread_notifications = self.user.notifications.unread()
-        for notification in unread_notifications:
-            notification.mark_as_read()
-        return self.refresh_widget()
-
+        if unread_notifications:
+            for notification in unread_notifications:
+                notification.mark_as_read()
+            notification_read_all(self.user)
+        return response()
+        
     @post
     def mark_as_read(self):
         notification = get_object_or_404(
@@ -72,7 +75,8 @@ class NotificationWidget(Widget):
 
         if notification.unread:
             notification.mark_as_read()
-        return self.refresh_widget()
+            notification_read(notification)
+        return response()
 
       
 @widget
