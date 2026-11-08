@@ -109,7 +109,7 @@
                             <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
                                 {% for action in notification.active_actions %}
                                     {% if action.method == "post" %}
-                                        <a hx-post="{{action.url}}" class="btn btn-sm btn-{{action.style}}">
+                                        <a hx-post="{{action.url}}" hx-target="#{{action.key}}" id="{{action.key}}" class="btn btn-sm btn-{{action.style}}">
                                             {% if action.icon %}
                                                 {{ action.icon }}
                                             {% endif %}
@@ -117,7 +117,7 @@
                                             {{ action.label }}
                                         </a>
                                     {% else %}
-                                        <a href="{{action.url}}" class="btn btn-sm btn-{{action.style}}">
+                                        <a href="{{action.url}}" id="{{action.key}}" class="btn btn-sm btn-{{action.style}}">
                                             {% if action.icon %}
                                                 {{ action.icon }}
                                             {% endif %}

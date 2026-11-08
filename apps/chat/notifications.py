@@ -1,4 +1,4 @@
-from djangospice.exec.decorators import executable, get
+from djangospice.exec.decorators import executable, post
 from djangospice.notification.base import Notification
 from djangospice.notification.messages import DatabaseMessage
 from djangospice.htmx.shortcuts import response
@@ -14,10 +14,10 @@ class FriendRequest(Notification):
             body="You have receieved a new friend request",     
         )
 
-    @get
+    @post
     def confirm(self):
         return response("Confirmed")
 
-    @get
+    @post
     def reject(self):
         return response("Rejected")
