@@ -16,8 +16,10 @@ class FriendRequest(Notification):
 
     @post
     def confirm(self):
+        self.action_completed()
         return response("Confirmed")
 
     @post
     def reject(self):
+        self.action_completed()
         return response("Rejected")
