@@ -87,7 +87,6 @@ class AppLauncherWidget(Widget):
     partial_template = get_template_name("partials/app_grid.html", namespace)
     login_required = True
 
-    
     def get_apps(self):
         app_access = AppAccess(self.user)
         return app_access.all()
