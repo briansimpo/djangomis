@@ -7,9 +7,6 @@ app_name = namespace
 
 
 urlpatterns = [
-    path(
-        "",
-        views.home,
-        name="home",
-    ),
+    path("", views.HomeView.as_view(), name="home"),
+    path("unit/create", views.CreateOrgUnitiew.as_view(), name="create_unit"),
 ]

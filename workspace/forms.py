@@ -1,6 +1,6 @@
 from django import forms
 
-from djangospice.lookup.widget import LookupWidget
+from djangospice.forms.fields import LookupChoiceField
 from djangospice.forms.mixins import FormRequestMixin
 from apps.organization.models import OrgUnit
 from apps.calendar.models import CalendarPeriod
@@ -8,27 +8,17 @@ from .services import WorkspaceContextService
 
 
 class WorkspaceContextForm(FormRequestMixin, forms.Form):
-    org_unit = forms.ModelChoiceField(
+    org_unit = LookupChoiceField(
         label="Organisation Unit",
-        queryset=OrgUnit.objects.none(),
-        required=True,
-        widget=LookupWidget(
-            model=OrgUnit,
-            placeholder="Select organisation unit...",
-            search_placeholder="Search organisation units...",
-        ),
+        queryset=OrgUnit.objects.all(),
+        required=True
     )
 
-    calendar_period = forms.ModelChoiceField(
+    calendar_period = LookupChoiceField(
         label="Calendar Period",
-        queryset=CalendarPeriod.objects.none(),
-        required=True,
-        widget=LookupWidget(
-            model=CalendarPeriod,
-            depends_on="org_unit",
-            placeholder="Select calendar period...",
-            search_placeholder="Search calendar periods...",
-        ),
+        queryset=CalendarPeriod.objects.all(),
+        depends_on="org_unit",
+        required=True
     )
 
     def __init__(self, *args, **kwargs):

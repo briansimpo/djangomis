@@ -1,15 +1,12 @@
-import django_filters
-from djangospice.filters.base import BaseFilter
-from djangospice.lookup import LookupWidget
+from djangospice.filters import BaseFilter, LookupChoiceFilter
 from .models import OrgUnit
 
 
 class OrgUnitFilter(BaseFilter):
-    parent = django_filters.ModelChoiceFilter(
+    parent = LookupChoiceFilter(
         queryset=OrgUnit.objects.all(), 
         field_name="parent", 
         label="Parent", 
-        widget=LookupWidget(model=OrgUnit, placeholder="Search parent"),
     )
     
     class Meta:
