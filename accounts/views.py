@@ -4,7 +4,7 @@ from allauth.account.views import LoginView as AllauthLoginView
 from allauth.account.views import LogoutView as AllauthLogoutView
 from allauth.account.views import PasswordResetView as AllauthPasswordResetView
 from allauth.account.views import ReauthenticateView as AllauthReauthenticateView
-from djangospice.utils import get_template_name
+from djangospice.utils import get_template_name, safe_reverse
 from .forms import LoginForm, SignupForm, ResetPasswordForm, ReauthenticateForm
 from .adapters import UserAccountAdapter
 
@@ -58,5 +58,14 @@ reauthenticate = ReauthenticateView.as_view()
 class LogoutView(AllauthLogoutView):
     template_name = get_template_name("account/logout.html")
 
-      
+
 logout = LogoutView.as_view()
+
+
+class IndexView(RedirectView):
+
+    def get_redirect_url(self, *args, **kwargs):
+        return safe_reverse("account_login")
+
+
+index = IndexView.as_view()
