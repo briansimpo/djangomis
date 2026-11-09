@@ -1,10 +1,19 @@
-from djangospice.forms import DynamicModelForm, LookupMultipleChoiceField
+from djangospice.forms import DynamicModelForm
+from djangospice.forms.inline import Inline
 
 from apps.organization.models.orgunits import OrgUnit, OrgUnitType
 
-class OrgUnitForm(DynamicModelForm):
-    type = LookupMultipleChoiceField(queryset=OrgUnitType.objects.all())
 
+class OrgUnitForm(DynamicModelForm):
     class Meta:
         model = OrgUnit
-        fields = ["code", "name", "type", "parent", "level"]
+        fields = ["code", "name", "type",  "parent"]
+
+
+class OrgUnitTypeForm(DynamicModelForm):
+    class Meta:
+        model = OrgUnitType
+        fields = ["code", "name"]
+        inlines = [
+            Inline(relation="org_unit", form=OrgUnitForm)
+        ]
