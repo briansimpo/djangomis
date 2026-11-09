@@ -157,8 +157,15 @@ var Djangospice = (() => {
         if (!parent) return;
         this.wrapper = createElement("div", "djangospice-lookup");
         this.wrapper.dataset.djangospiceLookupWrapper = "";
+        this.control = createElement(
+          "div",
+          "djangospice-lookup__control"
+        );
         if (this.select.multiple) {
-          this.selection = createElement("div", "djangospice-lookup__selection");
+          this.selection = createElement(
+            "div",
+            "djangospice-lookup__selection"
+          );
         } else {
           this.selection = null;
         }
@@ -189,14 +196,15 @@ var Djangospice = (() => {
           "aria-live": "polite"
         });
         this.status.hidden = true;
-        parent.insertBefore(this.wrapper, this.select);
         if (this.selection) {
-          this.wrapper.appendChild(this.selection);
+          this.control.appendChild(this.selection);
         }
-        this.wrapper.appendChild(this.search);
+        this.control.appendChild(this.search);
         if (this.clearButton) {
-          this.wrapper.appendChild(this.clearButton);
+          this.control.appendChild(this.clearButton);
         }
+        parent.insertBefore(this.wrapper, this.select);
+        this.wrapper.appendChild(this.control);
         this.wrapper.appendChild(this.listbox);
         this.wrapper.appendChild(this.status);
         this.wrapper.appendChild(this.select);
@@ -282,6 +290,12 @@ var Djangospice = (() => {
         }
         this.select.addEventListener("change", () => {
           this.syncFromSelect();
+        });
+        this.control.addEventListener("click", (event) => {
+          if (event.target.closest("[data-lookup-remove]")) {
+            return;
+          }
+          this.search.focus();
         });
         if (this.clearButton) {
           this.clearButton.addEventListener("click", () => {
@@ -812,7 +826,7 @@ var Djangospice = (() => {
     });
   })(window, document);
 
-  // ../djangospice/src/djangospice/table_widget/static/table_widget/js/index.js
+  // ../djangospice/src/djangospice/table/static/table/js/index.js
   var TableContextMenu = class {
     constructor(menu) {
       this.menu = menu;
