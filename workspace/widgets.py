@@ -22,8 +22,8 @@ class OrgContextWidget(Widget):
         return context
 
     def post(self):
-        org_unit = self.request_value("org_unit")
-        calendar_period = self.request_value("calendar_period")
+        org_unit = self.get_value("org_unit")
+        calendar_period = self.get_value("calendar_period")
 
         try:
             WorkspaceContextService.resolve_user_selection(

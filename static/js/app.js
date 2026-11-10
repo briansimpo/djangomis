@@ -1,5 +1,5 @@
 
-import "@/css/main.css";
+import "@/css/theme.css";
 import "@/css/app.css";
 
 import {

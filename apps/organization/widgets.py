@@ -10,5 +10,4 @@ class OrgUnitTableWidget(TableWidget):
     model = OrgUnit
     table_class = OrgUnitTable
     filterset_class = OrgUnitFilter
-    alphabet_field = "name"
-    selectable = True
+  

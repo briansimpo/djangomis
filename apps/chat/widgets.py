@@ -121,7 +121,7 @@ class ChatWidget(Widget):
         self.save_conversation()
 
     def send_message(self) -> None:
-        message = self.request_value(self.message_parameter)
+        message = self.get_value(self.message_parameter)
 
         if not isinstance(message, str):
             return

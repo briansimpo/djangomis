@@ -1,0 +1,973 @@
+
+
+    <!-- Main Container Card -->
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col overflow-hidden">
+        
+        <!-- Header Section -->
+        <div class="p-5 border-b border-slate-200 bg-white">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h1 class="text-xl font-bold text-slate-900 tracking-tight">Team Members</h1>
+                    <p class="text-sm text-slate-500 mt-1">Manage user access, roles, and account statuses across your workspace.</p>
+                </div>
+                
+                <!-- Right Side Top Actions -->
+                <div class="flex items-center gap-2">
+                    <button class="btn btn-primary">
+                        Export CSV
+                    </button>
+                    <button class="btn btn-primary">
+                        Add Member
+                    </button>
+                </div>
+            </div>
+
+            <!-- Global Search & Filters Toolbar -->
+            <div class="mt-5 flex flex-col sm:flex-row sm:items-center  gap-2 pt-4 border-t border-slate-100 relative">
+                <!-- Search Input -->
+                <div class="relative flex-1 min-w-[240px] max-w-md">
+                   
+                    <input type="text" id="searchInput" placeholder="Search by name or email..." class="w-full pl-9 pr-8 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all bg-slate-50/50 focus:bg-white">
+                    <button id="clearSearchBtn" class="hidden absolute inset-y-0 right-0 pr-2.5 flex items-center text-slate-400 hover:text-slate-600">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+
+                <!-- Filter Button & Active Filter Chips Controls -->
+                <div class="flex items-center gap-2 relative">
+                    <!-- Advanced Filter Trigger Button -->
+                    <button id="filterToggleBtn" onclick="toggleFilterPopover(event)" class="inline-flex items-center gap-2 px-3 py-2 text-sm font-semibold text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20">
+                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                        <span>Filters</span>
+                        <span id="activeFilterBadge" class="hidden inline-flex items-center justify-center bg-brand-600 text-white text-[10px] font-bold rounded-full h-4 w-4">0</span>
+                    </button>
+
+                    <!-- Reset Filters Button -->
+                    <button id="resetFiltersBtn" class="hidden inline-flex items-center gap-1 px-3 py-2 text-sm font-semibold text-rose-600 bg-rose-50 border border-rose-200 rounded-lg hover:bg-rose-100 transition-colors">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                        Reset All
+                    </button>
+
+                    <!-- Advanced Filters Popover Panel -->
+                    <div id="filterPopover" class="hidden absolute right-0 top-12 z-40 w-80 bg-white rounded-xl shadow-xl border border-slate-200 p-4 text-sm animate-in fade-in zoom-in-95 duration-150">
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
+                            <h3 class="font-bold text-slate-900 text-sm tracking-wide">Filter Records</h3>
+                            <button onclick="toggleFilterPopover()" class="text-slate-400 hover:text-slate-600">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                            </button>
+                        </div>
+
+                        <div class="space-y-3.5">
+                            <!-- Status Filter Option -->
+                            <div>
+                                <label class="block text-[11px] font-semibold text-slate-600 mb-1">Status</label>
+                                <select id="statusFilter" class="w-full px-3 py-1.5 text-sm border border-slate-300 rounded-lg bg-white text-slate-700 font-medium focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+                                    <option value="">All Statuses</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+                            </div>
+
+                            <!-- Role Filter Option -->
+                            <div>
+                                <label class="block text-[11px] font-semibold text-slate-600 mb-1">Role</label>
+                                <select id="roleFilter" class="w-full px-3 py-1.5 text-sm border border-slate-300 rounded-lg bg-white text-slate-700 font-medium focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+                                    <option value="">All Roles</option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Manager">Manager</option>
+                                    <option value="Editor">Editor</option>
+                                    <option value="Viewer">Viewer</option>
+                                </select>
+                            </div>
+
+                            <!-- Department Filter Option -->
+                            <div>
+                                <label class="block text-[11px] font-semibold text-slate-600 mb-1">Department</label>
+                                <select id="deptFilter" class="w-full px-3 py-1.5 text-sm border border-slate-300 rounded-lg bg-white text-slate-700 font-medium focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+                                    <option value="">All Departments</option>
+                                    <option value="Engineering">Engineering</option>
+                                    <option value="Design">Design</option>
+                                    <option value="Product">Product</option>
+                                    <option value="Marketing">Marketing</option>
+                                    <option value="Sales">Sales</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                            <button onclick="resetAllFilters()" class="text-slate-500 hover:text-slate-800 font-medium underline">Clear Filters</button>
+                            <button onclick="applyFiltersAndClose()" class="btn btn-sm btn-primary">Apply Filters</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Bulk Actions Toolbar -->
+        <div id="bulkActionsBar" class="hidden bg-brand-50/80 border-b border-brand-200 px-5 py-2.5 flex items-center justify-between transition-all">
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center justify-center bg-brand-600 text-white font-bold text-sm rounded-full h-8 w-8" id="selectedCountBadge">0</span>
+                <span class="text-sm font-medium text-brand-900">items selected</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="handleBulkAction('Active')" class="px-2.5 py-1 text-sm font-semibold bg-white border border-slate-300 text-slate-700 rounded hover:bg-slate-50 transition">Set Active</button>
+                <button onclick="handleBulkAction('Inactive')" class="px-2.5 py-1 text-sm font-semibold bg-white border border-slate-300 text-slate-700 rounded hover:bg-slate-50 transition">Set Inactive</button>
+                <button onclick="handleBulkAction('Export')" class="px-2.5 py-1 text-sm font-semibold bg-white border border-slate-300 text-slate-700 rounded hover:bg-slate-50 transition">Export Selected</button>
+                <button onclick="handleBulkAction('Delete')" class="px-2.5 py-1 text-sm font-semibold bg-rose-600 text-white rounded hover:bg-rose-700 transition">Delete Selected</button>
+            </div>
+        </div>
+
+        <!-- Alphabet Jump Index Navigation Bar -->
+        <div class="bg-slate-100/70 border-b border-slate-200 p-4 flex items-center gap-1 overflow-x-auto text-sm font-medium text-slate-500 select-none scrollbar-none" id="alphabetBar">
+            <span class="text-sm uppercase font-bold text-slate-400 mr-1 tracking-wider">Jump:</span>
+            <!-- Dynamically populated letters -->
+        </div>
+
+        <!-- Data Table Container -->
+        <div class="overflow-x-auto relative min-h-[350px]">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-slate-50/80 text-slate-500 font-semibold text-[11px] uppercase tracking-wider border-b border-slate-200">
+                        <th class="py-3 px-4 w-10 text-center">
+                            <input type="checkbox" id="selectAllCheckbox" class="rounded border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer">
+                        </th>
+                        <th class="py-3 px-4 cursor-pointer hover:text-slate-800 transition select-none" onclick="handleSort('name')">
+                            <div class="flex items-center gap-1">
+                                User Details
+                                <span id="sort-name" class="text-slate-400 text-sm">↕</span>
+                            </div>
+                        </th>
+                        <th class="py-3 px-4 cursor-pointer hover:text-slate-800 transition select-none" onclick="handleSort('role')">
+                            <div class="flex items-center gap-1">
+                                Role
+                                <span id="sort-role" class="text-slate-400 text-sm">↕</span>
+                            </div>
+                        </th>
+                        <th class="py-3 px-4 cursor-pointer hover:text-slate-800 transition select-none" onclick="handleSort('department')">
+                            <div class="flex items-center gap-1">
+                                Department
+                                <span id="sort-department" class="text-slate-400 text-sm">↕</span>
+                            </div>
+                        </th>
+                        <th class="py-3 px-4 cursor-pointer hover:text-slate-800 transition select-none" onclick="handleSort('status')">
+                            <div class="flex items-center gap-1">
+                                Status
+                                <span id="sort-status" class="text-slate-400 text-sm">↕</span>
+                            </div>
+                        </th>
+                        <th class="py-3 px-4 cursor-pointer hover:text-slate-800 transition select-none" onclick="handleSort('lastActive')">
+                            <div class="flex items-center gap-1">
+                                Last Active
+                                <span id="sort-lastActive" class="text-slate-400 text-sm">↕</span>
+                            </div>
+                        </th>
+                        <th class="py-3 px-4 text-center w-24 uppercase font-semibold text-slate-500">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody" class="divide-y divide-slate-100 text-sm font-normal text-slate-700 bg-white">
+                    <!-- Dynamic Table Rows rendered by JS -->
+                </tbody>
+            </table>
+
+            <!-- Empty State Display -->
+            <div id="emptyState" class="hidden py-16 text-center">
+                <svg class="mx-auto h-12 w-12 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg>
+                <h3 class="mt-2 text-sm font-semibold text-slate-800">No records found</h3>
+                <p class="mt-1 text-sm text-slate-500">Try adjusting your filters or search terms.</p>
+                <button onclick="resetAllFilters()" class="mt-4 px-3 py-1.5 text-sm font-semibold text-brand-600 bg-brand-50 hover:bg-brand-100 rounded-lg transition">Clear All Filters</button>
+            </div>
+        </div>
+
+        <!-- Pagination & Footer Controls -->
+        <div class="p-4 border-t border-slate-200 bg-white flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-600">
+            <!-- Results Counter -->
+            <div id="paginationInfo" class="font-medium">
+                Showing <span id="pageStart">0</span> to <span id="pageEnd">0</span> of <span id="totalRecords">0</span> records
+            </div>
+
+            <div class="flex items-center gap-4">
+                <!-- Rows Per Page Selector -->
+                <div class="flex items-center gap-2">
+                    <span class="text-slate-500">Rows:</span>
+                    <select id="pageSizeSelect" class="px-2 py-1 border border-slate-300 rounded bg-white text-slate-700 font-medium focus:outline-none focus:border-brand-500 cursor-pointer">
+                        <option value="5">5</option>
+                        <option value="10" selected>10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+
+                <!-- Page Navigation Buttons -->
+                <div class="flex items-center gap-1">
+                    <button id="btnFirst" onclick="goToPage(1)" class="p-1.5 border border-slate-300 rounded hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition" title="First Page">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/></svg>
+                    </button>
+                    <button id="btnPrev" onclick="changePage(-1)" class="p-1.5 border border-slate-300 rounded hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition" title="Previous Page">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                    </button>
+
+                    <!-- Page Number Badges -->
+                    <div id="pageNumbers" class="flex items-center gap-1 px-1"></div>
+
+                    <button id="btnNext" onclick="changePage(1)" class="p-1.5 border border-slate-300 rounded hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition" title="Next Page">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </button>
+                    <button id="btnLast" onclick="goToPage(-1)" class="p-1.5 border border-slate-300 rounded hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition" title="Last Page">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Workspace Style Right-Click Context Menu -->
+    <div id="googleContextMenu" class="hidden fixed z-50 w-56 bg-white rounded-lg shadow-xl border border-slate-200/80 py-1.5 text-sm text-slate-700 animate-in fade-in zoom-in-95 duration-100 select-none">
+        <div class="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 mb-1" id="contextUserHeader">User Actions</div>
+        
+        <button onclick="executeRowAction('view')" class="w-full text-left px-3 py-1.5 hover:bg-slate-100 flex items-center justify-between text-slate-700">
+            <span class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                Preview details
+            </span>
+            <span class="text-[10px] text-slate-400 font-mono">⌘O</span>
+        </button>
+
+        <button onclick="executeRowAction('edit')" class="w-full text-left px-3 py-1.5 hover:bg-slate-100 flex items-center justify-between text-slate-700">
+            <span class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                Edit member
+            </span>
+            <span class="text-[10px] text-slate-400 font-mono">⌘E</span>
+        </button>
+
+        <button onclick="executeRowAction('copyEmail')" class="w-full text-left px-3 py-1.5 hover:bg-slate-100 flex items-center justify-between text-slate-700">
+            <span class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                Copy email address
+            </span>
+            <span class="text-[10px] text-slate-400 font-mono">⌘C</span>
+        </button>
+
+        <div class="my-1 border-t border-slate-100"></div>
+
+        <button onclick="executeRowAction('toggleStatus')" class="w-full text-left px-3 py-1.5 hover:bg-slate-100 flex items-center gap-2.5 text-slate-700">
+            <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            Change account status
+        </button>
+
+        <button onclick="executeRowAction('duplicate')" class="w-full text-left px-3 py-1.5 hover:bg-slate-100 flex items-center gap-2.5 text-slate-700">
+            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            Make a copy
+        </button>
+
+        <button onclick="executeRowAction('downloadPDF')" class="w-full text-left px-3 py-1.5 hover:bg-slate-100 flex items-center gap-2.5 text-slate-700">
+            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            Download summary PDF
+        </button>
+
+        <div class="my-1 border-t border-slate-100"></div>
+
+        <button onclick="executeRowAction('delete')" class="w-full text-left px-3 py-1.5 hover:bg-rose-50 flex items-center justify-between text-rose-600 font-medium">
+            <span class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                Remove member
+            </span>
+            <span class="text-[10px] text-rose-400 font-mono">⌫</span>
+        </button>
+    </div>
+
+    <!-- Floating Actions Column Dropdown Menu -->
+    <div id="actionsDropdownMenu" class="hidden fixed z-50 w-44 bg-white rounded-lg shadow-lg border border-slate-200 py-1 text-sm text-slate-700 animate-in fade-in zoom-in-95 duration-100">
+        <button onclick="executeRowAction('view')" class="w-full text-left px-3 py-2 hover:bg-slate-50 flex items-center gap-2">
+            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg> Quick View
+        </button>
+        <button onclick="executeRowAction('edit')" class="w-full text-left px-3 py-2 hover:bg-slate-50 flex items-center gap-2">
+            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg> Edit Member
+        </button>
+        <button onclick="executeRowAction('duplicate')" class="w-full text-left px-3 py-2 hover:bg-slate-50 flex items-center gap-2">
+            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Duplicate Record
+        </button>
+        <div class="my-1 border-t border-slate-100"></div>
+        <button onclick="executeRowAction('delete')" class="w-full text-left px-3 py-2 hover:bg-rose-50 flex items-center gap-2 text-rose-600 font-medium">
+            <svg class="w-3.5 h-3.5 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg> Delete User
+        </button>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- 1. Mock Datasets ---
+        const initialUsers = [
+            { id: 1, name: "Alexander Wright", email: "alex.wright@company.io", role: "Admin", department: "Engineering", status: "Active", lastActive: "2 mins ago", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" },
+            { id: 2, name: "Beatrix Vance", email: "beatrix.v@company.io", role: "Manager", department: "Product", status: "Active", lastActive: "1 hour ago", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" },
+            { id: 3, name: "Charles Montgomery", email: "charles.m@company.io", role: "Editor", department: "Marketing", status: "Pending", lastActive: "Yesterday", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" },
+            { id: 4, name: "Diana Prince", email: "diana.p@company.io", role: "Viewer", department: "Design", status: "Inactive", lastActive: "3 days ago", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&auto=format&fit=crop&q=80" },
+            { id: 5, name: "Ethan Hunt", email: "ethan.h@company.io", role: "Admin", department: "Engineering", status: "Active", lastActive: "Just now", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80" },
+            { id: 6, name: "Fiona Gallagher", email: "fiona.g@company.io", role: "Editor", department: "Sales", status: "Active", lastActive: "4 hours ago", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80" },
+            { id: 7, name: "George Clark", email: "george.c@company.io", role: "Viewer", department: "Engineering", status: "Pending", lastActive: "5 mins ago", avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&auto=format&fit=crop&q=80" },
+            { id: 8, name: "Hannah Abbott", email: "hannah.a@company.io", role: "Manager", department: "Marketing", status: "Active", lastActive: "12 mins ago", avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80" },
+            { id: 9, name: "Ian Malcolm", email: "ian.m@company.io", role: "Editor", department: "Product", status: "Inactive", lastActive: "2 weeks ago", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80" },
+            { id: 10, name: "Julia Roberts", email: "julia.r@company.io", role: "Viewer", department: "Sales", status: "Active", lastActive: "3 hours ago", avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&auto=format&fit=crop&q=80" },
+            { id: 11, name: "Kevin Bacon", email: "kevin.b@company.io", role: "Manager", department: "Engineering", status: "Active", lastActive: "Just now", avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&auto=format&fit=crop&q=80" },
+            { id: 12, name: "Laura Croft", email: "laura.c@company.io", role: "Admin", department: "Design", status: "Pending", lastActive: "6 hours ago", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" },
+            { id: 13, name: "Michael Scott", email: "michael.s@company.io", role: "Manager", department: "Sales", status: "Active", lastActive: "1 min ago", avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&auto=format&fit=crop&q=80" },
+            { id: 14, name: "Nina Williams", email: "nina.w@company.io", role: "Editor", department: "Marketing", status: "Active", lastActive: "Yesterday", avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80" },
+            { id: 15, name: "Oscar Martinez", email: "oscar.m@company.io", role: "Viewer", department: "Engineering", status: "Inactive", lastActive: "1 month ago", avatar: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=100&auto=format&fit=crop&q=80" },
+            { id: 16, name: "Penelope Cruz", email: "penelope.c@company.io", role: "Admin", department: "Product", status: "Active", lastActive: "5 mins ago", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80" },
+            { id: 17, name: "Quinn Fabray", email: "quinn.f@company.io", role: "Editor", department: "Design", status: "Pending", lastActive: "4 days ago", avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&auto=format&fit=crop&q=80" },
+            { id: 18, name: "Rachel Green", email: "rachel.g@company.io", role: "Viewer", department: "Marketing", status: "Active", lastActive: "30 mins ago", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" },
+            { id: 19, name: "Steve Rogers", email: "steve.r@company.io", role: "Manager", department: "Engineering", status: "Active", lastActive: "Just now", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" },
+            { id: 20, name: "Tony Stark", email: "tony.s@company.io", role: "Admin", department: "Engineering", status: "Active", lastActive: "10 mins ago", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80" },
+            { id: 21, name: "Ursula Buffay", email: "ursula.b@company.io", role: "Viewer", department: "Sales", status: "Inactive", lastActive: "5 months ago", avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&auto=format&fit=crop&q=80" },
+            { id: 22, name: "Victor Stone", email: "victor.s@company.io", role: "Editor", department: "Product", status: "Active", lastActive: "2 hours ago", avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&auto=format&fit=crop&q=80" },
+            { id: 23, name: "Wanda Maximoff", email: "wanda.m@company.io", role: "Manager", department: "Design", status: "Active", lastActive: "15 mins ago", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" },
+            { id: 24, name: "Xavier Charles", email: "xavier.c@company.io", role: "Admin", department: "Engineering", status: "Active", lastActive: "1 min ago", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80" },
+            { id: 25, name: "Yennefer Vengerberg", email: "yennefer.v@company.io", role: "Manager", department: "Marketing", status: "Pending", lastActive: "3 hours ago", avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80" },
+            { id: 26, name: "Zack Martin", email: "zack.m@company.io", role: "Viewer", department: "Sales", status: "Active", lastActive: "6 mins ago", avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&auto=format&fit=crop&q=80" }
+        ];
+
+        // --- 2. State Management ---
+        let usersData = [...initialUsers];
+        let selectedRowIds = new Set();
+        let activeRowId = null; // for context/actions menu
+        let rightClickedRowId = null; // tracks row for context menu highlight
+        
+        let state = {
+            search: '',
+            status: '',
+            role: '',
+            department: '',
+            letter: 'ALL',
+            sortColumn: 'name',
+            sortDirection: 'asc',
+            currentPage: 1,
+            pageSize: 10
+        };
+
+        // --- 3. DOM Elements ---
+        const tableBody = document.getElementById('tableBody');
+        const emptyState = document.getElementById('emptyState');
+        const searchInput = document.getElementById('searchInput');
+        const clearSearchBtn = document.getElementById('clearSearchBtn');
+        const statusFilter = document.getElementById('statusFilter');
+        const roleFilter = document.getElementById('roleFilter');
+        const deptFilter = document.getElementById('deptFilter');
+        const resetFiltersBtn = document.getElementById('resetFiltersBtn');
+        const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+        const bulkActionsBar = document.getElementById('bulkActionsBar');
+        const selectedCountBadge = document.getElementById('selectedCountBadge');
+        const alphabetBar = document.getElementById('alphabetBar');
+        const pageSizeSelect = document.getElementById('pageSizeSelect');
+        const googleContextMenu = document.getElementById('googleContextMenu');
+        const actionsDropdownMenu = document.getElementById('actionsDropdownMenu');
+        const contextUserHeader = document.getElementById('contextUserHeader');
+        const filterPopover = document.getElementById('filterPopover');
+        const activeFilterBadge = document.getElementById('activeFilterBadge');
+
+        // --- 4. Initialization ---
+        window.addEventListener('DOMContentLoaded', () => {
+            renderAlphabetBar();
+            setupEventListeners();
+            renderTable();
+        });
+
+        // --- 5. Event Listeners ---
+        function setupEventListeners() {
+            // Search Input
+            searchInput.addEventListener('input', (e) => {
+                state.search = e.target.value.trim().toLowerCase();
+                state.currentPage = 1;
+                clearSearchBtn.classList.toggle('hidden', state.search === '');
+                checkResetVisibility();
+                renderTable();
+            });
+
+            clearSearchBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                state.search = '';
+                clearSearchBtn.classList.add('hidden');
+                checkResetVisibility();
+                renderTable();
+            });
+
+            // Filter Change Listeners
+            statusFilter.addEventListener('change', (e) => {
+                state.status = e.target.value;
+                state.currentPage = 1;
+                checkResetVisibility();
+                renderTable();
+            });
+
+            roleFilter.addEventListener('change', (e) => {
+                state.role = e.target.value;
+                state.currentPage = 1;
+                checkResetVisibility();
+                renderTable();
+            });
+
+            deptFilter.addEventListener('change', (e) => {
+                state.department = e.target.value;
+                state.currentPage = 1;
+                checkResetVisibility();
+                renderTable();
+            });
+
+            resetFiltersBtn.addEventListener('click', resetAllFilters);
+
+            // Select All Checkbox
+            selectAllCheckbox.addEventListener('change', (e) => {
+                const visibleRecords = getFilteredAndSortedData();
+                if (e.target.checked) {
+                    visibleRecords.forEach(u => selectedRowIds.add(u.id));
+                } else {
+                    visibleRecords.forEach(u => selectedRowIds.delete(u.id));
+                }
+                updateBulkActionsBar();
+                renderTableRowsOnly();
+            });
+
+            // Page Size Select
+            pageSizeSelect.addEventListener('change', (e) => {
+                state.pageSize = parseInt(e.target.value, 10);
+                state.currentPage = 1;
+                renderTable();
+            });
+
+            // Close context, action menus, and filter popover on outside click or Escape key
+            document.addEventListener('click', (e) => {
+                if (!googleContextMenu.contains(e.target) && !actionsDropdownMenu.contains(e.target) && !e.target.closest('.action-dropdown-btn')) {
+                    hideAllMenus();
+                }
+                if (!filterPopover.contains(e.target) && !e.target.closest('#filterToggleBtn')) {
+                    filterPopover.classList.add('hidden');
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    hideAllMenus();
+                    filterPopover.classList.add('hidden');
+                }
+            });
+
+            // Close menus on scroll
+            window.addEventListener('scroll', hideAllMenus, true);
+        }
+
+        // --- Filter Popover Controls ---
+        function toggleFilterPopover(event) {
+            if (event) event.stopPropagation();
+            hideAllMenus();
+            filterPopover.classList.toggle('hidden');
+        }
+
+        function applyFiltersAndClose() {
+            filterPopover.classList.add('hidden');
+            renderTable();
+            showToast('Filters applied successfully', 'info');
+        }
+
+        // --- 6. Alphabet Jump Index Bar Generation ---
+        function renderAlphabetBar() {
+            const letters = ['ALL', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')];
+            alphabetBar.innerHTML = `<span class="text-[10px] uppercase font-bold text-slate-400 mr-1 tracking-wider">Jump:</span>`;
+            
+            letters.forEach(letter => {
+                const btn = document.createElement('button');
+                btn.className = `px-2 py-0.5 rounded text-sm font-semibold transition ${
+                    state.letter === letter 
+                    ? 'bg-brand-600 text-white shadow-sm' 
+                    : 'text-slate-600 hover:bg-slate-200 hover:text-slate-900'
+                }`;
+                btn.textContent = letter;
+                btn.onclick = () => {
+                    state.letter = letter;
+                    state.currentPage = 1;
+                    renderAlphabetBar();
+                    checkResetVisibility();
+                    renderTable();
+                };
+                alphabetBar.appendChild(btn);
+            });
+        }
+
+        // --- 7. Data Filtering & Sorting Core Engine ---
+        function getFilteredAndSortedData() {
+            return usersData.filter(user => {
+                // Search filter
+                const matchesSearch = state.search === '' || 
+                    user.name.toLowerCase().includes(state.search) || 
+                    user.email.toLowerCase().includes(state.search);
+
+                // Dropdown filters
+                const matchesStatus = state.status === '' || user.status === state.status;
+                const matchesRole = state.role === '' || user.role === state.role;
+                const matchesDept = state.department === '' || user.department === state.department;
+
+                // Alphabet Filter (by First Name)
+                const matchesLetter = state.letter === 'ALL' || user.name.toUpperCase().startsWith(state.letter);
+
+                return matchesSearch && matchesStatus && matchesRole && matchesDept && matchesLetter;
+            }).sort((a, b) => {
+                let valA = a[state.sortColumn];
+                let valB = b[state.sortColumn];
+
+                if (typeof valA === 'string') valA = valA.toLowerCase();
+                if (typeof valB === 'string') valB = valB.toLowerCase();
+
+                if (valA < valB) return state.sortDirection === 'asc' ? -1 : 1;
+                if (valA > valB) return state.sortDirection === 'asc' ? 1 : -1;
+                return 0;
+            });
+        }
+
+        // --- 8. Table Rendering Engine ---
+        function renderTable() {
+            const processedData = getFilteredAndSortedData();
+            const totalRecords = processedData.length;
+            const totalPages = Math.ceil(totalRecords / state.pageSize) || 1;
+
+            // Page validation boundary
+            if (state.currentPage > totalPages) state.currentPage = totalPages;
+
+            const startIdx = (state.currentPage - 1) * state.pageSize;
+            const endIdx = Math.min(startIdx + state.pageSize, totalRecords);
+            const pageRecords = processedData.slice(startIdx, endIdx);
+
+            // Empty state check
+            if (totalRecords === 0) {
+                tableBody.innerHTML = '';
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+                renderRows(pageRecords);
+            }
+
+            // Pagination Controls update
+            updatePaginationInfo(startIdx + 1, endIdx, totalRecords, totalPages);
+            updateSortIndicators();
+            updateSelectAllCheckboxState(pageRecords);
+        }
+
+        function renderRows(records) {
+            tableBody.innerHTML = records.map(user => {
+                const isSelected = selectedRowIds.has(user.id);
+                const isRightClicked = rightClickedRowId === user.id;
+                const statusBadge = getStatusBadgeHTML(user.status);
+                const roleBadge = getRoleBadgeHTML(user.role);
+
+                let bgClass = 'hover:bg-slate-50/80';
+                if (isRightClicked) {
+                    bgClass = 'bg-brand-50 border-brand-200';
+                } else if (isSelected) {
+                    bgClass = 'bg-brand-50/40';
+                }
+
+                return `
+                    <tr class="transition-colors ${bgClass}" id="row-${user.id}" oncontextmenu="handleRowRightClick(event, ${user.id})">
+                        <td class="py-3 px-4 text-center">
+                            <input type="checkbox" 
+                                ${isSelected ? 'checked' : ''} 
+                                onclick="toggleSelectRow(event, ${user.id})"
+                                class="rounded border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer">
+                        </td>
+                        <td class="py-3 px-4">
+                            <div class="flex items-center gap-3">
+                                <img src="${user.avatar}" alt="${user.name}" class="w-9 h-9 rounded-full object-cover border border-slate-200">
+                                <div class="flex flex-col">
+                                    <span class="font-semibold text-slate-900 hover:text-brand-600 transition cursor-pointer" onclick="showToast('Viewing profile: ${user.name}', 'info')">${user.name}</span>
+                                    <span class="text-[11px] text-slate-500">${user.email}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-3 px-4">${roleBadge}</td>
+                        <td class="py-3 px-4 text-slate-600 font-medium">${user.department}</td>
+                        <td class="py-3 px-4">${statusBadge}</td>
+                        <td class="py-3 px-4 text-slate-500 text-[11px]">${user.lastActive}</td>
+                        <td class="py-3 px-4 text-center">
+                            <button onclick="toggleActionsDropdown(event, ${user.id})" class="action-dropdown-btn p-1.5 rounded-md hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition focus:outline-none inline-flex items-center justify-center">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Fast re-render without modifying pagination structure
+        function renderTableRowsOnly() {
+            const processedData = getFilteredAndSortedData();
+            const startIdx = (state.currentPage - 1) * state.pageSize;
+            const endIdx = Math.min(startIdx + state.pageSize, processedData.length);
+            const pageRecords = processedData.slice(startIdx, endIdx);
+            renderRows(pageRecords);
+            updateSelectAllCheckboxState(pageRecords);
+        }
+
+        // --- 9. UI Badge Helpers ---
+        function getStatusBadgeHTML(status) {
+            switch(status) {
+                case 'Active':
+                    return `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Active</span>`;
+                case 'Pending':
+                    return `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-amber-50 text-amber-700 border border-amber-200"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>Pending</span>`;
+                case 'Inactive':
+                    return `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-slate-100 text-slate-600 border border-slate-200"><span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>Inactive</span>`;
+                default:
+                    return status;
+            }
+        }
+
+        function getRoleBadgeHTML(role) {
+            const colors = {
+                'Admin': 'bg-purple-50 text-purple-700 border-purple-200',
+                'Manager': 'bg-blue-50 text-blue-700 border-blue-200',
+                'Editor': 'bg-indigo-50 text-indigo-700 border-indigo-200',
+                'Viewer': 'bg-slate-50 text-slate-600 border-slate-200'
+            };
+            return `<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium border ${colors[role] || 'bg-slate-50 text-slate-600 border-slate-200'}">${role}</span>`;
+        }
+
+        // --- 10. Sorting Logic ---
+        function handleSort(column) {
+            if (state.sortColumn === column) {
+                state.sortDirection = state.sortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                state.sortColumn = column;
+                state.sortDirection = 'asc';
+            }
+            renderTable();
+        }
+
+        function updateSortIndicators() {
+            ['name', 'role', 'department', 'status', 'lastActive'].forEach(col => {
+                const el = document.getElementById(`sort-${col}`);
+                if (!el) return;
+                if (state.sortColumn === col) {
+                    el.textContent = state.sortDirection === 'asc' ? '↑' : '↓';
+                    el.className = 'text-brand-600 font-bold text-sm';
+                } else {
+                    el.textContent = '↕';
+                    el.className = 'text-slate-300 text-sm';
+                }
+            });
+        }
+
+        // --- 11. Selection & Bulk Actions ---
+        function toggleSelectRow(event, id) {
+            event.stopPropagation();
+            if (selectedRowIds.has(id)) {
+                selectedRowIds.delete(id);
+            } else {
+                selectedRowIds.add(id);
+            }
+            updateBulkActionsBar();
+            renderTableRowsOnly();
+        }
+
+        function updateSelectAllCheckboxState(pageRecords) {
+            if (pageRecords.length === 0) {
+                selectAllCheckbox.checked = false;
+                selectAllCheckbox.indeterminate = false;
+                return;
+            }
+
+            const selectedPageCount = pageRecords.filter(u => selectedRowIds.has(u.id)).length;
+            if (selectedPageCount === pageRecords.length) {
+                selectAllCheckbox.checked = true;
+                selectAllCheckbox.indeterminate = false;
+            } else if (selectedPageCount > 0) {
+                selectAllCheckbox.checked = false;
+                selectAllCheckbox.indeterminate = true;
+            } else {
+                selectAllCheckbox.checked = false;
+                selectAllCheckbox.indeterminate = false;
+            }
+        }
+
+        function updateBulkActionsBar() {
+            const count = selectedRowIds.size;
+            selectedCountBadge.textContent = count;
+            if (count > 0) {
+                bulkActionsBar.classList.remove('hidden');
+            } else {
+                bulkActionsBar.classList.add('hidden');
+            }
+        }
+
+        function handleBulkAction(action) {
+            const selectedIdsArr = Array.from(selectedRowIds);
+            if (selectedIdsArr.length === 0) return;
+
+            switch(action) {
+                case 'Active':
+                case 'Inactive':
+                    usersData.forEach(user => {
+                        if (selectedRowIds.has(user.id)) {
+                            user.status = action;
+                        }
+                    });
+                    showToast(`Updated status to ${action} for ${selectedIdsArr.length} member(s)`, 'success');
+                    break;
+                case 'Export':
+                    showToast(`Exported ${selectedIdsArr.length} selected record(s)`, 'info');
+                    break;
+                case 'Delete':
+                    usersData = usersData.filter(user => !selectedRowIds.has(user.id));
+                    selectedRowIds.clear();
+                    showToast(`Deleted ${selectedIdsArr.length} member(s)`, 'danger');
+                    break;
+            }
+
+            updateBulkActionsBar();
+            renderTable();
+        }
+
+        // --- 12. Context Menu & Actions Dropdown Handlers ---
+        function handleRowRightClick(event, id) {
+            event.preventDefault();
+            event.stopPropagation();
+            hideAllMenus();
+
+            const targetUser = usersData.find(u => u.id === id);
+            if (!targetUser) return;
+
+            activeRowId = id;
+            rightClickedRowId = id;
+            renderTableRowsOnly();
+
+            contextUserHeader.textContent = targetUser.name;
+
+            const menuWidth = 224; // 56 * 4 (w-56)
+            const menuHeight = 290;
+            const clickX = event.clientX;
+            const clickY = event.clientY;
+
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+
+            let posX = clickX;
+            let posY = clickY;
+
+            // Horizontal Boundary check (flip left if near right edge)
+            if (clickX + menuWidth > windowWidth - 10) {
+                posX = clickX - menuWidth;
+            }
+
+            // Vertical Boundary check (flip up if near bottom edge)
+            if (clickY + menuHeight > windowHeight - 10) {
+                posY = clickY - menuHeight;
+            }
+
+            googleContextMenu.style.left = `${posX}px`;
+            googleContextMenu.style.top = `${posY}px`;
+            googleContextMenu.classList.remove('hidden');
+        }
+
+        function toggleActionsDropdown(event, id) {
+            event.stopPropagation();
+            hideAllMenus();
+
+            activeRowId = id;
+
+            const btnRect = event.currentTarget.getBoundingClientRect();
+            
+            actionsDropdownMenu.style.top = `${btnRect.bottom + window.scrollY + 4}px`;
+            actionsDropdownMenu.style.left = `${btnRect.left + window.scrollX - 140}px`;
+            
+            actionsDropdownMenu.classList.remove('hidden');
+        }
+
+        function hideAllMenus() {
+            googleContextMenu.classList.add('hidden');
+            actionsDropdownMenu.classList.add('hidden');
+            if (rightClickedRowId !== null) {
+                rightClickedRowId = null;
+                renderTableRowsOnly();
+            }
+            activeRowId = null;
+        }
+
+        function executeRowAction(action) {
+            if (!activeRowId) return;
+            const targetUser = usersData.find(u => u.id === activeRowId);
+            if (!targetUser) return;
+
+            hideAllMenus();
+
+            switch(action) {
+                case 'view':
+                    showToast(`Viewing details for ${targetUser.name}`, 'info');
+                    break;
+                case 'edit':
+                    showToast(`Editing member ${targetUser.name}`, 'info');
+                    break;
+                case 'copyEmail':
+                    navigator.clipboard.writeText(targetUser.email).then(() => {
+                        showToast(`Copied ${targetUser.email} to clipboard`, 'success');
+                    }).catch(() => {
+                        showToast(`Email: ${targetUser.email}`, 'info');
+                    });
+                    break;
+                case 'duplicate':
+                    const newUser = {
+                        ...targetUser,
+                        id: Date.now(),
+                        name: `${targetUser.name} (Copy)`,
+                        email: `copy.${targetUser.email}`
+                    };
+                    usersData.unshift(newUser);
+                    showToast(`Duplicated profile for ${targetUser.name}`, 'success');
+                    renderTable();
+                    break;
+                case 'toggleStatus':
+                    targetUser.status = targetUser.status === 'Active' ? 'Inactive' : 'Active';
+                    showToast(`Updated status of ${targetUser.name} to ${targetUser.status}`, 'success');
+                    renderTable();
+                    break;
+                case 'downloadPDF':
+                    showToast(`Generating summary PDF for ${targetUser.name}...`, 'info');
+                    break;
+                case 'delete':
+                    usersData = usersData.filter(u => u.id !== targetUser.id);
+                    selectedRowIds.delete(targetUser.id);
+                    updateBulkActionsBar();
+                    showToast(`Removed member ${targetUser.name}`, 'danger');
+                    renderTable();
+                    break;
+            }
+        }
+
+        // --- 13. Pagination Controls Logic ---
+        function updatePaginationInfo(start, end, total, totalPages) {
+            document.getElementById('pageStart').textContent = total === 0 ? 0 : start;
+            document.getElementById('pageEnd').textContent = end;
+            document.getElementById('totalRecords').textContent = total;
+
+            document.getElementById('btnFirst').disabled = state.currentPage === 1 || total === 0;
+            document.getElementById('btnPrev').disabled = state.currentPage === 1 || total === 0;
+            document.getElementById('btnNext').disabled = state.currentPage === totalPages || total === 0;
+            document.getElementById('btnLast').disabled = state.currentPage === totalPages || total === 0;
+
+            renderPageNumbers(totalPages);
+        }
+
+        function renderPageNumbers(totalPages) {
+            const container = document.getElementById('pageNumbers');
+            container.innerHTML = '';
+
+            if (totalPages <= 1) return;
+
+            let pages = [];
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= state.currentPage - 1 && i <= state.currentPage + 1)) {
+                    pages.push(i);
+                } else if (pages[pages.length - 1] !== '...') {
+                    pages.push('...');
+                }
+            }
+
+            pages.forEach(p => {
+                if (p === '...') {
+                    const dots = document.createElement('span');
+                    dots.className = 'px-1 text-slate-400 font-bold';
+                    dots.textContent = '...';
+                    container.appendChild(dots);
+                } else {
+                    const btn = document.createElement('button');
+                    btn.className = `w-7 h-7 rounded text-sm font-semibold flex items-center justify-center transition ${
+                        p === state.currentPage 
+                        ? 'bg-brand-600 text-white shadow-sm' 
+                        : 'text-slate-600 hover:bg-slate-100'
+                    }`;
+                    btn.textContent = p;
+                    btn.onclick = () => goToPage(p);
+                    container.appendChild(btn);
+                }
+            });
+        }
+
+        function changePage(delta) {
+            state.currentPage += delta;
+            renderTable();
+        }
+
+        function goToPage(page) {
+            const processedData = getFilteredAndSortedData();
+            const totalPages = Math.ceil(processedData.length / state.pageSize) || 1;
+            
+            if (page === -1) {
+                state.currentPage = totalPages;
+            } else {
+                state.currentPage = page;
+            }
+            renderTable();
+        }
+
+        // --- 14. Reset Filters Helper ---
+        function checkResetVisibility() {
+            let activeFilterCount = 0;
+            if (state.status !== '') activeFilterCount++;
+            if (state.role !== '') activeFilterCount++;
+            if (state.department !== '') activeFilterCount++;
+
+            if (activeFilterCount > 0) {
+                activeFilterBadge.textContent = activeFilterCount;
+                activeFilterBadge.classList.remove('hidden');
+            } else {
+                activeFilterBadge.classList.add('hidden');
+            }
+
+            const hasActiveFilters = state.search !== '' || activeFilterCount > 0 || state.letter !== 'ALL';
+            resetFiltersBtn.classList.toggle('hidden', !hasActiveFilters);
+        }
+
+        function resetAllFilters() {
+            state.search = '';
+            state.status = '';
+            state.role = '';
+            state.department = '';
+            state.letter = 'ALL';
+            state.currentPage = 1;
+
+            searchInput.value = '';
+            statusFilter.value = '';
+            roleFilter.value = '';
+            deptFilter.value = '';
+            clearSearchBtn.classList.add('hidden');
+
+            renderAlphabetBar();
+            checkResetVisibility();
+            renderTable();
+            filterPopover.classList.add('hidden');
+            showToast('All filters reset', 'info');
+        }
+
+        // --- 15. Toast Notification System ---
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            
+            const typeStyles = {
+                info: 'bg-slate-900 text-white',
+                success: 'bg-emerald-600 text-white',
+                danger: 'bg-rose-600 text-white'
+            };
+
+            toast.className = `pointer-events-auto px-4 py-2.5 rounded-lg shadow-lg text-sm font-medium flex items-center gap-2 transform transition-all duration-300 translate-y-2 opacity-0 ${typeStyles[type] || typeStyles.info}`;
+            toast.innerHTML = `<span>${message}</span>`;
+
+            container.appendChild(toast);
+
+            // Animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 10);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
