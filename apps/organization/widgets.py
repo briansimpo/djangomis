@@ -23,7 +23,6 @@ class OrgUnitTableWidget(TableWidget):
     login_required = True
     staff_required = True
     search_fields = ("code", "name")
-    paginate_by = 2
  
 
     class BulkEdit(Action):
