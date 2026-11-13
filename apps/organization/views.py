@@ -1,5 +1,4 @@
 from django.contrib import messages
-from django.shortcuts import render
 from django.views.generic import FormView, TemplateView
 from djangospice.utils import get_template_name, safe_redirect
 from accounts.mixins import StaffLoginRequired
@@ -11,8 +10,15 @@ class HomeView(TemplateView):
     template_name = get_template_name("home", namespace)
 
 
+class OrgUnitListView(StaffLoginRequired, TemplateView):
+    template_name = get_template_name("list.html", namespace)
 
-class CreateOrgUnitiew(StaffLoginRequired, FormView):
+
+class OrgUnitStructureView(StaffLoginRequired, TemplateView):
+    template_name = get_template_name("structure.html", namespace)
+   
+
+class OrgUnitCreateView(StaffLoginRequired, FormView):
     template_name = get_template_name("create.html", namespace)
     form_class =  OrgUnitForm
 

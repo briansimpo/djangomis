@@ -1,0 +1,67 @@
+<div class="w-full space-y-5">
+
+    <!-- Header -->
+    <div class="flex flex-wrap items-center justify-between gap-3">
+
+        <div>
+            <h2 class="text-lg font-semibold text-slate-800">
+                Organization Structure
+            </h2>
+
+            <p class="mt-1 text-sm text-slate-500">
+                View the organizational hierarchy and reporting structure.
+            </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+
+            <button
+                type="button"
+                class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50"
+            >
+                <i class="fa-solid fa-expand mr-1"></i>
+                Expand All
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Organization Tree -->
+    <section class="rounded-xl border border-slate-200 bg-slate-50 p-5">
+
+        {% if org_units %}
+
+            <ul class="space-y-3">
+
+                {% for unit in org_units %}
+
+                    {% include "organization/widgets/org_unit_node.html" with unit=unit only %}
+
+                {% endfor %}
+
+            </ul>
+
+        {% else %}
+
+            <div class="flex flex-col items-center justify-center py-16 text-center">
+
+                <div class="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-slate-400">
+                    <i class="fa-solid fa-sitemap text-xl"></i>
+                </div>
+
+                <h3 class="font-semibold text-slate-700">
+                    No organization structure
+                </h3>
+
+                <p class="mt-1 text-sm text-slate-500">
+                    Start by creating your first organizational unit.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+</div>

@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <form hx-post={% app_url "create_unit" %} class="flex w-full min-w-0 flex-col gap-4">
+    <form hx-post={% app_url "create_org_unit" %} class="flex w-full min-w-0 flex-col gap-4">
         {% csrf_token %}
 
         {% for field in form %}
@@ -16,7 +16,7 @@
             </div>
         {% endfor %}
 
-        <button type="submit" class="btn btn-sm btn-primary">
+        <button type="submit" class="btn btn-primary">
             Submit
         </button>
     </form>

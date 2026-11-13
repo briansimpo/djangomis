@@ -23,6 +23,4 @@ class OrgUnitTable(BaseTable):
    
     class Meta:
         model = OrgUnit
-        fields = [
-            "selection", "code", "name", "parent",
-        ]
+        fields = ["code", "name", "parent",]

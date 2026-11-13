@@ -1,0 +1,80 @@
+<li class="relative">
+
+    <!-- Organizational Unit -->
+    <div class="group flex items-center gap-3 rounded-lg border border-slate-200 bg-white px-4 py-3 shadow-sm transition hover:border-primary-300 hover:shadow-md">
+
+        <!-- Expand / Collapse Indicator -->
+        <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary-50 text-primary-600">
+            {% if unit.tree_children %}
+                <i class="fa-solid fa-sitemap"></i>
+            {% else %}
+                <i class="fa-solid fa-building"></i>
+            {% endif %}
+        </div>
+
+        <!-- Unit Information -->
+        <div class="min-w-0 flex-1">
+
+            <div class="flex flex-wrap items-center gap-2">
+
+                <span class="font-semibold text-slate-800">
+                    {{ unit.name }}
+                </span>
+
+                <span class="rounded bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600">
+                    {{ unit.code }}
+                </span>
+
+            </div>
+
+            <div class="mt-1 flex flex-wrap items-center gap-2 text-xs text-slate-500">
+
+                <span>{{ unit.type }}</span>
+
+                <span class="text-slate-300">•</span>
+
+                <span>Level {{ unit.level }}</span>
+
+                {% if unit.tree_children %}
+                    <span class="text-slate-300">•</span>
+                    <span>
+                        {{ unit.tree_children|length }}
+                        direct children
+                    </span>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <!-- Actions -->
+        <div class="flex shrink-0 items-center gap-1 opacity-0 transition group-hover:opacity-100">
+
+            <button
+                type="button"
+                class="rounded-md p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700"
+                title="View organizational unit"
+            >
+                <i class="fa-solid fa-eye"></i>
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Children -->
+    {% if unit.tree_children %}
+
+        <ul class="ml-5 mt-2 space-y-2 border-l-2 border-slate-200 pl-5">
+
+            {% for child in unit.tree_children %}
+
+                {% include "organization/widgets/org_unit_node.html" with unit=child only %}
+
+            {% endfor %}
+
+        </ul>
+
+    {% endif %}
+
+</li>

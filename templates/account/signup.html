@@ -34,7 +34,7 @@
 
         <!-- Login Field -->
         <div>
-            <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+            <label for="{{ form.email.id_for_label }}">
                 <strong>
                 {{ form.email.label|default:_("Email") }}
                 {% if form.email.field.required %}
@@ -42,7 +42,7 @@
                 {% endif %}
                 </strong>
             </label>
-            {{ form.email|add_class:"block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500" }}
+            {{ form.email }}
             {% if form.email.errors %}
                 <p class="mt-1 text-sm text-red-600">{{ form.email.errors.0 }}</p>
             {% endif %}
@@ -50,7 +50,7 @@
 
         <!-- Password Field -->
         <div>
-            <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+            <label for="{{ form.password1.id_for_label }}">
                 <strong>
                 {{ form.password1.label|default:_("Password") }}
                 {% if form.password1.field.required %}
@@ -58,14 +58,14 @@
                 {% endif %}
                 </strong>
             </label>
-            {{ form.password1|add_class:"block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500" }}
+            {{ form.password1 }}
             {% if form.password1.errors %}
                 <p class="mt-1 text-sm text-red-600">{{ form.password1.errors.0 }}</p>
             {% endif %}
         </div>
 
         <div>
-            <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+            <label for="{{ form.password1.id_for_label }}" >
                 <strong>
                 {{ form.password2.label|default:_("Password") }}
                 {% if form.password2.field.required %}
@@ -73,7 +73,7 @@
                 {% endif %}
                 </strong>
             </label>
-            {{ form.password2|add_class:"block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500" }}
+            {{ form.password2 }}
             {% if form.password2.errors %}
                 <p class="mt-1 text-sm text-red-600">{{ form.password2.errors.0 }}</p>
             {% endif %}
