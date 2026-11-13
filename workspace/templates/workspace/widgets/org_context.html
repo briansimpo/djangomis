@@ -1,6 +1,7 @@
 <div {{ widget.attrs }} class="relative shrink-0" >
     <button type="button"
-        @click="contextOpen = !contextOpen"
+        data-toggle="dropdown" 
+        data-target="#contextDropdownMenu"
         class="flex items-center gap-2 rounded-xl p-1.5 transition hover:bg-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/30 sm:gap-2.5">
         <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-indigo-100 bg-indigo-50 text-indigo-600">
             <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -17,16 +18,14 @@
             </span>
         </span>
 
-        <svg class="hidden h-4 w-4 text-slate-400 transition-transform sm:block" :class="{ 'rotate-180': contextOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="hidden h-4 w-4 text-slate-400 transition-transform sm:block"  fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="m6 9 6 6 6-6"/>
         </svg>
     </button>
 
     <div
-        x-cloak
-        x-show="contextOpen"
-        x-transition.origin.top.right
-        @click.outside="contextOpen = false"
+        id="contextDropdownMenu"
+        data-dropdown-menu
         class="fixed left-1/2 -translate-x-1/2 top-16 sm:absolute sm:left-auto sm:right-0 sm:top-full sm:mt-2 sm:translate-x-0
         w-[min(22rem,calc(100vw-2rem))]  
         rounded-xl border border-slate-200 bg-white 

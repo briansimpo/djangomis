@@ -4,7 +4,6 @@
 
 {% block extra_head %}
     <style>
-        [x-cloak] { display: none !important; }
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
     </style>
@@ -12,7 +11,7 @@
 
 {% block body %}
 
-<div x-data="{ sidebarOpen: false }" @keydown.escape.window="sidebarOpen = false">
+<div>
 
     {% block header %}
         {% include "layouts/header.html" %}
@@ -20,27 +19,15 @@
 
     <div class="flex mb-24">
 
-        {# Mobile overlay #}
-        <div 
-            x-show="sidebarOpen"
-            x-transition.opacity
-            @click="sidebarOpen = false"
-            class="fixed inset-0 z-30 bg-black/30 lg:hidden pt-16"
-            x-cloak>
-        </div>
-
         {% block sidebar %}
         <aside
-            
-            class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform bg-white border-r border-slate-200 lg:translate-x-0 pt-16"
-            :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
-
+            id="app-sidebar"
+            class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform bg-white border-r border-slate-200 lg:translate-x-0 -translate-x-full pt-16">
             <div class="h-full px-3 pb-4 overflow-y-auto custom-scrollbar">
                 {% block sidemenu %}
                     {% include "layouts/menu.html" with name=app_label %}
                 {% endblock %}
             </div>
-
         </aside>
         {% endblock sidebar %}
 

@@ -3,20 +3,10 @@
         {% if messages %}
             {% for message in messages %}
                 <div
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-init="setTimeout(() => show = false, 5000)"
-                    x-transition:enter="transition ease-out duration-300"
-                    x-transition:enter-start="translate-y-4 opacity-0"
-                    x-transition:enter-end="translate-y-0 opacity-100"
-                    x-transition:leave="transition ease-in duration-200"
-                    x-transition:leave-start="translate-y-0 opacity-100"
-                    x-transition:leave-end="translate-y-3 opacity-0"
-                    class="pointer-events-auto flex items-center justify-between gap-6
-                           min-w-[360px] max-w-md px-5 py-4
-                           bg-[#202124] text-white border border-white/10
-                           rounded-lg shadow-2xl"
+                    data-toast
+                    data-duration="5000"
                     role="alert"
+                    class="pointer-events-auto flex items-center justify-between gap-6 min-w-[360px] max-w-md px-5 py-4 bg-[#202124] text-white border border-white/10 rounded-lg shadow-2xl transition-all transform translate-y-4 opacity-0 duration-300"
                 >
                     <!-- Message -->
                     <div class="flex-1 min-w-0">
@@ -28,7 +18,7 @@
                     <!-- Dismiss Button -->
                     <button
                         type="button"
-                        @click="show = false"
+                        data-dismiss="toast"
                         class="shrink-0 text-gray-300 hover:text-white transition-colors text-sm font-semibold tracking-wide uppercase px-2 py-1 rounded hover:bg-white/10 focus:outline-none"
                         aria-label="Dismiss notification">
                         Dismiss

@@ -9,21 +9,13 @@
         <div class="flex shrink-0 items-center gap-1 sm:gap-2">
 
             {# Notification #}
-            <div  x-data="{ notificationOpen: false }" 
-                @keydown.escape.window="notificationOpen = false" 
-                @click.outside="notificationOpen = false">
-                {% render_widget "workspace.notification" %}
-            </div>
-
+            {% render_widget "workspace.notification" %}
+           
             <span class="mx-1 hidden h-8 w-px bg-slate-200 sm:block"></span>
 
             {# Workspace context dropdown #}
             {% if user.is_staff %}
-                <div x-data="{ contextOpen: false }" 
-                    @keydown.escape.window="contextOpen = false" 
-                    @click.outside="contextOpen = false">
-                    {% render_widget "workspace.org_context" %}
-                </div>
+                {% render_widget "workspace.org_context" %}
             {% endif %}
             
             <span class="mx-1 hidden h-8 w-px bg-slate-200 sm:block"></span>
