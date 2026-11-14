@@ -2,67 +2,106 @@ from __future__ import annotations
 
 from djangospice.widget import Widget, widget
 from djangospice.utils import get_template_name
+from djangospice.htmx.shortcuts import htmx_redirect
 from djangospice.table.widget import TableWidget
-from djangospice.widget.actions import Action, Actions
+from djangospice.table.decorators import table_action, row_action, bulk_action
 from apps.organization.helpers import build_org_tree
 from .models import OrgUnit
-from .tables import OrgUnitTable
 from .filters import OrgUnitFilter
 from .apps import namespace
 
 
-
-
 @widget
-class OrgUnitTableWidget(TableWidget):  
-    model = OrgUnit
+class OrgUnitTable(TableWidget):  
     title = "Organization Units"
     description = "Manage Organization units which form the Organization structure of your institution"
-    table_class = OrgUnitTable
+    model = OrgUnit
+    fields = ("code", "name", "type", "parent")
+    search_fields = ("code", "name")
     filterset_class = OrgUnitFilter
     login_required = True
     staff_required = True
-    search_fields = ("code", "name")
- 
-
-    class BulkEdit(Action):
-
-        def execute(self, context):
-            return super().execute(context)
-
-
-    class BulkDelete(Action):
-        def execute(self, context):
-            return super().execute(context)
-
-
-    class RowEdit(Action):
-
-        def execute(self, context):
-            return super().execute(context)
-
-
-    class RowDelete(Action):
-
-        def execute(self, context):
-            return super().execute(context)
     
+ 
+    @table_action(order=1)
+    def new_record(self):
+        return htmx_redirect("create_org_unit", app_name=namespace, safe=True)
 
-    bulk_actions = Actions(
-       BulkEdit(),
-       BulkDelete()
+    @bulk_action(
+        label="Set Active",
+        icon="fa-solid fa-check-circle",
+        order=1,
     )
+    def activate(self):
+        selected_ids = self.get_selected_rows()
+        return self.response().html(selected_ids)
 
-    row_actions = Actions(
-        RowEdit(),
-        RowDelete()
+    @bulk_action(
+        label="Set Inactive",
+        icon="fa-solid fa-ban",
+        order=2,
     )
-     
-   
+    def deactivate(self):
+        selected_ids = self.get_selected_rows()
+        return self.response().html(selected_ids)
+
+    @bulk_action(
+        label="Export Selected",
+        icon="fa-solid fa-file-export",
+        order=3,
+    )
+    def export(self):
+        selected_ids = self.get_selected_rows()
+        return self.response().html(selected_ids)
+
+    @bulk_action(
+        label="Delete Selected",
+        icon="fa-solid fa-trash-can",
+        order=4,
+        style="danger",
+        is_danger=True,
+        confirm="Are you sure you want to delete the selected records?",
+    )
+    def delete_all(self):
+        selected_ids = self.get_selected_rows()
+        return self.response().html(selected_ids)
+
+    @row_action(
+        label="View Details",
+        icon="fa-solid fa-eye",
+        order=1,
+        is_link=True,
+    )
+    def view(self):
+        selected_id = self.get_selected_row()
+        return self.response().html(selected_id)
+
+    @row_action(
+        label="Edit Record",
+        icon="fa-solid fa-pen",
+        order=2,
+        is_link=True,
+    )
+    def edit(self):
+        selected_id = self.get_selected_row()
+        return self.response().html(selected_id)
+
+    @row_action(
+        label="Delete Record",
+        icon="fa-solid fa-trash",
+        order=3,
+        style="danger",
+        is_danger=True,
+        confirm="Delete this organizational unit?",
+    )
+    def delete(self):
+        selected_id = self.get_selected_row()
+        return self.response().html(selected_id)
+    
 
 
 @widget
-class OrgUnitStructureWidget(Widget):
+class OrgUnitStructure(Widget):
     template_name = get_template_name("widgets/org_structure.html", namespace)
     login_required = True
     staff_required = True

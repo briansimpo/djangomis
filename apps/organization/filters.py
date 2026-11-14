@@ -4,12 +4,12 @@ from .models import OrgUnit, OrgUnitType
 
 class OrgUnitFilter(BaseFilter):
     type = LookupChoiceFilter(
-        queryset=OrgUnitType.objects.all(), 
+        model=OrgUnitType, 
         field_name="type", 
         label="Type", 
     )
     parent = LookupChoiceFilter(
-        queryset=OrgUnit.objects.all(), 
+        model=OrgUnit, 
         field_name="parent", 
         label="Parent", 
     )
