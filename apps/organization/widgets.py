@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from djangospice.widget import Widget, widget
-from djangospice.utils import get_template_name
+from djangospice.utils import get_template_name, safe_reverse
 from djangospice.htmx.shortcuts import htmx_redirect
 from djangospice.table.widget import TableWidget
 from djangospice.table.decorators import table_action, row_action, bulk_action
@@ -21,6 +21,9 @@ class OrgUnitTable(TableWidget):
     filterset_class = OrgUnitFilter
     login_required = True
     staff_required = True
+
+    def get_row_url(self):
+        return safe_reverse("create_org_unit", namespace)
     
  
     @table_action(order=1)

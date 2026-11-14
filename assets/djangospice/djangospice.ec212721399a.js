@@ -1445,9 +1445,17 @@ var Djangospice = (() => {
         }
         const row = e.target.closest("[data-table-row]");
         if (!row || !this.el.contains(row)) return;
-        if (e.target.closest(
-          'a, button, input, select, textarea, label, [data-no-row-select], [contenteditable="true"], [role="button"], [role="menuitem"]'
-        )) {
+        if (e.target.closest('a, button, input, select, textarea, label, [data-no-row-select], [contenteditable="true"], [role="button"], [role="menuitem"]')) {
+          return;
+        }
+        const url = row.dataset.rowUrl;
+        if (url) {
+          const target = row.dataset.rowTarget || "_self";
+          if (target === "_blank") {
+            window.open(url, "_blank", "noopener");
+          } else {
+            window.location.assign(url);
+          }
           return;
         }
         const checkbox = row.querySelector("[data-row-checkbox]");
