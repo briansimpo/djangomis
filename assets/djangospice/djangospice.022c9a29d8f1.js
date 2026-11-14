@@ -1437,13 +1437,29 @@ var Djangospice = (() => {
           this.closeContextMenu();
         }
         const actionEl = e.target.closest("[data-action]");
-        if (!actionEl) return;
-        const action = actionEl.dataset.action;
-        if (action === "clear-selection") this.clearSelection();
+        if (actionEl) {
+          const action = actionEl.dataset.action;
+          if (action === "clear-selection") {
+            this.clearSelection();
+          }
+        }
+        const row = e.target.closest("[data-table-row]");
+        if (!row || !this.el.contains(row)) return;
+        if (e.target.closest(
+          'a, button, input, select, textarea, label, [data-no-row-select], [contenteditable="true"], [role="button"], [role="menuitem"]'
+        )) {
+          return;
+        }
+        const checkbox = row.querySelector("[data-row-checkbox]");
+        if (!checkbox || checkbox.disabled) return;
+        checkbox.checked = !checkbox.checked;
+        checkbox.dispatchEvent(
+          new Event("change", { bubbles: true })
+        );
       });
       this.el.addEventListener("contextmenu", (e) => {
         const row = e.target.closest("[data-table-row]");
-        if (row) {
+        if (row && this.el.contains(row)) {
           e.preventDefault();
           const recordId = row.dataset.objectId;
           this.openContextMenu(e, recordId);
@@ -1476,8 +1492,14 @@ var Djangospice = (() => {
       const width = 224;
       const height = 260;
       this.contextMenu.recordId = id;
-      this.contextMenu.x = Math.max(8, Math.min(event.clientX, window.innerWidth - width - 8));
-      this.contextMenu.y = Math.max(8, Math.min(event.clientY, window.innerHeight - height - 8));
+      this.contextMenu.x = Math.max(
+        8,
+        Math.min(event.clientX, window.innerWidth - width - 8)
+      );
+      this.contextMenu.y = Math.max(
+        8,
+        Math.min(event.clientY, window.innerHeight - height - 8)
+      );
       const menuEl = this.el.querySelector("[data-context-menu]");
       if (menuEl) {
         menuEl.dataset.activeRecordId = id;
@@ -1485,12 +1507,22 @@ var Djangospice = (() => {
         menuEl.style.top = `${this.contextMenu.y}px`;
         menuEl.classList.remove("hidden");
         menuEl.querySelectorAll("a, button").forEach((el) => {
-          const targetAttrs = ["hx-get", "hx-post", "hx-delete", "hx-patch", "hx-put", "href"];
+          const targetAttrs = [
+            "hx-get",
+            "hx-post",
+            "hx-delete",
+            "hx-patch",
+            "hx-put",
+            "href"
+          ];
           targetAttrs.forEach((attr) => {
             if (el.hasAttribute(attr)) {
               const originalAttrKey = `data-original-${attr.replace("-", "")}`;
               if (!el.hasAttribute(originalAttrKey)) {
-                el.setAttribute(originalAttrKey, el.getAttribute(attr));
+                el.setAttribute(
+                  originalAttrKey,
+                  el.getAttribute(attr)
+                );
               }
               const template = el.getAttribute(originalAttrKey);
               const resolvedUrl = template.replaceAll("[id]", id);
@@ -1510,10 +1542,12 @@ var Djangospice = (() => {
       }
     }
     // =========================================================================
-    // SELECTION & STATE SYNC
+    // SELECTION & STATE SYNCHRONIZATION
     // =========================================================================
     toggleAll(checked) {
-      const checkboxes = this.el.querySelectorAll("[data-row-checkbox]");
+      const checkboxes = this.el.querySelectorAll(
+        "[data-row-checkbox]:not(:disabled)"
+      );
       checkboxes.forEach((cb) => {
         cb.checked = checked;
         if (checked) {
@@ -1521,7 +1555,9 @@ var Djangospice = (() => {
         } else {
           this.selected.delete(cb.value);
         }
+        this.syncRow(cb);
       });
+      this.syncHeaderCheckbox();
       this.syncState();
     }
     toggleRow(id, checked) {
@@ -1530,34 +1566,73 @@ var Djangospice = (() => {
       } else {
         this.selected.delete(id);
       }
+      const checkbox = Array.from(
+        this.el.querySelectorAll("[data-row-checkbox]")
+      ).find((cb) => cb.value === id);
+      if (checkbox) {
+        this.syncRow(checkbox);
+      }
       this.syncHeaderCheckbox();
       this.syncState();
+    }
+    /**
+     * Synchronize checkbox state with row highlighting.
+     */
+    syncRow(checkbox) {
+      const row = checkbox.closest("[data-table-row]");
+      if (!row) return;
+      row.classList.toggle("is-selected", checkbox.checked);
+    }
+    /**
+     * Synchronize header checkbox checked and indeterminate states.
+     */
+    syncHeaderCheckbox() {
+      const selectAll = this.el.querySelector(
+        '[data-action="toggle-all"]'
+      );
+      if (!selectAll) return;
+      const checkboxes = Array.from(
+        this.el.querySelectorAll(
+          "[data-row-checkbox]:not(:disabled)"
+        )
+      );
+      const selectedCount = checkboxes.filter(
+        (cb) => cb.checked
+      ).length;
+      selectAll.checked = checkboxes.length > 0 && selectedCount === checkboxes.length;
+      selectAll.indeterminate = selectedCount > 0 && selectedCount < checkboxes.length;
     }
     clearSelection() {
       this.selected.clear();
       this.el.querySelectorAll("[data-row-checkbox]").forEach((cb) => {
         cb.checked = false;
+        this.syncRow(cb);
       });
-      const selectAll = this.el.querySelector('[data-action="toggle-all"]');
-      if (selectAll) selectAll.checked = false;
+      const selectAll = this.el.querySelector(
+        '[data-action="toggle-all"]'
+      );
+      if (selectAll) {
+        selectAll.checked = false;
+        selectAll.indeterminate = false;
+      }
       this.syncState();
     }
-    syncHeaderCheckbox() {
-      const selectAll = this.el.querySelector('[data-action="toggle-all"]');
-      const checkboxes = Array.from(this.el.querySelectorAll("[data-row-checkbox]"));
-      if (selectAll && checkboxes.length > 0) {
-        selectAll.checked = checkboxes.every((cb) => cb.checked);
-      }
-    }
+    // =========================================================================
+    // BULK ACTION STATE & HIDDEN INPUT SYNCHRONIZATION
+    // =========================================================================
     syncState() {
       const count = this.selected.size;
       const countEl = this.el.querySelector("[data-selected-count]");
-      if (countEl) countEl.textContent = count;
+      if (countEl) {
+        countEl.textContent = count;
+      }
       const bulkBar = this.el.querySelector("[data-bulk-actions]");
       if (bulkBar) {
         bulkBar.classList.toggle("hidden", count === 0);
         if (count === 0) {
-          const bulkDropdown = bulkBar.querySelector("[data-dropdown-menu]");
+          const bulkDropdown = bulkBar.querySelector(
+            "[data-dropdown-menu]"
+          );
           if (bulkDropdown && !bulkDropdown.classList.contains("hidden")) {
             bulkDropdown.classList.add("hidden");
           }
@@ -1574,6 +1649,7 @@ var Djangospice = (() => {
           container.appendChild(input);
         });
       }
+      this.syncHeaderCheckbox();
     }
   };
   function initTableComponents() {
@@ -1583,8 +1659,12 @@ var Djangospice = (() => {
       }
     });
   }
-  document.addEventListener("DOMContentLoaded", () => initTableComponents());
-  document.addEventListener("htmx:afterSwap", () => initTableComponents());
+  document.addEventListener("DOMContentLoaded", () => {
+    initTableComponents();
+  });
+  document.addEventListener("htmx:afterSwap", () => {
+    initTableComponents();
+  });
 
   // ../djangospice/src/djangospice/websocket/static/websocket/js/index.js
   (function(global) {
