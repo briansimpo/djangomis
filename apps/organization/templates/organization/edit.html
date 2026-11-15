@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<form method="post" action="{% app_url 'edit_org_unit' pk=object.pk %}" class="flex w-full min-w-0 flex-col gap-4">
+<form hx-post="{% app_url 'edit_org_unit' pk=object.pk %}" class="flex w-full min-w-0 flex-col gap-4">
     {% csrf_token %}
 
     {% for field in form %}

@@ -4,8 +4,11 @@ body {
 	color: hsl(var(--foreground));
 }
 
-spa-link, spa-button, spa-boost {
+spa-link, spa-button, spa-boost, spa-nav {
   display: contents;
+}
+spa-root {
+  display: block;
 }
 
 
@@ -44,15 +47,17 @@ a, button {
     scrollbar-width: none;  /* Firefox */
 }
 
-.htmx-indicator {
+/* Hide the loader by default */
+spa-indicator {
     opacity: 0;
-    visibility: hidden;
-    transition: opacity 150ms ease;
+    transition: opacity 0.2s ease-in-out;
+    pointer-events: none;
 }
 
-.htmx-request .htmx-indicator,
-.htmx-indicator.htmx-request {
+/* When HTMX triggers a request, show the loader */
+spa-indicator.htmx-request,
+body.htmx-request spa-indicator,
+spa-indicator.active {
     opacity: 1;
-    visibility: visible;
 }
 

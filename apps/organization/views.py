@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.views.generic import FormView, TemplateView, UpdateView
-from djangospice.utils import get_template_name, safe_redirect, safe_reverse
+from djangospice.htmx.shortcuts import htmx_refresh, response
+from djangospice.utils import get_template_name, safe_reverse
 from accounts.mixins import StaffLoginRequired
 from apps.organization.apps import namespace
 from apps.organization.forms import OrgUnitForm
@@ -23,11 +24,13 @@ class OrgUnitCreateView(StaffLoginRequired, FormView):
     template_name = get_template_name("create.html", namespace)
     form_class =  OrgUnitForm
 
+    def get_success_url(self):
+        return safe_reverse("org_unit_list", namespace)
 
     def form_valid(self, form):
         form.save()
         messages.success(self.request, "Record created successfully")
-        return safe_redirect("home", namespace)
+        return htmx_refresh(self.get_success_url())
 
 
 class OrgUnitUpdateView(StaffLoginRequired, UpdateView):
@@ -39,6 +42,7 @@ class OrgUnitUpdateView(StaffLoginRequired, UpdateView):
         return safe_reverse("org_unit_list", namespace)
 
     def form_valid(self, form):
-        response = super().form_valid(form)
+        super().form_valid(form)
         messages.success(self.request, "Record updated successfully")
-        return response
+        return htmx_refresh(self.get_success_url())
+        

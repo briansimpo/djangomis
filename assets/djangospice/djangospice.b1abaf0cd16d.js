@@ -1448,20 +1448,8 @@ var Djangospice = (() => {
         if (e.target.closest('a, button, input, select, textarea, label, [data-no-row-select], [contenteditable="true"], [role="button"], [role="menuitem"]')) {
           return;
         }
-        const url = row.dataset.rowUrl;
-        if (url) {
-          const objectId = row.dataset.objectId;
-          if (!objectId) return;
-          const targetUrl = url.replace(
-            "__ID__",
-            encodeURIComponent(objectId)
-          );
-          const target = row.dataset.rowTarget || "_self";
-          if (target === "_blank") {
-            window.open(targetUrl, "_blank", "noopener");
-          } else {
-            window.location.assign(targetUrl);
-          }
+        const isNavigation = row.dataset.navigation === "true";
+        if (isNavigation) {
           return;
         }
         const checkbox = row.querySelector("[data-row-checkbox]");
