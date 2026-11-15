@@ -1,7 +1,33 @@
 {% extends 'layouts/base_app.html' %}
 
 {% block content %}
+<div class="space-y-6">
+    <!-- Page Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4">
+        <div>
+            <!-- Page Title -->
+            <h1 class="text-2xl font-bold tracking-tight text-gray-900">
+                Organization Units
+            </h1>
+        </div>
 
-{% render_widget "organization.org_unit_table" %}
+        <!-- Action / Menu Button -->
+        <div class="relative inline-block text-left">
+            <div class="flex items-center gap-2">
+                <spa-link to="{% app_url 'create_org_unit' %}"  class="btn btn-md btn-primary">
+                    <svg class="-ml-0.5 mr-1 h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                    </svg>
+                    Add Unit
+                </spa-link>
 
+            </div>
+
+        </div>
+    </div>
+
+    <div>
+        {% render_widget "organization.org_unit_table" %}
+    </div>
+</div>
 {% endblock %}

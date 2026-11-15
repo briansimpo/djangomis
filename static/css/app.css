@@ -4,6 +4,11 @@ body {
 	color: hsl(var(--foreground));
 }
 
+spa-link, spa-button, spa-boost {
+  display: contents;
+}
+
+
 [x-cloak] { 
 	display: none !important; 
 }
@@ -50,3 +55,4 @@ a, button {
     opacity: 1;
     visibility: visible;
 }
+

@@ -18,7 +18,6 @@ class ChatWidget(Widget):
 
     message_parameter: ClassVar[str] = "message"
 
-    placeholder: ClassVar[str] = "Type a message..."
     submit_label: ClassVar[str] = "Send"
     empty_message: ClassVar[str] = "Start a conversation."
 

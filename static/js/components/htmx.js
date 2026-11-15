@@ -10,7 +10,7 @@ export function initialize() {
     };
 
     document.addEventListener("htmx:configRequest", handler);
-
+    
     return () => {
         document.removeEventListener(
             "htmx:configRequest",

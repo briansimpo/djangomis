@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from djangospice.widget import Widget, widget
 from djangospice.utils import get_template_name, safe_reverse
-from djangospice.htmx.shortcuts import htmx_redirect
+from djangospice.htmx.shortcuts import htmx_redirect, spa_redirect
 from djangospice.table.widget import TableWidget
-from djangospice.table.decorators import table_action, row_action, bulk_action
+from djangospice.table.decorators import menu_action, row_action, bulk_action
 from apps.organization.helpers import build_org_tree
 from .models import OrgUnit
 from .filters import OrgUnitFilter
@@ -23,13 +23,21 @@ class OrgUnitTable(TableWidget):
     staff_required = True
 
     def get_row_url(self):
-        return safe_reverse("create_org_unit", namespace)
-    
- 
-    @table_action(order=1)
+        return safe_reverse(
+            view_name="edit_org_unit",
+            app_name=namespace,
+            template=True,
+        )
+            
+    @menu_action(order=1)
     def new_record(self):
-        return htmx_redirect("create_org_unit", app_name=namespace, safe=True)
-
+        return spa_redirect(
+            url=safe_reverse(
+                view_name="create_org_unit",
+                app_name=namespace
+            )
+        )
+    
     @bulk_action(
         label="Set Active",
         icon="fa-solid fa-check-circle",
@@ -101,7 +109,6 @@ class OrgUnitTable(TableWidget):
         selected_id = self.get_selected_row()
         return self.response().html(selected_id)
     
-
 
 @widget
 class OrgUnitStructure(Widget):

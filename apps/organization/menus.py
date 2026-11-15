@@ -10,7 +10,7 @@ home = MenuItem(
 )
 
 create_org_unit = MenuItem(
-    title="Create Org Unit", 
+    title="Add Unit", 
     url=safe_action(namespace, "create_org_unit"), 
     icon="fas fa-plus",
 )

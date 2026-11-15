@@ -1,4 +1,3 @@
-
 import "@/css/theme.css";
 import "@/css/app.css";
 
@@ -13,7 +12,9 @@ import {
     initializeAlpine,
     initializeRealtime,
     initializeNotification,
+    initializeSpaRouter,
 } from "./components/index.js";
+
 
 // --------------------------------------------------
 // Application setup
@@ -31,6 +32,9 @@ registry
     })
     .register("alpine", {
         initialize: initializeAlpine,
+    })
+    .register("router", {    
+        initialize: initializeSpaRouter,
     })
     .register("realtime", {
         initialize: initializeRealtime,

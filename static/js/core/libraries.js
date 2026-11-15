@@ -8,6 +8,7 @@ export function initializeLibraries() {
     globalThis.htmx = htmx;
     globalThis.Alpine = Alpine;
     globalThis.Sortable = Sortable;
+    
 
     return { htmx, Alpine, Sortable };
 }
