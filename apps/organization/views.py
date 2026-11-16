@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.views.generic import FormView, TemplateView, UpdateView
-from djangospice.http.shortcuts import Response, htmx_navigate
+from djangospice.http.shortcuts import htmx_navigate
 from djangospice.utils import get_template_name, safe_reverse
 from accounts.mixins import StaffLoginRequired
 from apps.organization.forms import OrgUnitForm
@@ -10,16 +10,6 @@ from apps.organization.apps import namespace
 
 class HomeView(TemplateView):
     template_name = get_template_name("home", namespace)
-
-    def get(self, request, *args, **kwargs):
-        response = Response.create(status=200).navigate(
-            path="test",
-            target="app-view",
-            swap="innerHTML",
-            select="app-view",
-        )
-
-        print(response.headers.to_dict())
 
 
 class OrgUnitListView(StaffLoginRequired, TemplateView):
