@@ -1,0 +1,52 @@
+
+<div class="w-full overflow-hidden rounded-lg border border-slate-200 bg-white">
+
+    <div class="animate-pulse divide-y divide-slate-100">
+
+        {% for node in nodes %}
+            <div
+                class="flex items-center gap-3 px-4 py-4"
+                style="padding-left: calc(1rem + {{ node.indent }}px)"
+            >
+
+                <!-- Hierarchy connector / expand icon -->
+                <div class="relative flex h-8 w-8 shrink-0 items-center justify-center">
+
+                    {% if node.depth > 0 %}
+                        <div class="absolute left-0 top-0 h-4 border-l-2 border-slate-200"></div>
+                        <div class="absolute left-0 top-4 w-4 border-t-2 border-slate-200"></div>
+                    {% endif %}
+
+                    <div class="h-7 w-7 rounded-md bg-slate-200"></div>
+
+                </div>
+
+                <!-- Unit icon -->
+                <div class="h-9 w-9 shrink-0 rounded-lg bg-slate-200"></div>
+
+                <!-- Unit information -->
+                <div class="min-w-0 flex-1 space-y-2">
+
+                    <div class="h-3.5 rounded bg-slate-200"
+                         style="width: {{ node.index|add:1|divisibleby:3|yesno:'35%,55%,45%' }}">
+                    </div>
+
+                    <div class="h-2.5 w-24 rounded bg-slate-100"></div>
+
+                </div>
+
+                <!-- Metadata -->
+                <div class="hidden items-center gap-3 sm:flex">
+
+                    <div class="h-5 w-16 rounded bg-slate-100"></div>
+
+                    <div class="h-5 w-5 rounded bg-slate-100"></div>
+
+                </div>
+
+            </div>
+        {% endfor %}
+
+    </div>
+
+</div>

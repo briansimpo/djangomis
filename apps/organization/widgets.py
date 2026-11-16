@@ -5,7 +5,9 @@ from djangospice.http.shortcuts import htmx_navigate
 from djangospice.utils import get_template_name, safe_reverse
 from djangospice.table.widget import TableWidget
 from djangospice.table.decorators import row_action, bulk_action
-from apps.organization.helpers import build_org_tree
+
+from .helpers import build_org_tree
+from .skeletons import OrgStructureSkeleton
 from .models import OrgUnit
 from .filters import OrgUnitFilter
 from .apps import namespace
@@ -111,6 +113,9 @@ class OrgUnitStructure(Widget):
     template_name = get_template_name("widgets/org_structure.html", namespace)
     login_required = True
     staff_required = True
+
+    def get_skeleton(self):
+        return OrgStructureSkeleton()
 
     def get_context(self, **kwargs):
         context = super().get_context(**kwargs)
