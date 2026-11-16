@@ -5,6 +5,7 @@ from djangospice.exec.decorators import get, post
 from djangospice.notification.notify import notification_read, notification_read_all
 from djangospice.utils import get_template_name
 from djangospice.apps.access import AppAccess
+
 from .services import WorkspaceContextService
 from .forms import WorkspaceContextForm
 from .apps import namespace
