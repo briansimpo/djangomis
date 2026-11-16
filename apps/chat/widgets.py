@@ -143,7 +143,6 @@ class ChatWidget(Widget):
         context.update(
             conversation=self.get_conversation(),
             messages=self.get_messages(),
-            placeholder=self.placeholder,
             submit_label=self.submit_label,
             message_parameter=self.message_parameter,
             empty_message=self.empty_message,
