@@ -6,7 +6,9 @@
 		{% include "layouts/header.html" %}
 	{% endblock header %}
 
-	{% block content %}{% endblock content %}
+	<app-view>
+		{% block content %}{% endblock content %}
+	</app-view>
 
 	{% block footer %}
 		{% include "layouts/footer.html" %}

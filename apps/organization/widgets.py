@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from djangospice.widget import Widget, widget
+from djangospice.http.shortcuts import htmx_navigate
 from djangospice.utils import get_template_name, safe_reverse
 from djangospice.table.widget import TableWidget
 from djangospice.table.decorators import row_action, bulk_action
@@ -15,7 +16,7 @@ class OrgUnitTable(TableWidget):
     title = "Organization Units"
     description = "Manage Organization units which form the Organization structure of your institution"
     model = OrgUnit
-    fields = ("code", "name", "type", "parent")
+    fields = ("code", "name", "type", "parent", "level")
     search_fields = ("code", "name")
     filterset_class = OrgUnitFilter
     login_required = True
@@ -25,7 +26,7 @@ class OrgUnitTable(TableWidget):
         return safe_reverse(
             view_name="edit_org_unit",
             app_name=namespace,
-            template=True,
+            placeholder=True,
         )
             
     @bulk_action(
@@ -35,7 +36,7 @@ class OrgUnitTable(TableWidget):
     )
     def activate(self):
         selected_ids = self.get_selected_rows()
-        return self.response().html(selected_ids)
+        return self.response(selected_ids)
 
     @bulk_action(
         label="Set Inactive",
@@ -44,7 +45,7 @@ class OrgUnitTable(TableWidget):
     )
     def deactivate(self):
         selected_ids = self.get_selected_rows()
-        return self.response().html(selected_ids)
+        return self.response(selected_ids)
 
     @bulk_action(
         label="Export Selected",
@@ -53,7 +54,7 @@ class OrgUnitTable(TableWidget):
     )
     def export(self):
         selected_ids = self.get_selected_rows()
-        return self.response().html(selected_ids)
+        return self.response(selected_ids)
 
     @bulk_action(
         label="Delete Selected",
@@ -65,7 +66,7 @@ class OrgUnitTable(TableWidget):
     )
     def delete_all(self):
         selected_ids = self.get_selected_rows()
-        return self.response().html(selected_ids)
+        return self.response(selected_ids)
 
     @row_action(
         label="View Details",
@@ -75,7 +76,12 @@ class OrgUnitTable(TableWidget):
     )
     def view(self):
         selected_id = self.get_selected_row()
-        return self.response().html(selected_id)
+        url = safe_reverse(
+            view_name="edit_org_unit",
+            app_name=namespace,
+            args=[selected_id]
+        )
+        return htmx_navigate(url)
 
     @row_action(
         label="Edit Record",
@@ -85,7 +91,7 @@ class OrgUnitTable(TableWidget):
     )
     def edit(self):
         selected_id = self.get_selected_row()
-        return self.response().html(selected_id)
+        return self.response(selected_id)
 
     @row_action(
         label="Delete Record",
@@ -97,7 +103,7 @@ class OrgUnitTable(TableWidget):
     )
     def delete(self):
         selected_id = self.get_selected_row()
-        return self.response().html(selected_id)
+        return self.response(selected_id)
     
 
 @widget

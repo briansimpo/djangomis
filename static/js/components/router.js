@@ -1,7 +1,7 @@
-export function initializeSpaRouter() {
-    function applySpaAttributes(element, options) {
+export function initialize() {
+    function initializeAttributes(element, options) {
         const { to, target, select, transition, preload, method } = options;
-        const resolvedTarget = target || 'spa-root';
+        const resolvedTarget = target || 'app-view';
         const resolvedSelect = select || resolvedTarget; 
         const swapConfig = transition 
             ? 'innerHTML transition:true show:window:top' 
@@ -33,12 +33,12 @@ export function initializeSpaRouter() {
         container.querySelectorAll('a[href]').forEach(a => {
             const to = a.getAttribute('href');
             if (to && !to.startsWith('http') && !to.startsWith('#') && !to.startsWith('mailto:')) {
-                applySpaAttributes(a, { to, target, select, transition, preload, method: 'get' });
+                initializeAttributes(a, { to, target, select, transition, preload, method: 'get' });
             }
         });
 
         container.querySelectorAll('button[hx-get], button[hx-post], button[hx-put], button[hx-delete]').forEach(btn => {
-            const resolvedTarget = target || 'spa-root';
+            const resolvedTarget = target || 'app-view';
             const resolvedSelect = select || resolvedTarget;
             btn.setAttribute('hx-target', resolvedTarget);
             btn.setAttribute('hx-select', resolvedSelect);
@@ -51,15 +51,15 @@ export function initializeSpaRouter() {
         });
     }
 
-    // 1. <spa-root> Viewport Container
-    if (!customElements.get('spa-root')) {
-        class SpaRoot extends HTMLElement {
+    // 1. <app-view> Viewport Container
+    if (!customElements.get('app-view')) {
+        class AppView extends HTMLElement {
             connectedCallback() {
                 if (this.hasAttribute('data-initialized')) return;
                 this.setAttribute('data-initialized', 'true');
             }
         }
-        customElements.define('spa-root', SpaRoot);
+        customElements.define('app-view', AppView);
     }
 
     // 2. <spa-link> Custom Element (Guarded against double-init/back-button scaling)
@@ -84,7 +84,7 @@ export function initializeSpaRouter() {
                     a.appendChild(this.firstChild);
                 }
 
-                applySpaAttributes(a, { to, target, select, transition, preload, method: 'get' });
+                initializeAttributes(a, { to, target, select, transition, preload, method: 'get' });
                 this.appendChild(a);
 
                 this.updateActiveState();
@@ -140,7 +140,7 @@ export function initializeSpaRouter() {
                 }
 
                 this.appendChild(btn);
-                applySpaAttributes(btn, { to, target, select, transition, method });
+                initializeAttributes(btn, { to, target, select, transition, method });
             }
 
             disconnectedCallback() {
@@ -150,9 +150,9 @@ export function initializeSpaRouter() {
         customElements.define('spa-button', SpaButton);
     }
 
-    // 4. <spa-indicator> Custom Element (Global/Scoped request loader)
-    if (!customElements.get('spa-indicator')) {
-        class SpaLoading extends HTMLElement {
+    // 4. <app-loading> Custom Element (Global/Scoped request loader)
+    if (!customElements.get('app-loading')) {
+        class AppLoading extends HTMLElement {
             connectedCallback() {
                 if (this.hasAttribute('data-initialized')) return;
                 this.setAttribute('data-initialized', 'true');
@@ -180,7 +180,7 @@ export function initializeSpaRouter() {
                 this.removeAttribute('data-initialized');
             }
         }
-        customElements.define('spa-indicator', SpaLoading);
+        customElements.define('app-loading', AppLoading);
     }
 
     // 5. <spa-nav> Custom Element

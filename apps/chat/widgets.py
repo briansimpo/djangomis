@@ -135,7 +135,7 @@ class ChatWidget(Widget):
     def post(self):
         self.send_message()
         self.user.notify(FriendRequest)
-        return self.response()
+        return self.refresh()
 
     def get_context(self):
         context = super().get_context()

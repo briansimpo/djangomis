@@ -1,5 +1,4 @@
 from django.shortcuts import get_object_or_404
-from djangospice.htmx.shortcuts import response
 from djangospice.widget import Widget
 from djangospice.widget.decorators import widget
 from djangospice.exec.decorators import get, post
@@ -32,10 +31,10 @@ class OrgContextWidget(Widget):
                 org_unit_id=org_unit,
                 calendar_period_id=calendar_period
             )
-        except ValueError:
-            return self.refresh_widget()
+        except ValueError as exc:
+            return self.refresh().alert(str(exc))
 
-        return self.refresh_widget()
+        return self.refresh().alert("Context updated successfully")
 
 
 @widget
@@ -64,7 +63,7 @@ class NotificationWidget(Widget):
             for notification in unread_notifications:
                 notification.mark_as_read()
             notification_read_all(self.user)
-        return response()
+        return self.response()
         
     @post
     def mark_as_read(self):
@@ -76,7 +75,7 @@ class NotificationWidget(Widget):
         if notification.unread:
             notification.mark_as_read()
             notification_read(notification)
-        return response()
+        return self.response()
 
       
 @widget

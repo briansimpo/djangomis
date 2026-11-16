@@ -1,18 +1,7 @@
 {% extends "layouts/base.html" %}
 
-{% load static %}
-
-{% block extra_head %}
-    <style>
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-    </style>
-{% endblock extra_head %}
-
 {% block body %}
-
 <div>
-
     {% block header %}
         {% include "layouts/header.html" %}
     {% endblock header %}
@@ -32,11 +21,10 @@
         {% block mainbar %}
         <main class="flex-1 lg:ml-64 p-2 lg:p-4 min-w-0">
 
-            <spa-indicator class="fixed top-0 left-0 right-0 z-50 h-1 bg-blue-500">
-            </spa-indicator>
-
-            <spa-root>
-
+            <app-loading class="fixed top-0 left-0 right-0 z-50 h-1 bg-blue-500">
+            </app-loading>
+        
+            <app-view>
                 {% block breadcrumb %}
                     <nav class="flex mb-4 text-slate-500 text-sm">
                         {% block breadcrumb_items %}{% endblock %}
@@ -60,8 +48,7 @@
                 <div class="block-content">
                     {% block content %}{% endblock %}
                 </div>
-
-            </spa-root>
+            </app-view>
 
         </main>
         {% endblock mainbar %}

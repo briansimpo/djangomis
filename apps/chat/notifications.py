@@ -1,7 +1,7 @@
 from djangospice.exec.decorators import executable, post
 from djangospice.notification.base import Notification
 from djangospice.notification.messages import DatabaseMessage
-from djangospice.htmx.shortcuts import response
+from djangospice.http.shortcuts import response
  
 
 @executable

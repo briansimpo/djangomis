@@ -12,7 +12,7 @@ import {
     initializeAlpine,
     initializeRealtime,
     initializeNotification,
-    initializeSpaRouter,
+    initializeRouter,
 } from "./components/index.js";
 
 
@@ -34,7 +34,7 @@ registry
         initialize: initializeAlpine,
     })
     .register("router", {    
-        initialize: initializeSpaRouter,
+        initialize: initializeRouter,
     })
     .register("realtime", {
         initialize: initializeRealtime,
