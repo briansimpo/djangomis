@@ -6,12 +6,12 @@
 		{% include "layouts/header.html" %}
 	{% endblock header %}
 
-	<app-loading class="fixed top-0 left-0 right-0 z-50 h-1 bg-blue-500">
-    </app-loading>
+	<spice-loading class="fixed top-0 left-0 right-0 z-50 h-1 bg-blue-500">
+    </spice-loading>
 	
-	<app-view>
+	<spice-app>
 		{% block content %}{% endblock content %}
-	</app-view>
+	</spice-app>
 
 	{% block footer %}
 		{% include "layouts/footer.html" %}

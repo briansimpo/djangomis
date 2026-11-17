@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "js": {
+    "main": "djangospice.358792a1bb9d.js"
+  },
+  "css": {
+    "main": "djangospice.e4f5c77d999e.css"
+  },
+  "apps": [
+    "spice",
+    "websocket"
+  ],
+  "source_count": {
+    "js": 2,
+    "css": 1
+  }
+}

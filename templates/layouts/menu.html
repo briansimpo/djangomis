@@ -5,7 +5,7 @@
 {% with app_menu=menus|get_item:name %}
     {% if app_menu %}
 
-        <spa-nav class="space-y-2" >
+        <spice-nav class="space-y-2" >
            
             {% for item in app_menu %}
                 {% if not item.children %}
@@ -56,7 +56,7 @@
                 </div>
                 {% endif %}
             {% endfor %}
-        </spa-nav>
+        </spice-nav>
     {% endif %}
 {% endwith %}
 

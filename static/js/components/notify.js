@@ -1,11 +1,6 @@
 export async function initialize() {
-    const realtime = globalThis.Djangospice?.Realtime;
+    const socket = globalThis.Djangospice?.SpiceSocket;
     const body = document.body;
-
-    if (!realtime) {
-        console.warn("Djangospice Realtime is unavailable.");
-        return;
-    }
 
     const unsubscribers = [];
 
@@ -14,20 +9,20 @@ export async function initialize() {
     // --------------------------------------------------
 
     unsubscribers.push(
-        realtime.on("notification_created", (data) => {
+        socket.on("notification_created", (data) => {
             htmx.trigger(body, "refresh-notifications");
         })
     );
 
 
     unsubscribers.push(
-        realtime.on("notification_read", (data) => {
+        socket.on("notification_read", (data) => {
             htmx.trigger(body, "refresh-notifications");
         })
     );
     
     unsubscribers.push(
-        realtime.on("notification_read_all", (data) => {
+        socket.on("notification_read_all", (data) => {
             htmx.trigger(body, "refresh-notifications");
         })
     );

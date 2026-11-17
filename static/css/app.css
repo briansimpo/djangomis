@@ -41,22 +41,3 @@ a, button {
     scrollbar-width: none;
 }
 
-app-view {
-  display: block;
-}
-
-spa-link, spa-button, spa-boost, spa-nav {
-  display: contents;
-}
-
-app-loading {
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
-    pointer-events: none;
-}
-
-app-loading.htmx-request,
-body.htmx-request app-loading,
-app-loading.active {
-    opacity: 1;
-}

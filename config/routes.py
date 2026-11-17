@@ -5,8 +5,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import include, path
 from django.conf.urls.i18n import i18n_patterns
 
-from djangospice.site.routing import http_urlpatterns
-from djangospice.site.utils import get_admin_app_title
+from djangospice import http_urlpatterns, get_admin_app_title
 
 admin.site.site_title = get_admin_app_title()
 admin.site.site_header = get_admin_app_title()

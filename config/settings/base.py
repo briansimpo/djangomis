@@ -2,7 +2,7 @@
 """Base settings to build other settings files upon."""
 
 from pathlib import Path
-from djangospice.package import djangospice_packages
+from djangospice import packages
 from config.settings.apps import APPS
 import environ
 
@@ -89,7 +89,7 @@ ASGI_APPLICATION = "config.asgi.application"
 INSTALLED_APPS = APPS
 
 # Append discovered Djangospice applications.
-INSTALLED_APPS += djangospice_packages(project_dir=BASE_DIR)
+INSTALLED_APPS += packages(project_dir=BASE_DIR)
 
 
 # MIGRATIONS

@@ -10,9 +10,8 @@ import {
 import {
     initializeHTMX,
     initializeAlpine,
-    initializeRealtime,
+    initializeSocket,
     initializeNotification,
-    initializeRouter,
 } from "./components/index.js";
 
 
@@ -33,11 +32,8 @@ registry
     .register("alpine", {
         initialize: initializeAlpine,
     })
-    .register("router", {    
-        initialize: initializeRouter,
-    })
-    .register("realtime", {
-        initialize: initializeRealtime,
+    .register("socket", {
+        initialize: initializeSocket,
     })
     .register("notification", {
         initialize: initializeNotification,
