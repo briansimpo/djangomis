@@ -29,22 +29,16 @@
                 <link rel="icon" href="{% static 'logo.png' %}" type="image/png" sizes="96x96">
             {% endif %}
         {% endblock favicon %}
-
         
         {% djangospice_bundle %}
-        
         {% vite_hmr_client %}
-
         {% vite_asset "static/js/app.js" %}
-        
-       
 
         {% block extra_head %}{% endblock %}
     </head>
 
     <body id="body" class="bg-slate-50 text-slate-900" {% block body_attrs %}{% endblock %}>
         {% include "layouts/toast.html" %}
-
         {% block body %}
             {% block content %}{% endblock %}
         {% endblock %}

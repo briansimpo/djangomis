@@ -1,5 +1,5 @@
 export async function initialize() {
-    const socket = globalThis.Djangospice?.SpiceSocket;
+    const socket = globalThis.spice?.socket;
     const body = document.body;
 
     const unsubscribers = [];

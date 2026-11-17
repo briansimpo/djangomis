@@ -1,10 +1,10 @@
 {
   "version": 1,
   "js": {
-    "main": "djangospice.6259afcede90.js"
+    "main": "djangospice.1703d11f1ebd.js"
   },
   "css": {
-    "main": "djangospice.e4f5c77d999e.css"
+    "main": "djangospice.1043289b3b1c.css"
   },
   "apps": [
     "spice"

@@ -9,7 +9,7 @@ let initialized = false;
 export async function initialize() {
     if (initialized) return destroy;
 
-    const socket = globalThis.Djangospice?.SpiceSocket;
+    const socket = globalThis.spice?.socket;
 
     if (!socket) {
         console.warn("Socket is unavailable.");

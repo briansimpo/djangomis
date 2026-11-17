@@ -1,4 +1,4 @@
-/* ../djangospice/src/djangospice/spice/static/spice/css/spice-ui.css */
+/* ../djangospice/src/djangospice/spice/static/spice/css/html.css */
 spice-app {
   display: block;
 }
@@ -19,7 +19,7 @@ spice-loading.active {
   opacity: 1;
 }
 
-/* ../djangospice/src/djangospice/spice/static/spice/css/spice-table.css */
+/* ../djangospice/src/djangospice/spice/static/spice/css/table.css */
 [data-table-row] {
   position: relative;
   background-color: #ffffff;
@@ -56,7 +56,7 @@ spice-loading.active {
   transition: background-color 150ms ease;
 }
 
-/* ../djangospice/src/djangospice/spice/static/spice/css/spice-lookup.css */
+/* ../djangospice/src/djangospice/spice/static/spice/css/lookup.css */
 .spice-lookup {
   --spice-lookup-border-color: #ced4da;
   --spice-lookup-border-focus: #86b7fe;
@@ -406,6 +406,20 @@ spice-loading.active {
     --spice-lookup-chip-text: #f8f9fa;
     --spice-lookup-border-color: #495057;
   }
+}
+
+/* ../djangospice/src/djangospice/spice/static/spice/css/toast.css */
+spice-toast [data-toast][data-type=success] {
+  border-left-color: #22c55e;
+}
+spice-toast [data-toast][data-type=error] {
+  border-left-color: #ef4444;
+}
+spice-toast [data-toast][data-type=warning] {
+  border-left-color: #f59e0b;
+}
+spice-toast [data-toast][data-type=info] {
+  border-left-color: #3b82f6;
 }
 
 /* ../djangospice/src/djangospice/spice/static/spice/css/index.css */

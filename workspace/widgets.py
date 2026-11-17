@@ -35,7 +35,7 @@ class OrgContextWidget(Widget):
         except ValueError as exc:
             return self.refresh().alert(str(exc))
 
-        return self.refresh().alert("Context updated successfully")
+        return self.refresh().success("Context updated successfully")
 
 
 @widget
@@ -110,5 +110,7 @@ class AppLauncherWidget(Widget):
         context = {"apps": apps}
         return self.response().render(self.partial_template, context)
         
-        
- 
+
+@widget 
+class ToastWidget(Widget):
+    template_name = get_template_name("widgets/toast.html", namespace)

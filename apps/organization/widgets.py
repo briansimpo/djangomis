@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from djangospice.widget import Widget, widget
-from djangospice.http.shortcuts import htmx_navigate
 from djangospice.utils import get_template_name, safe_reverse
 from djangospice.table.widget import TableWidget
 from djangospice.table.decorators import row_action, bulk_action
@@ -83,7 +82,7 @@ class OrgUnitTable(TableWidget):
             app_name=namespace,
             args=[selected_id]
         )
-        return htmx_navigate(url)
+        return self.navigate_to(url)
 
     @row_action(
         label="Edit Record",
