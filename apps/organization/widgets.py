@@ -5,6 +5,8 @@ from djangospice.utils import get_template_name, safe_reverse
 from djangospice.table.widget import TableWidget
 from djangospice.table.decorators import row_action, bulk_action
 
+from apps.organization.tables import OrgUnitTable
+
 from .helpers import build_org_tree
 from .skeletons import OrgStructureSkeleton
 from .models import OrgUnit
@@ -13,11 +15,11 @@ from .apps import namespace
 
 
 @widget
-class OrgUnitTable(TableWidget):  
+class OrgUnitTableWidget(TableWidget):  
     title = "Organization Units"
     description = "Manage Organization units which form the Organization structure of your institution"
     model = OrgUnit
-    fields = ("code", "name", "type", "parent", "level")
+    table_class = OrgUnitTable
     search_fields = ("code", "name")
     filterset_class = OrgUnitFilter
     login_required = True
@@ -73,22 +75,16 @@ class OrgUnitTable(TableWidget):
         label="View Details",
         icon="fa-solid fa-eye",
         order=1,
-        is_link=True,
     )
     def view(self):
         selected_id = self.get_selected_row()
-        url = safe_reverse(
-            view_name="edit_org_unit",
-            app_name=namespace,
-            args=[selected_id]
-        )
+        url = safe_reverse(view_name="edit_org_unit", app_name=namespace, args=[selected_id])
         return self.navigate_to(url)
 
     @row_action(
         label="Edit Record",
         icon="fa-solid fa-pen",
         order=2,
-        is_link=True,
     )
     def edit(self):
         selected_id = self.get_selected_row()
@@ -108,7 +104,7 @@ class OrgUnitTable(TableWidget):
     
 
 @widget
-class OrgUnitStructure(Widget):
+class OrgUnitStructureWidget(Widget):
     template_name = get_template_name("widgets/org_structure.html", namespace)
     login_required = True
     staff_required = True
