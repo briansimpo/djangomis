@@ -1,4 +1,4 @@
-/* ../djangospice/src/djangospice/spice/static/spice/css/html.css */
+/* ../djangospice/src/djangospice/spice/static/spice/css/base.css */
 spice-app {
   display: block;
 }
@@ -9,6 +9,13 @@ spice-nav {
   display: contents;
 }
 spice-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: 0.25rem;
+  background-color: #3b82f6;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
   pointer-events: none;
