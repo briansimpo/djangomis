@@ -1,18 +1,8 @@
-from djangospice.filters import BaseFilter, LookupChoiceFilter
-from .models import OrgUnit, OrgUnitType
+from djangospice.filters import DynamicFilter
+from .models import OrgUnit
 
 
-class OrgUnitFilter(BaseFilter):
-    type = LookupChoiceFilter(
-        model=OrgUnitType, 
-        field_name="type", 
-        label="Type", 
-    )
-    parent = LookupChoiceFilter(
-        model=OrgUnit, 
-        field_name="parent", 
-        label="Parent", 
-    )
+class OrgUnitFilter(DynamicFilter):
     
     class Meta:
         model = OrgUnit

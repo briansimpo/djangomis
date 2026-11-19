@@ -5,8 +5,6 @@ from djangospice.utils import get_template_name, safe_reverse
 from djangospice.table.widget import TableWidget
 from djangospice.table.decorators import row_action, bulk_action
 
-from apps.organization.tables import OrgUnitTable
-
 from .helpers import build_org_tree
 from .skeletons import OrgStructureSkeleton
 from .models import OrgUnit
@@ -19,7 +17,7 @@ class OrgUnitTableWidget(TableWidget):
     title = "Organization Units"
     description = "Manage Organization units which form the Organization structure of your institution"
     model = OrgUnit
-    table_class = OrgUnitTable
+    fields = ("code", "name", "type", "parent", "level")
     search_fields = ("code", "name")
     filterset_class = OrgUnitFilter
     login_required = True

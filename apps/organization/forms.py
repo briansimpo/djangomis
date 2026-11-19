@@ -1,7 +1,7 @@
 from djangospice.forms import DynamicModelForm
 from djangospice.forms.inline import Inline
 
-from apps.organization.models.orgunits import OrgUnit, OrgUnitType
+from .models.orgunits import OrgUnit, OrgUnitType
 
 
 class OrgUnitForm(DynamicModelForm):
