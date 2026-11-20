@@ -1,14 +1,13 @@
 from __future__ import annotations
 
-from djangospice.widget import Widget, CreateWidget, UpdateWidget, widget
+from djangospice.widget import Widget, widget
 from djangospice.utils import get_template_name, safe_reverse
 from djangospice.table.widget import TableWidget
 from djangospice.table.decorators import row_action, bulk_action
 
 from .helpers import build_org_tree
-from .skeletons import OrgStructureSkeleton, FormSkeleton
+from .skeletons import OrgStructureSkeleton
 from .models import OrgUnit
-from .forms import OrgUnitForm
 from .apps import namespace
 
 
@@ -115,29 +114,3 @@ class OrgUnitStructure(Widget):
         context["org_units"] = build_org_tree()
         return context
 
-
-@widget
-class CreateOrgUnit(CreateWidget):
-    template_name = get_template_name("widgets/create_org_unit.html", namespace)
-    login_required = True
-    staff_required = True
-    form_class = OrgUnitForm
-    
-    def get_skeleton(self):
-        return FormSkeleton()
-
-
-@widget
-class UpdateOrgUnit(UpdateWidget):
-    template_name = get_template_name("widgets/update_org_unit.html", namespace)
-    login_required = True
-    staff_required = True
-    form_class = OrgUnitForm
-    model = OrgUnit
-
-
-    def get_skeleton(self):
-        return FormSkeleton()
-
-
-    
