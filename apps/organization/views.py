@@ -1,4 +1,3 @@
-from django.contrib import messages
 from django.views.generic import FormView, TemplateView, UpdateView
 from djangospice.http.shortcuts import navigate_to
 from djangospice.utils import get_template_name, safe_reverse

@@ -1,20 +1,19 @@
 from __future__ import annotations
 
-from djangospice.widget import Widget, widget
+from djangospice.widget import Widget, CreateWidget, UpdateWidget, widget
 from djangospice.utils import get_template_name, safe_reverse
 from djangospice.table.widget import TableWidget
 from djangospice.table.decorators import row_action, bulk_action
 
 from .helpers import build_org_tree
-from .skeletons import OrgStructureSkeleton
+from .skeletons import OrgStructureSkeleton, FormSkeleton
 from .models import OrgUnit
+from .forms import OrgUnitForm
 from .apps import namespace
 
 
 @widget
-class OrgUnitTableWidget(TableWidget):  
-    title = "Organization Units"
-    description = "Manage Organization units which form the Organization structure of your institution"
+class OrgUnitTable(TableWidget):  
     model = OrgUnit
     fields = ("code", "name", "type", "parent", "level")
     filter_fields = ("type", "parent")
@@ -22,6 +21,7 @@ class OrgUnitTableWidget(TableWidget):
 
     login_required = True
     staff_required = True
+
 
     def get_row_url(self):
         return safe_reverse(
@@ -102,7 +102,7 @@ class OrgUnitTableWidget(TableWidget):
     
 
 @widget
-class OrgUnitStructureWidget(Widget):
+class OrgUnitStructure(Widget):
     template_name = get_template_name("widgets/org_structure.html", namespace)
     login_required = True
     staff_required = True
@@ -114,3 +114,30 @@ class OrgUnitStructureWidget(Widget):
         context = super().get_context(**kwargs)
         context["org_units"] = build_org_tree()
         return context
+
+
+@widget
+class CreateOrgUnit(CreateWidget):
+    template_name = get_template_name("widgets/create_org_unit.html", namespace)
+    login_required = True
+    staff_required = True
+    form_class = OrgUnitForm
+    
+    def get_skeleton(self):
+        return FormSkeleton()
+
+
+@widget
+class UpdateOrgUnit(UpdateWidget):
+    template_name = get_template_name("widgets/update_org_unit.html", namespace)
+    login_required = True
+    staff_required = True
+    form_class = OrgUnitForm
+    model = OrgUnit
+
+
+    def get_skeleton(self):
+        return FormSkeleton()
+
+
+    

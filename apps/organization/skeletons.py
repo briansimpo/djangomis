@@ -51,3 +51,81 @@ class OrgStructureSkeleton(Skeleton):
             **super().get_context(),
             "nodes": self.get_nodes(),
         }
+
+
+
+class FormSkeleton(Skeleton):
+    template_name = get_template_name(
+        "skeletons/form.html",
+        namespace,
+    )
+
+    def __init__(
+        self,
+        rows=6,
+        columns=1,
+        show_sections=False,
+        show_actions=False,
+        **kwargs,
+    ):
+        self.rows = rows
+        self.columns = columns
+        self.show_sections = show_sections
+        self.show_actions = show_actions
+
+        super().__init__(**kwargs)
+
+    def get_fields(self):
+        # Simulates realistic form fields.
+        field_pattern = [
+            {"type": "input", "width": "full"},
+            {"type": "input", "width": "full"},
+            {"type": "select", "width": "full"},
+            {"type": "input", "width": "half"},
+            {"type": "input", "width": "half"},
+            {"type": "textarea", "width": "full"},
+            {"type": "select", "width": "full"},
+            {"type": "input", "width": "full"},
+        ]
+
+        fields = []
+
+        for index in range(self.rows):
+            pattern = field_pattern[index % len(field_pattern)]
+
+            fields.append({
+                "index": index,
+                "type": pattern["type"],
+                "width": pattern["width"],
+                "is_textarea": pattern["type"] == "textarea",
+                "has_label": True,
+            })
+
+        return fields
+
+    def get_rows(self):
+        fields = self.get_fields()
+
+        if self.columns <= 1:
+            return [
+                {"fields": [field]}
+                for field in fields
+            ]
+
+        rows = []
+
+        for index in range(0, len(fields), self.columns):
+            rows.append({
+                "fields": fields[index:index + self.columns],
+            })
+
+        return rows
+
+    def get_context(self):
+        return {
+            **super().get_context(),
+            "rows": self.get_rows(),
+            "columns": self.columns,
+            "show_sections": self.show_sections,
+            "show_actions": self.show_actions,
+        }
